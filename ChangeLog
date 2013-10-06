@@ -1,0 +1,4 @@
+2013-10-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Initial 0.0.1 packaging, github push and CRAN upload
+
