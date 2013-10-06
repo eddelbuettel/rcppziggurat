@@ -29,8 +29,8 @@ setter and getter.
 
 Testing, testing, testing, ...
 
-More generators as e.g. the modified Ziggurat implenmentation suggested by 
-Doornik, the Ziggurato generators contained in GNU Gretl and in QuantLib. 
+More generators as e.g. the modified Ziggurat implementation suggested by 
+Doornik, the Ziggurat generators contained in GNU Gretl and in QuantLib. 
 
 ## Demo
 
