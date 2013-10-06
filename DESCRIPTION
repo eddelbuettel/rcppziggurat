@@ -1,0 +1,18 @@
+Package: RcppZiggurat
+Type: Package
+Title: Rcpp integration of different Ziggurat Normal RNG implementations
+Version: 0.0.1
+Date: 2013-10-02
+Author: Dirk Eddelbuettel <edd@debian.org>
+Maintainer: Dirk Eddelbuettel <edd@debian.org>
+Description: The Ziggurat generator for normally distributed random numbers,
+ originally proposed by Marsaglia and Tsang (JSS, 2000), has been improved 
+ upon a few times starting with Leong et al (JSS, 2005). This package provides
+ an aggregation in order to compare different implementations. The goal is to
+ provide an 'faster but good enough' alternative for use with R and C++ code. 
+ .
+ The package is currently in alpha state. Unless you know what you are doing,
+ stick with generators provided by R which have been extremely diligently tested.
+License: GPL (>= 2)
+Depends: Rcpp (>= 0.10.5)
+LinkingTo: Rcpp, RcppGSL

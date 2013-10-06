@@ -1,0 +1,2 @@
+useDynLib(RcppZiggurat)
+exportPattern("^[[:alpha:]]+")
