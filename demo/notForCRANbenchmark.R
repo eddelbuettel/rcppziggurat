@@ -16,6 +16,7 @@ res <- benchmark(zrnormMT(N),       # Marsgalia and Tsang, JSS, 2000
                  zrnormVec(v),      # fill a pre-supplied vector
                  #zrnormStl(N),     # fill STL vector
                  zrnormgsl(N),      # GSL's ziggurat by Voss
+                 armaNormals(N),    # Armadillo
                  boostNormals(N),   # Boost -- very slow on 32 bit, still slow on 54
                  cxx11Normals(N),   # C++11 is ok
                  sugarNormals(N),   # Rcpp for comparison

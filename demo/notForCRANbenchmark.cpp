@@ -1,7 +1,9 @@
 
-// cf Rcpp Gallery post
 
-#include <Rcpp.h>
+//#include <Rcpp.h>
+#include <RcppArmadillo.h>
+
+// ----------------------------- Boost 
 
 // [[Rcpp::depends(BH)]]
 
@@ -33,29 +35,14 @@ boostNormal bn;
 
 // [[Rcpp::export]]
 NumericVector boostNormals(int n) {
-    NumericVector V(n);
-    for ( int i = 0; i < n; i++ ) {
-        V[i] = bn.norm();
+    NumericVector v(n);
+    for (int i=0; i<n; i++) {
+        v[i] = bn.norm();
     };     
-    return V;
+    return v;
 }
 
-// [[Rcpp::export]]
-NumericVector boostNormalsOld(int n) {
-    
-    typedef boost::mt19937 RNGType; 	// select a generator, MT good default
-    RNGType rng(123456);			// instantiate and seed
-
-    boost::normal_distribution<> n01(0.0, 1.0);
-    boost::variate_generator< RNGType, boost::normal_distribution<> > rngNormal(rng, n01);
-
-    NumericVector V(n);
-    for ( int i = 0; i < n; i++ ) {
-        V[i] = rngNormal();
-    };
-  
-    return V;
-}
+// ----------------------------- C++11
 
 // [[Rcpp::plugins(cpp11)]]
 #include <random>
@@ -76,14 +63,29 @@ c11Normals c11N;
 
 // [[Rcpp::export]]
 NumericVector cxx11Normals(int n) {
-    NumericVector V(n);
-    for ( int i = 0; i < n; i++ ) {
-        V[i] = c11N.norm();
+    NumericVector v(n);
+    for (int i = 0; i < n; i++) {
+        v[i] = c11N.norm();
     };
-    return V;
+    return v;
 }
+
+// ----------------------------- Rcpp sugar
 
 // [[Rcpp::export]]
 NumericVector sugarNormals(int n) {
     return rnorm(n);
+}
+
+// ----------------------------- Armadillo
+
+// ignoring seed for now, could add class
+
+// [[Rcpp::depends(RcppArmadillo)]]
+
+
+// [[Rcpp::export]]
+arma::vec armaNormals(int n) {
+    arma::vec v = arma::randn(n,1);
+    return(v);
 }
