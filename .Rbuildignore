@@ -1,3 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 LICENSE
+demo/notForCRANbenchmark.R
+demo/notForCRANbenchmark.cpp
