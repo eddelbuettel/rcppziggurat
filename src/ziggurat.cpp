@@ -40,7 +40,7 @@ ZigguratMT mt;
 Rcpp::NumericVector zrnormMT(int n) {
     Rcpp::NumericVector x(n);
     for (int i=0; i<n; i++) {
-  	x[i] = mt.norm();
+        x[i] = mt.norm();
     }
     return x;
 }
@@ -59,7 +59,7 @@ ZigguratLZLLV lzllv;
 Rcpp::NumericVector zrnormLZLLV(int n) {
     Rcpp::NumericVector x(n);
     for (int i=0; i<n; i++) {
-  	x[i] = lzllv.norm();
+        x[i] = lzllv.norm();
     }
     return x;
 }
@@ -77,7 +77,7 @@ static class ZigguratV1 ziggv1;
 Rcpp::NumericVector zrnormV1(int n) {
     Rcpp::NumericVector x(n);
     for (int i=0; i<n; i++) {
-	x[i] = ziggv1.norm();
+        x[i] = ziggv1.norm();
     }
     return x;
 }
@@ -86,7 +86,7 @@ Rcpp::NumericVector zrnormV1(int n) {
 Rcpp::NumericVector zrnormVecV1(Rcpp::NumericVector x) {
     int n = x.size();
     for (int i=0; i<n; i++) {
-	x[i] = ziggv1.norm();
+        x[i] = ziggv1.norm();
     }
     return x;
 }
@@ -95,7 +95,7 @@ Rcpp::NumericVector zrnormVecV1(Rcpp::NumericVector x) {
 std::vector<double> zrnormStlV1(int n) {
     std::vector<double> x(n);
     for (int i=0; i<n; i++) {
-	x[i] = ziggv1.norm();
+        x[i] = ziggv1.norm();
     }
     return x;
 }
@@ -121,7 +121,7 @@ static class Ziggurat zigg;
 Rcpp::NumericVector zrnorm(int n) {
     Rcpp::NumericVector x(n);
     for (int i=0; i<n; i++) {
-	x[i] = zigg.norm();
+        x[i] = zigg.norm();
     }
     return x;
 }
@@ -130,7 +130,7 @@ Rcpp::NumericVector zrnorm(int n) {
 Rcpp::NumericVector zrnormVec(Rcpp::NumericVector x) {
     int n = x.size();
     for (int i=0; i<n; i++) {
-	x[i] = zigg.norm();
+        x[i] = zigg.norm();
     }
     return x;
 }
@@ -139,7 +139,7 @@ Rcpp::NumericVector zrnormVec(Rcpp::NumericVector x) {
 std::vector<double> zrnormStl(int n) {
     std::vector<double> x(n);
     for (int i=0; i<n; i++) {
-	x[i] = zigg.norm();
+        x[i] = zigg.norm();
     }
     return x;
 }
@@ -164,7 +164,7 @@ static ZigguratGSL gsl;
 Rcpp::NumericVector zrnormgsl(int n) {
     Rcpp::NumericVector x(n);
     for (int i=0; i<n; i++) {
-	x[i] = gsl.norm();
+        x[i] = gsl.norm();
     }
     return x;
 }

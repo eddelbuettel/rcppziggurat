@@ -53,7 +53,7 @@
 #define RcppZiggurat__Ziggurat_h
 
 #include <cmath>
-#include <stdint.h>             // not allowed to use cstdint as it need C++11
+#include <stdint.h>             // not allowed to use cstdint as it needs C++11
 
 class Ziggurat {
 private:
@@ -71,14 +71,14 @@ private:
 public:
     Ziggurat(uint32_t seed=42) : jcong(234567891), jsr(123456789), 
                                  w(345678912), z(456789123) {
-	setSeed(seed);
-	init();
+        setSeed(seed);
+        init();
     }
     void setSeed(const uint32_t s) { 
         jsr   = s; 
-	z     = 362436069;
-	w     = 521288629;
-	jcong = 380116160;
+        z     = 362436069;
+        w     = 521288629;
+        jcong = 380116160;
     }
     unsigned long int getSeed() { return jsr; }
 
@@ -97,33 +97,33 @@ private:
     float wn[128];
     uint32_t z;
 
-    void init() {		// called from ctor, could be in ctor
-	double dn = 3.442619855899;
-	int i;
-	const double m1 = 2147483648.0;
-	double q;
-	double tn = 3.442619855899;
-	const double vn = 9.91256303526217E-03;
+    void init() {               // called from ctor, could be in ctor
+        double dn = 3.442619855899;
+        int i;
+        const double m1 = 2147483648.0;
+        double q;
+        double tn = 3.442619855899;
+        const double vn = 9.91256303526217E-03;
 
         //  Set up the tables for the normal random number generator.
-	q = vn / exp (- 0.5 * dn * dn);
-	kn[0] = (uint32_t) ((dn / q) * m1);
-	kn[1] = 0;
+        q = vn / exp (- 0.5 * dn * dn);
+        kn[0] = (uint32_t) ((dn / q) * m1);
+        kn[1] = 0;
 
-	wn[0]   = (float) (q / m1);
-	wn[127] = (float) (dn / m1);
+        wn[0]   = (float) (q / m1);
+        wn[127] = (float) (dn / m1);
 
-	fn[0] = 1.0;
-	fn[127] = (float) (exp(- 0.5 * dn * dn));
-	
-	for (i = 126; 1 <= i; i--) {
+        fn[0] = 1.0;
+        fn[127] = (float) (exp(- 0.5 * dn * dn));
+        
+        for (i = 126; 1 <= i; i--) {
             dn = sqrt(- 2.0 * log (vn / dn + exp (- 0.5 * dn * dn)));
             kn[i+1] = (uint32_t ) ((dn / tn ) * m1);
             tn = dn;
             fn[i] = (float) (exp( - 0.5 * dn * dn));
             wn[i] = (float) (dn / m1);
         }
-	return;
+        return;
     }
 
     //inline float nfix(void) { return wn[34]; }

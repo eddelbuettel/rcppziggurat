@@ -57,20 +57,20 @@
 class ZigguratV1 {
 public:
     ZigguratV1() {
-	setSeed(12345678);
-	init();
+        setSeed(12345678);
+        init();
     }
     void setSeed(const uint32_t s) { jsr=s; }
     uint32_t getSeed() { return jsr; }
     float norm(void) {
-	int hz, iz;
-	const float r = 3.442620;
-	float value, x, y;
+        int hz, iz;
+        const float r = 3.442620;
+        float value, x, y;
         
-	hz = shr3();
-	iz = (hz & 127);
-	
-	if (fabs(hz) < kn[iz]) {
+        hz = shr3();
+        iz = (hz & 127);
+        
+        if (fabs(hz) < kn[iz]) {
             value = (float) (hz) * wn[iz];
         } else {
             for (;;) {
@@ -98,14 +98,14 @@ public:
                 
                 hz = shr3();
                 iz = (hz & 127);
-		
+                
                 if (fabs(hz) < kn[iz]) {
                     value = (float) (hz) * wn[iz];
                     break;
                 }
             }
         }
-	return value;
+        return value;
     }
 
 private:
@@ -114,62 +114,62 @@ private:
     uint32_t jsr;
 
     uint32_t shr3() {
-	uint32_t value;
+        uint32_t value;
 
-	value = jsr;
+        value = jsr;
 
-	jsr = ( jsr ^ ( jsr <<   13 ) );
-	jsr = ( jsr ^ ( jsr >>   17 ) );
-	jsr = ( jsr ^ ( jsr <<    5 ) );
+        jsr = ( jsr ^ ( jsr <<   13 ) );
+        jsr = ( jsr ^ ( jsr >>   17 ) );
+        jsr = ( jsr ^ ( jsr <<    5 ) );
 
-	value = value + jsr;
+        value = value + jsr;
 
-	return value;
+        return value;
     }
 
     float r4_uni() {
 
-	uint32_t jsr_input;
-	float value;
+        uint32_t jsr_input;
+        float value;
 
-	jsr_input = jsr;
+        jsr_input = jsr;
 
-	jsr = ( jsr ^ ( jsr <<   13 ) );
-	jsr = ( jsr ^ ( jsr >>   17 ) );
-	jsr = ( jsr ^ ( jsr <<    5 ) );
+        jsr = ( jsr ^ ( jsr <<   13 ) );
+        jsr = ( jsr ^ ( jsr >>   17 ) );
+        jsr = ( jsr ^ ( jsr <<    5 ) );
 
-	value = fmod ( 0.5 + ( float ) ( jsr_input + jsr ) / 65536.0 / 65536.0, 1.0 );
+        value = fmod ( 0.5 + ( float ) ( jsr_input + jsr ) / 65536.0 / 65536.0, 1.0 );
 
-	return value;
+        return value;
     }
 
-    void init() {		// called from ctor, could be in ctor
-	double dn = 3.442619855899;
-	int i;
-	const double m1 = 2147483648.0;
-	double q;
-	double tn = 3.442619855899;
-	const double vn = 9.91256303526217E-03;
+    void init() {               // called from ctor, could be in ctor
+        double dn = 3.442619855899;
+        int i;
+        const double m1 = 2147483648.0;
+        double q;
+        double tn = 3.442619855899;
+        const double vn = 9.91256303526217E-03;
 
-	q = vn / exp (- 0.5 * dn * dn);
-	
-	kn[0] = (int) ((dn / q) * m1);
-	kn[1] = 0;
+        q = vn / exp (- 0.5 * dn * dn);
+        
+        kn[0] = (int) ((dn / q) * m1);
+        kn[1] = 0;
 
-	wn[0] = (float) (q / m1);
-	wn[127] = (float) (dn / m1);
+        wn[0] = (float) (q / m1);
+        wn[127] = (float) (dn / m1);
 
-	fn[0] = 1.0;
-	fn[127] = (float) (exp (- 0.5 * dn * dn));
-	
-	for (i = 126; 1 <= i; i--) {
+        fn[0] = 1.0;
+        fn[127] = (float) (exp (- 0.5 * dn * dn));
+        
+        for (i = 126; 1 <= i; i--) {
             dn = sqrt(- 2.0 * log (vn / dn + exp(- 0.5 * dn * dn)));
             kn[i+1] = (int) ((dn / tn) * m1);
             tn = dn;
             fn[i] = (float) (exp (- 0.5 * dn * dn));
             wn[i] = (float) (dn / m1);
         }
-	return;
+        return;
     }
 };
 

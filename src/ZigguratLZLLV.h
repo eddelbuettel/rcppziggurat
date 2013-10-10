@@ -87,9 +87,9 @@ private:
 
 public: 
     ZigguratLZLLV(uint32_t seed=42) : jsr(123456789), 
-				      z(362436069), 
-				      w(521288629), 
-				      jcong(380116160)  {
+                                      z(362436069), 
+                                      w(521288629), 
+                                      jcong(380116160)  {
         setup();
         setSeed(seed);
     }
@@ -102,9 +102,9 @@ public:
     void setSeed(uint32_t jsrseed) {
         jsr = 123456789;
         jsr^=jsrseed;
-	z = 362436069;
-	w = 521288629;
-	jcong = 380116160;
+        z = 362436069;
+        w = 521288629;
+        jcong = 380116160;
     }
 
 private:

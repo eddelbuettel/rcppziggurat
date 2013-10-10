@@ -32,14 +32,14 @@
 class ZigguratGSL {
 public: 
     ZigguratGSL() {
-	gsl_rng_env_setup() ;
-	r = gsl_rng_alloc (gsl_rng_default);
+        gsl_rng_env_setup() ;
+        r = gsl_rng_alloc (gsl_rng_default);
     }
     ~ZigguratGSL() {
-	gsl_rng_free(r);
+        gsl_rng_free(r);
     }
     double norm(const double sigma=1.0) {
-	return gsl_ran_gaussian_ziggurat(r, sigma);
+        return gsl_ran_gaussian_ziggurat(r, sigma);
     }
     // could use functions to set/get seed etc
 private:
