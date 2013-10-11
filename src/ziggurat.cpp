@@ -28,6 +28,7 @@
 #include "ZigguratMT.h"     
 #include "ZigguratLZLLV.h"     
 #include "ZigguratV1.h"     
+#include "ZigguratV1b.h"     
 #include "Ziggurat.h"     
 #include "ZigguratGSL.h"     
 
@@ -169,3 +170,15 @@ Rcpp::NumericVector zrnormgsl(int n) {
     return x;
 }
 
+
+// Version 5 -- Modified V1
+static class ZigguratV1b ziggv1b;
+
+// [[Rcpp::export]]
+Rcpp::NumericVector zrnormV1b(int n) {
+    Rcpp::NumericVector x(n);
+    for (int i=0; i<n; i++) {
+        x[i] = ziggv1b.norm();
+    }
+    return x;
+}

@@ -217,3 +217,18 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// zrnormV1b
+Rcpp::NumericVector zrnormV1b(int n);
+RcppExport SEXP RcppZiggurat_zrnormV1b(SEXP nSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< int >::type n(nSEXP );
+        Rcpp::NumericVector __result = zrnormV1b(n);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}

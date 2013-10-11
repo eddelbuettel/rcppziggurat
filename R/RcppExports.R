@@ -61,3 +61,7 @@ zrnormgsl <- function(n) {
     .Call('RcppZiggurat_zrnormgsl', PACKAGE = 'RcppZiggurat', n)
 }
 
+zrnormV1b <- function(n) {
+    .Call('RcppZiggurat_zrnormV1b', PACKAGE = 'RcppZiggurat', n)
+}
+

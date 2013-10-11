@@ -14,5 +14,6 @@ res <- benchmark(zrnormMT(N),       # Marsgalia and Tsang, JSS, 2000
                  zrnormVec(v),      # fill a pre-supplied vector
                  #zrnormStl(N),     # fill STL vector
                  zrnormgsl(N),      # GSL's ziggurat by Voss
+                 zrnormV1b(N),      # based on initial Burkardt impl, mod'ed
                  replications=1000, order="relative")
 print(res[,1:4])
