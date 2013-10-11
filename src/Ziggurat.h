@@ -129,8 +129,7 @@ private:
     //inline float nfix(void) { return wn[34]; }
     inline float nfix(void) {
         const float r = 3.442620;
-        static float x;
-        static float y;
+        float x, y;
 
         for (;;) {
             //  IZ = 0 handles the base strip.

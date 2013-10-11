@@ -119,7 +119,7 @@ private:
     // nfix() generates variates from the residue when rejection in RNOR occurs. 
     inline float nfix(void) {
         const float r = 3.442620f;      // The start of the right tail 
-        static float x, y;
+        float x, y;
         for(;;) {
             x=hz*wn[iz];                // iz==0, handles the base strip 
             if(iz==0) {
