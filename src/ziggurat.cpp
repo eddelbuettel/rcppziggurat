@@ -183,7 +183,6 @@ Rcpp::NumericVector zrnormV1b(int n) {
     return x;
 }
 
-
 // [[Rcpp::export]]
 Rcpp::NumericVector ziggbin(int nbins, double ndraws, 
                             std::string generator = "Ziggurat", int seed=42) {
@@ -212,10 +211,13 @@ Rcpp::NumericVector ziggbin(int nbins, double ndraws,
 
     double i=0.0;
     while (i<ndraws) {
-        double val = zigg->norm();
-        int can = floor((val - grmin)/d);
-        v[can] = v[can]++;
-        i = i + 1.0;
+        double val = zigg->norm();              // N(0,1) draw 
+        
+        int can = floor((val - grmin)/d);       // find the 'can' to bin it in
+        can = (can < 0) ? 0 : can;              // protect can from being below 0
+        can = (can > nbins-1) ? nbins-1 : can;  // or past the last can
+        v[can] = v[can]++;                      // increment counter
+        i = i + 1.0;                            // increment loop counter
     }
     delete zigg;
 
