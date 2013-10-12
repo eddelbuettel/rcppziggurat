@@ -56,8 +56,8 @@
 
 class ZigguratV1 {
 public:
-    ZigguratV1() {
-        setSeed(12345678);
+    ZigguratV1(uint32_t seed=12345678) {
+        setSeed(seed);
         init();
     }
     void setSeed(const uint32_t s) { jsr=s; }

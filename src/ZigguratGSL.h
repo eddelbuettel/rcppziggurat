@@ -31,9 +31,10 @@
 
 class ZigguratGSL {
 public: 
-    ZigguratGSL() {
+    ZigguratGSL(uint32_t seed=12345678) {
         gsl_rng_env_setup() ;
         r = gsl_rng_alloc (gsl_rng_default);
+        gsl_rng_set(r, seed);
     }
     ~ZigguratGSL() {
         gsl_rng_free(r);
