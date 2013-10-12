@@ -205,6 +205,9 @@ Rcpp::NumericVector ziggbin(int nbins, double ndraws,
         zigg = new ZigguratGSL(seed); 
     } else if (generator=="V1b") {
         zigg = new ZigguratV1b(seed); 
+    } else {
+        Rcpp::Rcout << "Unrecognised generator: " << generator << "\n";
+        return v;
     }
 
     double i=0.0;
