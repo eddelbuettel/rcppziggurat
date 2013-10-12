@@ -25,54 +25,54 @@
 // following email with Burkhard has modified
 #include <Rcpp.h>
 
-#include "ZigguratMT.h"     
-#include "ZigguratLZLLV.h"     
-#include "ZigguratV1.h"     
-#include "ZigguratV1b.h"     
-#include "Ziggurat.h"     
-#include "ZigguratGSL.h"     
+#include <ZigguratMT.h>     
+#include <ZigguratLZLLV.h>     
+#include <ZigguratV1.h>     
+#include <ZigguratV1b.h>     
+#include <Ziggurat.h>  
+#include <ZigguratGSL.h>
 
 
 // Version 1 -- Derived from Marsaglia and Tsang, JSS, 2000
-ZigguratMT mt;
+static ZigguratMT ziggmt;
 
 // Marsaglia and Tsang (JSS,2000)
 // [[Rcpp::export]]
 Rcpp::NumericVector zrnormMT(int n) {
     Rcpp::NumericVector x(n);
     for (int i=0; i<n; i++) {
-        x[i] = mt.norm();
+        x[i] = ziggmt.norm();
     }
     return x;
 }
 // [[Rcpp::export]]
 void zsetseedMT(int s) {
-    mt.setSeed(s);
+    ziggmt.setSeed(s);
 }
 
 
 
 // Version 2 -- Derived from Leong et al, JSS, 2005
-ZigguratLZLLV lzllv;
+static ZigguratLZLLV zigglzllv;
 
 // Marsaglia and Tsang (JSS,2000)
 // [[Rcpp::export]]
 Rcpp::NumericVector zrnormLZLLV(int n) {
     Rcpp::NumericVector x(n);
     for (int i=0; i<n; i++) {
-        x[i] = lzllv.norm();
+        x[i] = zigglzllv.norm();
     }
     return x;
 }
 // [[Rcpp::export]]
 void zsetseedLZLLV(int s) {
-    lzllv.setSeed(s);
+    zigglzllv.setSeed(s);
 }
 
 
 
 // Version 3 -- Derived from John Burkardt's older implementation
-static class ZigguratV1 ziggv1;
+static ZigguratV1 ziggv1;
 
 // [[Rcpp::export]]
 Rcpp::NumericVector zrnormV1(int n) {
@@ -116,7 +116,7 @@ unsigned long int zgetseedV1() {
 
 
 // Version 4 -- Derived from John Burkardt's new implementation of our mods
-static class Ziggurat zigg;
+static Ziggurat zigg;
 
 // [[Rcpp::export]]
 Rcpp::NumericVector zrnorm(int n) {
@@ -172,7 +172,7 @@ Rcpp::NumericVector zrnormgsl(int n) {
 
 
 // Version 5 -- Modified V1
-static class ZigguratV1b ziggv1b;
+static ZigguratV1b ziggv1b;
 
 // [[Rcpp::export]]
 Rcpp::NumericVector zrnormV1b(int n) {
@@ -182,3 +182,40 @@ Rcpp::NumericVector zrnormV1b(int n) {
     }
     return x;
 }
+
+
+// [[Rcpp::export]]
+Rcpp::NumericVector ziggbin(int nbins, double ndraws, 
+                            std::string generator = "Ziggurat", int seed=42) {
+    Rcpp::NumericVector v(nbins);
+    const double grmin = -7;
+    const double grmax = 7;
+    const double d = (grmax - grmin)/nbins;
+
+    Zigg *zigg = NULL;
+    if (generator=="MT") {
+        zigg = new ZigguratMT(seed); 
+    } else if (generator=="LZLLV") {
+        zigg = new ZigguratLZLLV(seed); 
+    } else if (generator=="V1") {
+        zigg = new ZigguratV1(seed); 
+    } else if (generator=="Ziggurat") {
+        zigg = new Ziggurat(seed); 
+    } else if (generator=="GSL") {
+        zigg = new ZigguratGSL(seed); 
+    } else if (generator=="V1b") {
+        zigg = new ZigguratV1b(seed); 
+    }
+
+    double i=0.0;
+    while (i<ndraws) {
+        double val = zigg->norm();
+        int can = floor((val - grmin)/d);
+        v[can] = v[can]++;
+        i = i + 1.0;
+    }
+    delete zigg;
+
+    return v;
+}
+

@@ -232,3 +232,21 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// ziggbin
+Rcpp::NumericVector ziggbin(int nbins, double ndraws, std::string generator = "Ziggurat", int seed = 42);
+RcppExport SEXP RcppZiggurat_ziggbin(SEXP nbinsSEXP, SEXP ndrawsSEXP, SEXP generatorSEXP, SEXP seedSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< int >::type nbins(nbinsSEXP );
+        Rcpp::traits::input_parameter< double >::type ndraws(ndrawsSEXP );
+        Rcpp::traits::input_parameter< std::string >::type generator(generatorSEXP );
+        Rcpp::traits::input_parameter< int >::type seed(seedSEXP );
+        Rcpp::NumericVector __result = ziggbin(nbins, ndraws, generator, seed);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
