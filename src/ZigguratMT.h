@@ -56,10 +56,9 @@ for generating random variables", Journ. Statistical Software.
 #ifndef RcppZiggurat__ZigguratMT_h
 #define RcppZiggurat__ZigguratMT_h
 
-#include <cmath>
-#include <stdint.h>             // not allowed to use cstdint as it need C++11
+#include <Zigg.h>
 
-class ZigguratMT {
+class ZigguratMT : public Zigg {
 private:
     uint32_t jz, jsr;
     long hz;
@@ -79,7 +78,7 @@ public:
         setSeed(seed);
     }
 
-    inline double norm(void) { 
+    inline float norm(void) { 
         return RNOR; 
     }
 

@@ -52,10 +52,9 @@
 #ifndef RcppZiggurat__ZigguratV1b_h
 #define RcppZiggurat__ZigguratV1b_h
 
-#include <cmath>
-#include <stdint.h>             // not allowed to use cstdint as it need C++11
+#include <Zigg.h>
 
-class ZigguratV1b {
+class ZigguratV1b : public Zigg {
 public:
     ZigguratV1b(uint32_t seed=12345678) {
         setSeed(seed);

@@ -52,10 +52,9 @@
 #ifndef RcppZiggurat__Ziggurat_h
 #define RcppZiggurat__Ziggurat_h
 
-#include <cmath>
-#include <stdint.h>             // not allowed to use cstdint as it needs C++11
+#include <Zigg.h>
 
-class Ziggurat {
+class Ziggurat : public Zigg {
 private:
 #define znew (z = 36969 * (z & 65535) + ( z >> 16 ))
 #define wnew (w = 18000 * (w & 65535) + ( w >> 16 ))

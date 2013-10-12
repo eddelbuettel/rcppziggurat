@@ -60,10 +60,9 @@ for generating random variables", Journ. Statistical Software.
 #ifndef RcppZiggurat__ZigguratLZLLV_h
 #define RcppZiggurat__ZigguratLZLLV_h
 
-#include <cmath>
-#include <stdint.h>             // not allowed to use cstdint as it need C++11
+#include <Zigg.h>
 
-class ZigguratLZLLV {
+class ZigguratLZLLV : public Zigg {
 private:
     uint32_t jz, jsr, z, w, jcong;
     long hz;
@@ -94,12 +93,12 @@ public:
         setSeed(seed);
     }
 
-    inline double norm(void) {
+    inline float norm(void) {
         return RNOR;
     }
 
     // could use functions to set/get seed etc
-    void setSeed(uint32_t jsrseed) {
+    void setSeed(const uint32_t jsrseed) {
         jsr = 123456789;
         jsr^=jsrseed;
         z = 362436069;
