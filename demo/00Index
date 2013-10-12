@@ -1,1 +1,2 @@
 benchmark	Timing comparison of different ziggurat implementations
+chisqTest	chisq test for normal distribution of RNG draws (cf JSS, 2005, paper)
