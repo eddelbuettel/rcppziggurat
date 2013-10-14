@@ -8,7 +8,8 @@ d  <- (7 - -7)/N                        # difference between grids
 pv <- diff(pnorm(gr))                   # expectect probability in each cell using
                                         # difference in probability distr. at point
 
-draws <- 1e7                            # set to 1e9 or higher for more rigourous tests
+#draws <- 5e9                            # set to 1e9 or higher for more rigourous tests
+draws <- 1e7
 
 op <- options("warn"=-1)
 generators <- c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
