@@ -184,9 +184,10 @@ Rcpp::NumericVector zrnormV1b(int n) {
 }
 
 // [[Rcpp::export]]
-Rcpp::NumericVector ziggbin(int nbins, double ndraws, 
-                            std::string generator = "Ziggurat", int seed=42) {
-    Rcpp::NumericVector v(nbins);
+Rcpp::NumericMatrix ziggbin(int nbins, double ndraws, 
+                            std::string generator = "Ziggurat", int seed=42,
+                            int res = 40) {
+    Rcpp::NumericMatrix v(res, nbins);
     const double grmin = -7;
     const double grmax = 7;
     const double d = (grmax - grmin)/nbins;
@@ -209,16 +210,25 @@ Rcpp::NumericVector ziggbin(int nbins, double ndraws,
         return v;
     }
 
-    double i=0.0;
-    while (i<ndraws) {
-        double val = zigg->norm();              // N(0,1) draw 
-        
-        int can = floor((val - grmin)/d);       // find the 'can' to bin it in
-        can = (can < 0) ? 0 : can;              // protect can from being below 0
-        can = (can > nbins-1) ? nbins-1 : can;  // or past the last can
-        v[can] = v[can]++;                      // increment counter
-        i = i + 1.0;                            // increment loop counter
+    double seglen = ndraws/res;
+    double row=0.0;
+    while (row <= res-1) {
+        double i = 0.0;
+        while (i<seglen) {
+            double val = zigg->norm();              // N(0,1) draw 
+            
+            int can = floor((val - grmin)/d);       // find the 'can' to bin it in
+            can = (can < 0) ? 0 : can;              // protect can from being below 0
+            can = (can > nbins-1) ? nbins-1 : can;  // or past the last can
+            v(row,can) = v(row,can)++;              // increment counter
+            i = i + 1.0;
+        }
+        if (row < res-1) {
+            v(row+1,Rcpp::_) = v(row,Rcpp::_);
+        }
+        row = row + 1.0;
     }
+
     delete zigg;
 
     return v;
