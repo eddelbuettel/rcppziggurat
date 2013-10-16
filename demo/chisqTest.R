@@ -8,19 +8,24 @@ d  <- (7 - -7)/N                        # difference between grids
 pv <- diff(pnorm(gr))                   # expectect probability in each cell using
                                         # difference in probability distr. at point
 
-#draws <- 5e9                            # set to 1e9 or higher for more rigourous tests
-draws <- 1e7
+draws <- 5e9                            # set to 1e9 or higher for more rigourous tests
+#draws <- 1e7
+#draws <- 400
 
 op <- options("warn"=-1)
 generators <- c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
-res <- sapply(generators, FUN=function(g) {
+#generators <- c("MT")
+#res <- sapply(generators, FUN=function(g) {
+res <- lapply(generators, FUN=function(g) {
     cat("Running ", g, "\n")
-    v <- ziggbin(N, draws, g)
-    tt <- chisq.test(v, p=pv)
-    #print(tt)
-    tt$statistic
+    M <- ziggbin(N, draws, g)
+    #print(M)
+    vals <- apply(M, 1, FUN=function(row, pv) {
+        z <- chisq.test(row, p=pv)$statistic
+    }, pv)
+    vals
 })
 names(res) <- generators
-cat("Actual chisq(199) values\nCritical one-sided 95% value is ", qchisq(0.95, N-1), "\n")
+cat("Actual chisq(", N, ") values\nCritical one-sided 95% value is ", qchisq(0.95, N-1), "\n")
 print(res)
 
