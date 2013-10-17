@@ -183,36 +183,42 @@ Rcpp::NumericVector zrnormV1b(int n) {
     return x;
 }
 
+Zigg* getZiggurat(const std::string generator, const int seed) {
+    if (generator=="MT") {
+        return new ZigguratMT(seed); 
+    } else if (generator=="LZLLV") {
+        return new ZigguratLZLLV(seed); 
+    } else if (generator=="V1") {
+        return new ZigguratV1(seed); 
+    } else if (generator=="Ziggurat") {
+        return new Ziggurat(seed); 
+    } else if (generator=="GSL") {
+        return new ZigguratGSL(seed); 
+    } else if (generator=="V1b") {
+        return new ZigguratV1b(seed); 
+    } 
+
+    Rcpp::Rcout << "Unrecognised generator: " << generator << "\n";
+    return NULL;
+}
+
 // [[Rcpp::export]]
 Rcpp::NumericMatrix ziggbin(int nbins, double ndraws, 
-                            std::string generator = "Ziggurat", int seed=42,
-                            int res = 40) {
+                            const std::string generator = "Ziggurat", 
+                            const int seed=42, int res = 40) {
     Rcpp::NumericMatrix v(res, nbins);
     const double grmin = -7;
     const double grmax = 7;
     const double d = (grmax - grmin)/nbins;
 
-    Zigg *zigg = NULL;
-    if (generator=="MT") {
-        zigg = new ZigguratMT(seed); 
-    } else if (generator=="LZLLV") {
-        zigg = new ZigguratLZLLV(seed); 
-    } else if (generator=="V1") {
-        zigg = new ZigguratV1(seed); 
-    } else if (generator=="Ziggurat") {
-        zigg = new Ziggurat(seed); 
-    } else if (generator=="GSL") {
-        zigg = new ZigguratGSL(seed); 
-    } else if (generator=="V1b") {
-        zigg = new ZigguratV1b(seed); 
-    } else {
-        Rcpp::Rcout << "Unrecognised generator: " << generator << "\n";
-        return v;
-    }
+    Zigg *zigg = getZiggurat(generator, seed);
 
     double seglen = ndraws/res;
-    double row=0.0;
-    while (row <= res-1) {
+
+    // Yes, it crazy to write the inner loop with doubles. But the CRAN maintainers,
+    // in their wisdom, still say that we cannot use C99 -- so no long long int for us.
+    // And an unsigned long makes it only to 4.2e9 which is not enough for our use.
+    for (int row=0.0; row<res; row++) {
         double i = 0.0;
         while (i<seglen) {
             double val = zigg->norm();              // N(0,1) draw 
@@ -226,11 +232,33 @@ Rcpp::NumericMatrix ziggbin(int nbins, double ndraws,
         if (row < res-1) {
             v(row+1,Rcpp::_) = v(row,Rcpp::_);
         }
-        row = row + 1.0;
     }
 
     delete zigg;
 
     return v;
+}
+
+
+
+// [[Rcpp::export]]
+Rcpp::NumericVector ziggsum(int nbins, double ndraws, 
+                            const std::string generator = "Ziggurat", 
+                            const int seed=42) {
+    Rcpp::NumericVector vec(nbins);
+    Rcpp::NumericVector normals(ndraws);
+    
+    Zigg *zigg = getZiggurat(generator, seed);
+
+    for (int i=0; i<nbins; i++) {
+        for (int j=0; j<ndraws; j++) {
+            normals[j] = zigg->norm();
+        }
+        vec[i] = sum(normals);
+    }
+
+    delete zigg;
+
+    return vec;
 }
 

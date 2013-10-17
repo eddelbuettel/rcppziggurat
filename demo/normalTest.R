@@ -13,17 +13,17 @@
 ## Here we don;t need Irwin-Hall: the sum of N vars drawn as N(0,1) will be N(0,sqrt(N))
 ## So we compute a p value from that and assemple M such p values
 
-N <- 1e7                                # individual draws
-M <- 1e2                                # repeats
+N <- 1e8                                # individual draws
+M <- 5e2                                # repeats
+seed <- 42
 
 res <- vector(mode="numeric", length=M)
 
-generators <- c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
-res <- sapply(generators, FUN=function(g) {
+#generators <- c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
+generators <- c("V1")
+res <- sapply(generators, FUN=function(g, seed) {
     cat("Running ", g, "\n")
-    for (i in 1:M) {
-        res[i] <- sum(zrnorm(N))
-    }
+    res <- ziggsum(M, N, g, seed)
     v <- pnorm(res, sd=sqrt(N))
 
     pks <- ks.test(v, "punif", 0, 1, exact=TRUE)$p.value
@@ -32,7 +32,7 @@ res <- sapply(generators, FUN=function(g) {
     segments(0,0,1,1, col='darkgray', lty="dotted")
 
     pks
-})
+}, seed)
 names(res) <- generators
 
 
