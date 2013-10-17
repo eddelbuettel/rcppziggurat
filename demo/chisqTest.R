@@ -14,18 +14,16 @@ draws <- 5e9                            # set to 1e9 or higher for more rigourou
 
 op <- options("warn"=-1)
 generators <- c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
-#generators <- c("MT")
-#res <- sapply(generators, FUN=function(g) {
 res <- lapply(generators, FUN=function(g) {
     cat("Running ", g, "\n")
     M <- ziggbin(N, draws, g)
-    #print(M)
     vals <- apply(M, 1, FUN=function(row, pv) {
         z <- chisq.test(row, p=pv)$statistic
     }, pv)
     vals
 })
 names(res) <- generators
+res <- as.data.frame(res)
 cat("Actual chisq(", N, ") values\nCritical one-sided 95% value is ", qchisq(0.95, N-1), "\n")
 print(res)
 
