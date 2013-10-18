@@ -73,15 +73,17 @@ public:
         setSeed(seed);
         init();
     }
+    ~Ziggurat() {};
     void setSeed(const uint32_t s) { 
         jsr   = s; 
         z     = 362436069;
         w     = 521288629;
         jcong = 380116160;
     }
-    unsigned long int getSeed() { return jsr; }
-
-    inline float norm() {
+    uint32_t getSeed() { 
+        return jsr; 
+    }
+    inline double norm() {
         return RNOR;
     }
 private:

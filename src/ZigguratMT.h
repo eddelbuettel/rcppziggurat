@@ -77,14 +77,16 @@ public:
         setup();
         setSeed(seed);
     }
-
-    inline float norm(void) { 
+    inline double norm(void) { 
         return RNOR; 
     }
 
     void setSeed(uint32_t jsrseed) {
         jsr = 123456789;
         jsr^=jsrseed;
+    }
+    uint32_t getSeed() { 
+        return jsr; 
     }
 
 private:

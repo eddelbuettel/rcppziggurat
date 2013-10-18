@@ -29,7 +29,8 @@ class Zigg {
 public:
     virtual ~Zigg() {};
     virtual void setSeed(const uint32_t s) = 0;
-    virtual float norm() = 0;
+    // no getSeed() as GSL has none
+    virtual double norm() = 0;
 };
 
 #endif

@@ -92,8 +92,7 @@ public:
         setup();
         setSeed(seed);
     }
-
-    inline float norm(void) {
+    inline double norm(void) {
         return RNOR;
     }
 
@@ -104,6 +103,9 @@ public:
         z = 362436069;
         w = 521288629;
         jcong = 380116160;
+    }
+    uint32_t getSeed() { 
+        return jsr; 
     }
 
 private:

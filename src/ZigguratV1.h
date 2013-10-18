@@ -59,9 +59,10 @@ public:
         setSeed(seed);
         init();
     }
+    ~ZigguratV1() {};
     void setSeed(const uint32_t s) { jsr=s; }
     uint32_t getSeed() { return jsr; }
-    float norm(void) {
+    double norm(void) {
         int hz, iz;
         const float r = 3.442620;
         float value, x, y;
@@ -77,7 +78,7 @@ public:
                     for (;;) {
                         x = - 0.2904764 * log(r4_uni());
                         y = - log(r4_uni());
-                        if (x * x <= y + y); {
+                        if (x * x <= y + y) {
                             break;
                         }
                     }

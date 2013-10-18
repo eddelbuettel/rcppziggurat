@@ -39,14 +39,13 @@ public:
     ~ZigguratGSL() {
         gsl_rng_free(r);
     }
-    float norm() {
+    double norm() {
 	const double sigma=1.0;
-        return static_cast<float>(gsl_ran_gaussian_ziggurat(r, sigma));
+        return gsl_ran_gaussian_ziggurat(r, sigma);
     }
     void setSeed(const uint32_t seed) {
 	gsl_rng_set(r, seed);
     }
-    // could use function to get seed etc
 private:
     gsl_rng *r;
 };
