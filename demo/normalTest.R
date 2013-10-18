@@ -13,14 +13,13 @@
 ## Here we don;t need Irwin-Hall: the sum of N vars drawn as N(0,1) will be N(0,sqrt(N))
 ## So we compute a p value from that and assemple M such p values
 
-N <- 1e8                                # individual draws
-M <- 5e2                                # repeats
+N <- 1e7                                # individual draws
+M <- 1e2                                # repeats
 seed <- 42
 
 res <- vector(mode="numeric", length=M)
 
-#generators <- c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
-generators <- c("V1")
+generators <- c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
 res <- sapply(generators, FUN=function(g, seed) {
     cat("Running ", g, "\n")
     res <- ziggsum(M, N, g, seed)
