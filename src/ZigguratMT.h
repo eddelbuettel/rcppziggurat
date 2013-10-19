@@ -61,12 +61,12 @@ for generating random variables", Journ. Statistical Software.
 class ZigguratMT : public Zigg {
 private:
     uint32_t jz, jsr;
-    long hz;
+    int32_t hz;
     uint32_t iz, kn[128]; /*, ke[256];*/
     float wn[128],fn[128]; /*, we[256],fe[256];*/
     
 #define SHR3 (jz=jsr, jsr^=(jsr<<13), jsr^=(jsr>>17), jsr^=(jsr<<5),jz+jsr)
-#define UNI (.5 + (signed) SHR3*.2328306e-9)
+#define UNI (.5 + (int32_t) SHR3*.2328306e-9)
 #define IUNI SHR3
 
 #define RNOR (hz=SHR3, iz=hz&127, (fabs(hz)<kn[iz])? hz*wn[iz] : nfix())
