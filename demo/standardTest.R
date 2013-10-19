@@ -1,6 +1,7 @@
 
-## This modifies the approach in (R)DieHarder which does
-##   take N draws from a U(0,1)
+## This follows the approach in (R)DieHarder which does
+##   take N draws from the N(0,1) we test here
+##   convert into U(0,1) by using the inverse of the normal
 ##   repeat M times
 ##   and for large enough N, then the sum of all N draws goes to
 ##       mean   --> N/2
@@ -9,29 +10,26 @@
 ##   then for each of these M values use the inverse of normal to obtain a p-value
 ##   that p value should be uniformly distributed across these M draws
 ##   so use Kuiper's K/S test variant to test for uniform U(0,1)
-##
-## Here we don't need Irwin-Hall: the sum of N vars drawn as N(0,1) will be N(0,sqrt(N))
-## So we compute a p value from that and assemple M such p values
 
 library(RcppZiggurat)
 
-N <- 1e8                                # individual draws
+N <- 1e7                                # individual draws
 M <- 1e2                                # repeats
 seed <- 42
 
 res <- vector(mode="numeric", length=M)
 
-generators <- c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
+#generators <- c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
+generators <- "Ziggurat"
 res <- lapply(generators, FUN=function(g, seed) {
     cat("Running ", g, "\n")
-    res <- ziggsum(M, N, g, seed)
+    res <- ziggtest(M, N, g, seed)
+
     v <- pnorm(res, sd=sqrt(N))
 
     pks <- ks.test(v, "punif", 0, 1, exact=TRUE)$p.value
-    pw <- wilcox.test(v, mu=0.5)$p.value
-    
-    plot(ecdf(v), verticals=TRUE, do.p=FALSE, 
-         main=paste0(g, " pKS: ", round(pks, digits=4), " pWil.: ", round(pw, digits=4)))
+
+    plot(ecdf(v), verticals=TRUE, do.p=FALSE, main=paste(g, ":", round(pks, digits=4)))
     segments(0,0,1,1, col='darkgray', lty="dotted")
 
     #pks

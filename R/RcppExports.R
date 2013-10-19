@@ -73,3 +73,7 @@ ziggsum <- function(nbins, ndraws, generator = "Ziggurat", seed = 42L) {
     .Call('RcppZiggurat_ziggsum', PACKAGE = 'RcppZiggurat', nbins, ndraws, generator, seed)
 }
 
+ziggtest <- function(nbins, ndraws, generator = "Ziggurat", seed = 42L) {
+    .Call('RcppZiggurat_ziggtest', PACKAGE = 'RcppZiggurat', nbins, ndraws, generator, seed)
+}
+

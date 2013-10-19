@@ -27,5 +27,5 @@ res <- lapply(generators, FUN=function(g) {
 names(res) <- generators
 res <- as.data.frame(res)
 cat("Actual chisq(", N, ") values\nCritical one-sided 95% value is ", qchisq(0.95, N-1), "\n")
-print(res)
+#print(res)
 
