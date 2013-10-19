@@ -65,7 +65,7 @@ for generating random variables", Journ. Statistical Software.
 class ZigguratLZLLV : public Zigg {
 private:
     uint32_t jz, jsr, z, w, jcong;
-    long hz;
+    int32_t hz;
     uint32_t iz, kn[128]; /*, ke[256];*/
     float wn[128],fn[128]; /*, we[256],fe[256];*/
     
@@ -81,7 +81,7 @@ private:
 
 #define RNOR (hz=KISS, iz=hz&127, (fabs(hz)<kn[iz])? hz*wn[iz] : nfix())
 
-#define UNI (.5 + (signed) KISS*.2328306e-9)
+#define UNI (.5 + (int32_t) KISS*.2328306e-9)
 #define IUNI KISS
 
 public: 
