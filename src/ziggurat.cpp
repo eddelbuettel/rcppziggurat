@@ -262,3 +262,26 @@ Rcpp::NumericVector ziggsum(int nbins, double ndraws,
     return vec;
 }
 
+// [[Rcpp::export]]
+Rcpp::NumericVector ziggtest(int nbins, double ndraws, 
+                             const std::string generator = "Ziggurat", 
+                             const int seed=42) {
+    Rcpp::NumericVector vec(nbins);
+    Rcpp::NumericVector normals(ndraws);
+    Rcpp::NumericVector uniforms(ndraws);
+    
+    Zigg *zigg = getZiggurat(generator, seed);
+
+    for (int i=0; i<nbins; i++) {
+        for (int j=0; j<ndraws; j++) {
+            normals[j] = zigg->norm();
+        }
+        uniforms = pnorm(normals);
+        vec[i] = sum(uniforms);
+    }
+
+    delete zigg;
+
+    return vec;
+}
+
