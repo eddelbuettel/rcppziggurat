@@ -73,7 +73,7 @@ private:
 //#define REXP (jz=SHR3, iz=jz&255, (    jz <ke[iz])? jz*we[iz] : efix())
 
 public: 
-    ZigguratMT(uint32_t seed=42) : jsr(123456789) {
+    ZigguratMT(uint32_t seed=123456789) : jsr(123456789) {
         setup();
         setSeed(seed);
     }

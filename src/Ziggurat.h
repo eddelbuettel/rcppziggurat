@@ -62,14 +62,14 @@ private:
 #define SHR3 (jz = jsr, jsr ^= (jsr << 13), jsr ^= (jsr >> 17), jsr ^= (jsr << 5), jz + jsr)
 #define CONG (jcong = 69069 * jcong + 1234567)
 #define KISS ((MWC ^ CONG ) + SHR3)
-
+    
 #define UNI  (0.5 + (signed) KISS * 0.2328306e-09)
 #define IUNI KISS
 #define RNOR (hz = KISS, iz = hz & 127, ( fabs ( hz ) < kn[iz] ) ? hz * wn[iz] : nfix())
 
 public:
-    Ziggurat(uint32_t seed=42) : jcong(234567891), jsr(123456789), 
-                                 w(345678912), z(456789123) {
+    Ziggurat(uint32_t seed=123456789) : jcong(234567891), jsr(123456789), 
+                                        w(345678912), z(456789123) {
         setSeed(seed);
         init();
     }
@@ -86,6 +86,7 @@ public:
     inline double norm() {
         return RNOR;
     }
+
 private:
     float fn[128];
     int32_t hz;
