@@ -83,7 +83,9 @@ public:
 
     void setSeed(uint32_t jsrseed) {
         jsr = 123456789;
-        jsr^=jsrseed;
+        if (jsr != jsrseed) { 	// bad things happen when seed is 0
+            jsr^=jsrseed;
+        }
     }
     uint32_t getSeed() { 
         return jsr; 

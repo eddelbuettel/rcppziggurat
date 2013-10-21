@@ -99,7 +99,9 @@ public:
     // could use functions to set/get seed etc
     void setSeed(const uint32_t jsrseed) {
         jsr = 123456789;
-        jsr^=jsrseed;
+        if (jsr != jsrseed) { 	// bad things happen when seed is 0
+            jsr^=jsrseed;
+        }
         z = 362436069;
         w = 521288629;
         jcong = 380116160;
