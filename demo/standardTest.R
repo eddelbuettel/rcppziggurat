@@ -13,30 +13,10 @@
 
 library(RcppZiggurat)
 
-N <- 1e6                                # individual draws
-M <- 1e2                                # repeats
-seed <- 42
-
-res <- vector(mode="numeric", length=M)
-
-generators <- c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
-res <- lapply(generators, FUN=function(g, seed) {
-    cat("Running ", g, "\n")
-    res <- ziggtest(M, N, g, seed)
-
-    v <- pnorm(res, mean=N/2, sd=sqrt(N/12))
-
-    pks <- ks.test(v, "punif", 0, 1, exact=TRUE)$p.value
-    pw <- wilcox.test(v, mu=0.5)$p.value
-
-    plot(ecdf(v), verticals=TRUE, do.p=FALSE,
-         main=paste0(g, " pKS: ", round(pks, digits=4), " pWil.: ", round(pw, digits=4)))
-
-    segments(0,0,1,1, col='darkgray', lty="dotted")
-
-    v
-}, seed)
-names(res) <- generators
-res <- as.data.frame(res)
+res <- standardTest(N=1e5,      	# individual draws
+                    M=1e2,  		# repeats pre draw
+                    seed=123456789,
+                    generators=c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
+                    showplot=interactive())
 
 

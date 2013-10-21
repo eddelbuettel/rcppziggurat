@@ -1,2 +1,4 @@
-benchmark	Timing comparison of different ziggurat implementations
+benchmark	timing comparison of different ziggurat implementations
 chisqTest	chisq test for normal distribution of RNG draws (cf JSS, 2005, paper)
+normalTest	use the sum of normals to test RNG draws of normal distribution 
+standardTest	use the sum of uniforms (inverted from normals) to test RNG draws of normal
