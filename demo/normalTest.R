@@ -15,29 +15,11 @@
 
 library(RcppZiggurat)
 
-N <- 1e8                                # individual draws
-M <- 1e2                                # repeats
-seed <- 42
+res <- normalTest(N=1e5,      		# individual draws
+                  M=1e2,  		# repeats pre draw
+                  seed=123456789,
+                  generators=c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
+                  showplot=interactive())
 
-res <- vector(mode="numeric", length=M)
-
-generators <- c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")
-res <- lapply(generators, FUN=function(g, seed) {
-    cat("Running ", g, "\n")
-    res <- ziggsum(M, N, g, seed)
-    v <- pnorm(res, sd=sqrt(N))
-
-    pks <- ks.test(v, "punif", 0, 1, exact=TRUE)$p.value
-    pw <- wilcox.test(v, mu=0.5)$p.value
-
-    plot(ecdf(v), verticals=TRUE, do.p=FALSE,
-         main=paste0(g, " pKS: ", round(pks, digits=4), " pWil.: ", round(pw, digits=4)))
-    segments(0,0,1,1, col='darkgray', lty="dotted")
-
-    #pks
-    v
-}, seed)
-names(res) <- generators
-res <- as.data.frame(res)
 
 
