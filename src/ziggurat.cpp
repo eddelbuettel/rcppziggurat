@@ -205,10 +205,10 @@ Zigg* getZiggurat(const std::string generator, const int seed) {
 // [[Rcpp::export]]
 Rcpp::NumericMatrix ziggbin(int nbins, double ndraws, 
                             const std::string generator = "Ziggurat", 
-                            const int seed=42, int res = 40) {
+                            const int seed=42, int edge = 7, int res = 40) {
     Rcpp::NumericMatrix v(res, nbins);
-    const double grmin = -7;
-    const double grmax = 7;
+    const double grmin = -edge;
+    const double grmax = edge;
     const double d = (grmax - grmin)/nbins;
 
     Zigg *zigg = getZiggurat(generator, seed);

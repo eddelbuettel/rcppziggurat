@@ -65,8 +65,8 @@ zrnormV1b <- function(n) {
     .Call('RcppZiggurat_zrnormV1b', PACKAGE = 'RcppZiggurat', n)
 }
 
-ziggbin <- function(nbins, ndraws, generator = "Ziggurat", seed = 42L, res = 40L) {
-    .Call('RcppZiggurat_ziggbin', PACKAGE = 'RcppZiggurat', nbins, ndraws, generator, seed, res)
+ziggbin <- function(nbins, ndraws, generator = "Ziggurat", seed = 42L, edge = 7L, res = 40L) {
+    .Call('RcppZiggurat_ziggbin', PACKAGE = 'RcppZiggurat', nbins, ndraws, generator, seed, edge, res)
 }
 
 ziggsum <- function(nbins, ndraws, generator = "Ziggurat", seed = 42L) {
