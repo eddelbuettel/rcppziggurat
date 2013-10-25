@@ -3,3 +3,4 @@
 LICENSE
 demo/notForCRANbenchmark.R
 demo/notForCRANbenchmark.cpp
+.travis.yml
