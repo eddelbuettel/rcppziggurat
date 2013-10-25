@@ -1,5 +1,6 @@
-RcppZiggurat
-============
+# RcppZiggurat
+
+[![Build Status](https://travis-ci.org/eddelbuettel/rcppziggurat.png)](https://travis-ci.org/eddelbuettel/rcppziggurat)
 
 The RcppZiggurat package regroups a number of implementations of the
 'Ziggurat' random number generator by Marsaglia and Tsang (JSS, 2000), both
@@ -52,3 +53,4 @@ which should result in something like the following:
     8   zrnormgsl(N)         1000   3.159    3.441
     5       rnorm(N)         1000  14.102   15.362
     R> 
+
