@@ -13,7 +13,8 @@ before_script:
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
   - ./travis-tool.sh aptget_install libgsl0-dev
-  - ./travis-tool.sh install_deps
+  - ./travis-tool.sh r_install Rcpp RcppGSL
 
-# Currently commented out for testing:  r_install Rcpp RcppGSL
+# Also works but is slower as it needs devtoos:
+# - ./travis-tool.sh install_deps
 
