@@ -70,12 +70,14 @@ private:
 public:
     Ziggurat(uint32_t seed=123456789) : jcong(234567891), jsr(123456789), 
                                         w(345678912), z(456789123) {
-        setSeed(seed);
         init();
+        setSeed(seed);
     }
     ~Ziggurat() {};
     void setSeed(const uint32_t s) { 
-        jsr   = s; 
+        if (jsr != s) {         // avoid setting jsr to 0
+            jsr ^= s; 
+        }
         z     = 362436069;
         w     = 521288629;
         jcong = 380116160;
