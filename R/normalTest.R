@@ -25,4 +25,10 @@ normalTest <- function(N=1e5,      	# individual draws
     }, seed)
     names(res) <- generators
     res <- as.data.frame(res)
+
+    if (showplot) {
+        plotAll(res)
+    }
+
+    invisible(res)
 }

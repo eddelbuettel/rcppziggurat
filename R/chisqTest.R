@@ -4,7 +4,8 @@ chisqTest <- function(draws=1e5,	# number of (total) draws
                       edge=7, 		# cutoff for binning at +/- edge
                       seed=123456789,
                       res=50,       	# resolution (number of rows until draws)
-                      generators=c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b")) {
+                      generators=c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b"),
+                      showplot=interactive()) {
 
     gr <- seq(-edge,edge,length=bins+1) # bins+1 'borders' defining the grids
     ##d  <- 2*binedge/bins              # difference between grids (not used)
@@ -24,4 +25,10 @@ chisqTest <- function(draws=1e5,	# number of (total) draws
     options(op)
     names(res) <- generators
     res <- as.data.frame(res)
+
+    if (showplot) {
+        plotChiSq(res, bins)
+    }
+
+    invisible(res)
 }
