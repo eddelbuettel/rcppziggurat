@@ -20,13 +20,16 @@ plotTest <- function(v, g) {
 
 plotChiSq <- function(res, bins) {
     cval <- qchisq(0.95, bins-1)
-    cat("Critical one-sided 95% value is ", cval, "\n")
-    cat("Actual chisq(", bins, ") values\n")
+    cat(sprintf("Critical one-sided 95%% value is %f\n", cval))
+    cat(sprintf("Actual chisq(%d) values\n", bins))
     print(tail(res,1))
 
     op <- par(mfrow=c(2,3), mar=c(3,3,3,1))
-    for (i in seq_len(ncol(res))) {
-        plot(res[,i], type='l', ylim=c(0,max(res)), main=colnames(res)[i])
+    k <- ncol(res)
+    yrange <- c(0,max(max(res[,-1]), cval))
+    for (i in 2:k) {
+        plot(res[,1], res[,i], type='l', ylim=yrange,
+             main=colnames(res)[i])
         abline(h=cval, col="darkgrey", lty="dotted")
     }
     par(op)
