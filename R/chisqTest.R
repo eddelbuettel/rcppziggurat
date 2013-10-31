@@ -31,6 +31,13 @@ chisqTest <- function(draws=1e5,	# number of (total) draws
     res <- data.frame(draws=x,
                       as.data.frame(res))
 
+    attr(res, "draws")   <- draws
+    attr(res, "bins")    <- 200
+    attr(res, "seed")    <- seed
+    attr(res, "steps")   <- steps
+    attr(res, "created") <- format(Sys.time())
+    attr(res, "version") <- packageVersion("RcppZiggurat")
+
     if (showplot) {
         plotChiSq(res, bins)
     }

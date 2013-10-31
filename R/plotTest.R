@@ -24,7 +24,7 @@ plotChiSq <- function(res, bins) {
     cat(sprintf("Actual chisq(%d) values\n", bins))
     print(tail(res,1))
 
-    op <- par(mfrow=c(2,3), mar=c(3,3,3,1))
+    op <- par(mfrow=c(2,3), mar=c(3,3,3,1), oma=c(1,0,2,0))
     k <- ncol(res)
     yrange <- c(0,max(max(res[,-1]), cval))
     for (i in 2:k) {
@@ -32,5 +32,15 @@ plotChiSq <- function(res, bins) {
              main=colnames(res)[i])
         abline(h=cval, col="darkgrey", lty="dotted")
     }
+    title("Chi-square test results", line=0, outer=TRUE, cex.main=2)
+    txt <- paste0("Total draws:", attr(res, "draws"),
+                  " Bins: ",      attr(res, "bins"),
+                  " Seed: ",      attr(res, "seed"),
+                  " Steps: ",     attr(res, "steps"),
+                  " Created at: ",attr(res, "created"),
+                  " Version: ",   attr(res, "version"))
+    mtext(text=txt, side=1, outer=TRUE, line=-0.5,
+          adj=0.02, las=1, cex=0.66)
+
     par(op)
 }
