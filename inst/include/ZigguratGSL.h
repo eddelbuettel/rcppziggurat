@@ -24,8 +24,6 @@
 #ifndef RcppZiggurat__ZigguratGSL_h
 #define RcppZiggurat__ZigguratGSL_h
 
-#include <RcppGSL.h>
-
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 
