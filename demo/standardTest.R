@@ -16,6 +16,6 @@ library(RcppZiggurat)
 stdres <- RcppZiggurat:::standardTest(N=1e5,      		# individual draws
                                       M=1e2,  		# repeats pre draw
                                       seed=123456789,
-                                      generators=c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b"),
+                                      generators=c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "QL"),
                                       showplot=interactive())
 
