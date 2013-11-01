@@ -31,6 +31,7 @@
 #include <ZigguratV1b.h>     
 #include <Ziggurat.h>  
 #include <ZigguratGSL.h>
+#include <ZigguratQL.h>
 
 
 // Version 1 -- Derived from Marsaglia and Tsang, JSS, 2000
@@ -171,7 +172,7 @@ Rcpp::NumericVector zrnormgsl(int n) {
 }
 
 
-// Version 5 -- Modified V1
+// Version 6 -- Modified V1
 static ZigguratV1b ziggv1b;
 
 // [[Rcpp::export]]
@@ -182,6 +183,22 @@ Rcpp::NumericVector zrnormV1b(int n) {
     }
     return x;
 }
+
+// Version 7 -- QuantLib
+static ZigguratQL ziggql;
+
+// [[Rcpp::export]]
+Rcpp::NumericVector zrnormql(int n) {
+    Rcpp::NumericVector x(n);
+    for (int i=0; i<n; i++) {
+        x[i] = ziggql.norm();
+    }
+    return x;
+}
+
+
+
+
 
 Zigg* getZiggurat(const std::string generator, const int seed) {
     if (generator=="MT") {
@@ -196,6 +213,8 @@ Zigg* getZiggurat(const std::string generator, const int seed) {
         return new ZigguratGSL(seed); 
     } else if (generator=="V1b") {
         return new ZigguratV1b(seed); 
+    } else if (generator=="QL") {
+        return new ZigguratQL(seed); 
     } 
 
     Rcpp::Rcout << "Unrecognised generator: " << generator << "\n";
