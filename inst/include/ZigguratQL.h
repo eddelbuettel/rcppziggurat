@@ -43,7 +43,7 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-// this file has R depedencies
+// this file has GSL depedencies for the Mersenne Twister and the inverse cdf
 // we could overcome this by depending on Boost or C++11 instead
 
 #include <gsl/gsl_rng.h>
