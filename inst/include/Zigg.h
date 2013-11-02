@@ -25,12 +25,15 @@
 #include <cmath>
 #include <stdint.h>             // not allowed to use cstdint as it needs C++11
 
-class Zigg {
-public:
-    virtual ~Zigg() {};
-    virtual void setSeed(const uint32_t s) = 0;
-    // no getSeed() as GSL has none
-    virtual double norm() = 0;
-};
+namespace Ziggurat {
 
+    class Zigg {
+    public:
+        virtual ~Zigg() {};
+        virtual void setSeed(const uint32_t s) = 0;
+        // no getSeed() as GSL has none
+        virtual double norm() = 0;
+    };
+}
+    
 #endif

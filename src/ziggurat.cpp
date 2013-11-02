@@ -36,7 +36,7 @@
 
 
 // Version 1 -- Derived from Marsaglia and Tsang, JSS, 2000
-static ZigguratMT ziggmt;
+static Ziggurat::MT::ZigguratMT ziggmt;
 
 // Marsaglia and Tsang (JSS,2000)
 // [[Rcpp::export]]
@@ -55,7 +55,7 @@ void zsetseedMT(int s) {
 
 
 // Version 2 -- Derived from Leong et al, JSS, 2005
-static ZigguratLZLLV zigglzllv;
+static Ziggurat::LZLLV::ZigguratLZLLV zigglzllv;
 
 // Marsaglia and Tsang (JSS,2000)
 // [[Rcpp::export]]
@@ -74,7 +74,7 @@ void zsetseedLZLLV(int s) {
 
 
 // Version 3 -- Derived from John Burkardt's older implementation
-static ZigguratV1 ziggv1;
+static Ziggurat::V1::ZigguratV1 ziggv1;
 
 // [[Rcpp::export]]
 Rcpp::NumericVector zrnormV1(int n) {
@@ -118,7 +118,7 @@ unsigned long int zgetseedV1() {
 
 
 // Version 4 -- Derived from John Burkardt's new implementation of our mods
-static Ziggurat zigg;
+static Ziggurat::Ziggurat::Ziggurat zigg;
 
 // [[Rcpp::export]]
 Rcpp::NumericVector zrnorm(int n) {
@@ -161,7 +161,7 @@ unsigned long int zgetseed() {
 
 
 // Version 5 -- Wrapping the GSL version
-static ZigguratGSL gsl;
+static Ziggurat::GSL::ZigguratGSL gsl;
 
 // [[Rcpp::export]]
 Rcpp::NumericVector zrnormGSL(int n) {
@@ -174,7 +174,7 @@ Rcpp::NumericVector zrnormGSL(int n) {
 
 
 // Version 6 -- Modified V1
-static ZigguratV1b ziggv1b;
+static Ziggurat::V1::ZigguratV1b ziggv1b;
 
 // [[Rcpp::export]]
 Rcpp::NumericVector zrnormV1b(int n) {
@@ -186,7 +186,7 @@ Rcpp::NumericVector zrnormV1b(int n) {
 }
 
 // Version 7 -- QuantLib
-static ZigguratQL ziggql;
+static Ziggurat::QL::ZigguratQL ziggql;
 
 // [[Rcpp::export]]
 Rcpp::NumericVector zrnormQL(int n) {
@@ -204,7 +204,7 @@ void zsetseedQL(unsigned long int s) {
 }
 
 // Version 8 -- Gretl
-static ZigguratGretl zigggl;
+static Ziggurat::Gretl::ZigguratGretl zigggl;
 
 // [[Rcpp::export]]
 Rcpp::NumericVector zrnormGl(int n) {
@@ -223,23 +223,23 @@ void zsetseedGl(unsigned long int s) {
 
 
 
-Zigg* getZiggurat(const std::string generator, const int seed) {
+Ziggurat::Zigg* getZiggurat(const std::string generator, const int seed) {
     if (generator=="MT") {
-        return new ZigguratMT(seed); 
+        return new Ziggurat::MT::ZigguratMT(seed); 
     } else if (generator=="LZLLV") {
-        return new ZigguratLZLLV(seed); 
+        return new Ziggurat::LZLLV::ZigguratLZLLV(seed); 
     } else if (generator=="V1") {
-        return new ZigguratV1(seed); 
+        return new Ziggurat::V1::ZigguratV1(seed); 
     } else if (generator=="Ziggurat") {
-        return new Ziggurat(seed); 
+        return new Ziggurat::Ziggurat::Ziggurat(seed); 
     } else if (generator=="GSL") {
-        return new ZigguratGSL(seed); 
+        return new Ziggurat::GSL::ZigguratGSL(seed); 
     } else if (generator=="V1b") {
-        return new ZigguratV1b(seed); 
+        return new Ziggurat::V1::ZigguratV1b(seed); 
     } else if (generator=="QL") {
-        return new ZigguratQL(seed); 
+        return new Ziggurat::QL::ZigguratQL(seed); 
     } else if (generator=="Gretl") {
-        return new ZigguratGretl(seed); 
+        return new Ziggurat::Gretl::ZigguratGretl(seed); 
     } 
 
     Rcpp::Rcout << "Unrecognised generator: " << generator << "\n";
@@ -255,7 +255,7 @@ Rcpp::NumericMatrix ziggbin(int nbins, double ndraws,
     const double grmax = edge;
     const double d = (grmax - grmin)/nbins;
 
-    Zigg *zigg = getZiggurat(generator, seed);
+    Ziggurat::Zigg *zigg = getZiggurat(generator, seed);
 
     double seglen = ndraws/res;
 
@@ -292,7 +292,7 @@ Rcpp::NumericVector ziggsum(int nbins, double ndraws,
     Rcpp::NumericVector vec(nbins);
     Rcpp::NumericVector normals(ndraws);
     
-    Zigg *zigg = getZiggurat(generator, seed);
+    Ziggurat::Zigg *zigg = getZiggurat(generator, seed);
 
     for (int i=0; i<nbins; i++) {
         for (int j=0; j<ndraws; j++) {
@@ -314,7 +314,7 @@ Rcpp::NumericVector ziggtest(int nbins, double ndraws,
     Rcpp::NumericVector normals(ndraws);
     Rcpp::NumericVector uniforms(ndraws);
     
-    Zigg *zigg = getZiggurat(generator, seed);
+    Ziggurat::Zigg *zigg = getZiggurat(generator, seed);
 
     for (int i=0; i<nbins; i++) {
         for (int j=0; j<ndraws; j++) {

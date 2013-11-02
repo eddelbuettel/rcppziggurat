@@ -54,124 +54,130 @@
 
 #include <Zigg.h>
 
-class ZigguratV1b : public Zigg {
-public:
-    ZigguratV1b(uint32_t seed=12345678) {
-        setSeed(seed);
-        init();
-    }
-    ~ZigguratV1b() {};
-    void setSeed(const uint32_t s) { jsr=s; }
-    uint32_t getSeed() { return jsr; }
-    double norm(void) {
-        int hz, iz;
-        const float r = 3.442620;
-        float value, x, y;
+namespace Ziggurat {
+namespace V1 {
+
+    class ZigguratV1b : public Zigg {
+    public:
+        ZigguratV1b(uint32_t seed=12345678) {
+            setSeed(seed);
+            init();
+        }
+        ~ZigguratV1b() {};
+        void setSeed(const uint32_t s) { jsr=s; }
+        uint32_t getSeed() { return jsr; }
+        double norm(void) {
+            int hz, iz;
+            const float r = 3.442620;
+            float value, x, y;
         
-        hz = shr3();
-        iz = (hz & 127);
+            hz = shr3();
+            iz = (hz & 127);
         
-        if (fabs(hz) < kn[iz]) {
-            value = (float) (hz) * wn[iz];
-        } else {
-            for (;;) {
-                if (iz == 0) {
-                    for (;;) {
-                        x = - 0.2904764 * log(r4_uni());
-                        y = - log(r4_uni());
-                        if (x * x <= y + y) {
-                            break;
+            if (fabs(hz) < kn[iz]) {
+                value = (float) (hz) * wn[iz];
+            } else {
+                for (;;) {
+                    if (iz == 0) {
+                        for (;;) {
+                            x = - 0.2904764 * log(r4_uni());
+                            y = - log(r4_uni());
+                            if (x * x <= y + y) {
+                                break;
+                            }
                         }
-                    }
                     
-                    if (hz <= 0) {
-                        value = - r - x;
-                    } else {
-                        value = + r + x;
+                        if (hz <= 0) {
+                            value = - r - x;
+                        } else {
+                            value = + r + x;
+                        }
+                        break;
                     }
-                    break;
-                }
-                x = (float) ( hz ) * wn[iz];
-                if (fn[iz] + r4_uni() * (fn[iz-1] - fn[iz]) < exp (- 0.5 * x * x )) {
-                    value = x;
-                    break;
-                }
+                    x = (float) ( hz ) * wn[iz];
+                    if (fn[iz] + r4_uni() * (fn[iz-1] - fn[iz]) < exp (- 0.5 * x * x )) {
+                        value = x;
+                        break;
+                    }
                 
-                hz = shr3();
-                iz = (hz & 127);
+                    hz = shr3();
+                    iz = (hz & 127);
                 
-                if (fabs(hz) < kn[iz]) {
-                    value = (float) (hz) * wn[iz];
-                    break;
+                    if (fabs(hz) < kn[iz]) {
+                        value = (float) (hz) * wn[iz];
+                        break;
+                    }
                 }
             }
+            return value;
         }
-        return value;
-    }
 
-private:
-    uint32_t kn[128];
-    float fn[128], wn[128];
-    uint32_t jsr;
+    private:
+        uint32_t kn[128];
+        float fn[128], wn[128];
+        uint32_t jsr;
 
-    uint32_t shr3() {
-        uint32_t value;
+        uint32_t shr3() {
+            uint32_t value;
 
-        value = jsr;
+            value = jsr;
 
-        jsr = ( jsr ^ ( jsr <<   13 ) );
-        jsr = ( jsr ^ ( jsr >>   17 ) );
-        jsr = ( jsr ^ ( jsr <<    5 ) );
+            jsr = ( jsr ^ ( jsr <<   13 ) );
+            jsr = ( jsr ^ ( jsr >>   17 ) );
+            jsr = ( jsr ^ ( jsr <<    5 ) );
 
-        value = value + jsr;
+            value = value + jsr;
 
-        return value;
-    }
-
-    float r4_uni() {
-
-        uint32_t jsr_input;
-        float value;
-
-        jsr_input = jsr;
-
-        jsr = ( jsr ^ ( jsr <<   13 ) );
-        jsr = ( jsr ^ ( jsr >>   17 ) );
-        jsr = ( jsr ^ ( jsr <<    5 ) );
-
-        value = fmod ( 0.5 + ( float ) ( jsr_input + jsr ) / 65536.0 / 65536.0, 1.0 );
-
-        return value;
-    }
-
-    void init() {               // called from ctor, could be in ctor
-        double dn = 3.442619855899;
-        int i;
-        const double m1 = 2147483648.0;
-        double q;
-        double tn = 3.442619855899;
-        const double vn = 9.91256303526217E-03;
-
-        q = vn / exp (- 0.5 * dn * dn);
-        
-        kn[0] = (uint32_t) ((dn / q) * m1);
-        kn[1] = 0;
-
-        wn[0] = (float) (q / m1);
-        wn[127] = (float) (dn / m1);
-
-        fn[0] = 1.0;
-        fn[127] = (float) (exp (- 0.5 * dn * dn));
-        
-        for (i = 126; 1 <= i; i--) {
-            dn = sqrt(- 2.0 * log (vn / dn + exp(- 0.5 * dn * dn)));
-            kn[i+1] = (uint32_t) ((dn / tn) * m1);
-            tn = dn;
-            fn[i] = (float) (exp (- 0.5 * dn * dn));
-            wn[i] = (float) (dn / m1);
+            return value;
         }
-        return;
-    }
-};
+
+        float r4_uni() {
+
+            uint32_t jsr_input;
+            float value;
+
+            jsr_input = jsr;
+
+            jsr = ( jsr ^ ( jsr <<   13 ) );
+            jsr = ( jsr ^ ( jsr >>   17 ) );
+            jsr = ( jsr ^ ( jsr <<    5 ) );
+
+            value = fmod ( 0.5 + ( float ) ( jsr_input + jsr ) / 65536.0 / 65536.0, 1.0 );
+
+            return value;
+        }
+
+        void init() {               // called from ctor, could be in ctor
+            double dn = 3.442619855899;
+            int i;
+            const double m1 = 2147483648.0;
+            double q;
+            double tn = 3.442619855899;
+            const double vn = 9.91256303526217E-03;
+
+            q = vn / exp (- 0.5 * dn * dn);
+        
+            kn[0] = (uint32_t) ((dn / q) * m1);
+            kn[1] = 0;
+
+            wn[0] = (float) (q / m1);
+            wn[127] = (float) (dn / m1);
+
+            fn[0] = 1.0;
+            fn[127] = (float) (exp (- 0.5 * dn * dn));
+        
+            for (i = 126; 1 <= i; i--) {
+                dn = sqrt(- 2.0 * log (vn / dn + exp(- 0.5 * dn * dn)));
+                kn[i+1] = (uint32_t) ((dn / tn) * m1);
+                tn = dn;
+                fn[i] = (float) (exp (- 0.5 * dn * dn));
+                wn[i] = (float) (dn / m1);
+            }
+            return;
+        }
+    };
+
+}
+}
 
 #endif

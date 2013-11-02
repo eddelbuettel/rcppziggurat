@@ -54,8 +54,9 @@
 
 #include <Zigg.h>
 
-class Ziggurat : public Zigg {
-private:
+namespace Ziggurat {
+namespace Ziggurat {
+
 #define znew (z = 36969 * (z & 65535) + ( z >> 16 ))
 #define wnew (w = 18000 * (w & 65535) + ( w >> 16 ))
 #define MWC  (( znew << 16) + wnew)
@@ -67,100 +68,101 @@ private:
 #define IUNI KISS
 #define RNOR (hz = KISS, iz = hz & 127, ( fabs ( hz ) < kn[iz] ) ? hz * wn[iz] : nfix())
 
-public:
-    Ziggurat(uint32_t seed=123456789) : jcong(234567891), jsr(123456789), 
-                                        w(345678912), z(456789123) {
-        init();
-        setSeed(seed);
-    }
-    ~Ziggurat() {};
-    void setSeed(const uint32_t s) { 
-        if (jsr != s) {         // avoid setting jsr to 0
-            jsr ^= s; 
+    class Ziggurat : public Zigg {
+    public:
+        Ziggurat(uint32_t seed=123456789) : jcong(234567891), jsr(123456789), 
+                                            w(345678912), z(456789123) {
+            init();
+            setSeed(seed);
         }
-        z     = 362436069;
-        w     = 521288629;
-        jcong = 380116160;
-    }
-    uint32_t getSeed() { 
-        return jsr; 
-    }
-    inline double norm() {
-        return RNOR;
-    }
+        ~Ziggurat() {};
+        void setSeed(const uint32_t s) { 
+            if (jsr != s) {         // avoid setting jsr to 0
+                jsr ^= s; 
+            }
+            z     = 362436069;
+            w     = 521288629;
+            jcong = 380116160;
+        }
+        uint32_t getSeed() { 
+            return jsr; 
+        }
+        inline double norm() {
+            return RNOR;
+        }
 
-private:
-    float fn[128];
-    int32_t hz;
-    uint32_t iz;
-    uint32_t jcong;
-    uint32_t jsr;
-    uint32_t jz;
-    uint32_t kn[128];
-    uint32_t w;
-    float wn[128];
-    uint32_t z;
+    private:
+        float fn[128];
+        int32_t hz;
+        uint32_t iz;
+        uint32_t jcong;
+        uint32_t jsr;
+        uint32_t jz;
+        uint32_t kn[128];
+        uint32_t w;
+        float wn[128];
+        uint32_t z;
 
-    void init() {               // called from ctor, could be in ctor
-        double dn = 3.442619855899;
-        int i;
-        const double m1 = 2147483648.0;
-        double q;
-        double tn = 3.442619855899;
-        const double vn = 9.91256303526217E-03;
+        void init() {               // called from ctor, could be in ctor
+            double dn = 3.442619855899;
+            int i;
+            const double m1 = 2147483648.0;
+            double q;
+            double tn = 3.442619855899;
+            const double vn = 9.91256303526217E-03;
 
-        //  Set up the tables for the normal random number generator.
-        q = vn / exp (- 0.5 * dn * dn);
-        kn[0] = (uint32_t) ((dn / q) * m1);
-        kn[1] = 0;
+            //  Set up the tables for the normal random number generator.
+            q = vn / exp (- 0.5 * dn * dn);
+            kn[0] = (uint32_t) ((dn / q) * m1);
+            kn[1] = 0;
 
-        wn[0]   = (float) (q / m1);
-        wn[127] = (float) (dn / m1);
-
-        fn[0] = 1.0;
-        fn[127] = (float) (exp(- 0.5 * dn * dn));
+            wn[0]   = (float) (q / m1);
+            wn[127] = (float) (dn / m1);
+            
+            fn[0] = 1.0;
+            fn[127] = (float) (exp(- 0.5 * dn * dn));
         
-        for (i = 126; 1 <= i; i--) {
-            dn = sqrt(- 2.0 * log (vn / dn + exp (- 0.5 * dn * dn)));
-            kn[i+1] = (uint32_t ) ((dn / tn ) * m1);
-            tn = dn;
-            fn[i] = (float) (exp( - 0.5 * dn * dn));
-            wn[i] = (float) (dn / m1);
+            for (i = 126; 1 <= i; i--) {
+                dn = sqrt(- 2.0 * log (vn / dn + exp (- 0.5 * dn * dn)));
+                kn[i+1] = (uint32_t ) ((dn / tn ) * m1);
+                tn = dn;
+                fn[i] = (float) (exp( - 0.5 * dn * dn));
+                wn[i] = (float) (dn / m1);
+            }
+            return;
         }
-        return;
-    }
 
-    //inline float nfix(void) { return wn[34]; }
-    inline float nfix(void) {
-        const float r = 3.442620;
-        float x, y;
-
-        for (;;) {
-            //  IZ = 0 handles the base strip.
-            x = (float) (hz * wn[iz]);
-            if ( iz == 0 ) { 
-                do {
-                    x = - log (UNI) * 0.2904764; 
-                    y = - log (UNI);
+        //inline float nfix(void) { return wn[34]; }
+        inline float nfix(void) {
+            const float r = 3.442620;
+            float x, y;
+            
+            for (;;) {
+                //  IZ = 0 handles the base strip.
+                x = (float) (hz * wn[iz]);
+                if ( iz == 0 ) { 
+                    do {
+                        x = - log (UNI) * 0.2904764; 
+                        y = - log (UNI);
+                    }
+                    while (y + y < x * x);
+                    
+                    return (0 < hz) ? r + x : - r - x;
                 }
-                while (y + y < x * x);
-
-                return (0 < hz) ? r + x : - r - x;
-            }
-            //  0 < IZ, handle the wedges of other strips.
-            if ( fn[iz] + UNI * ( fn[iz-1] - fn[iz] ) < exp (- 0.5 * x * x ) ) {
-                return x;
-            }
-            //  Initiate, try to exit the loop.
-            hz = KISS;
-            iz = (hz & 127);
-            if (fabs(hz) < kn[iz]) {
-                return ((float) (hz * wn[iz]));
+                //  0 < IZ, handle the wedges of other strips.
+                if ( fn[iz] + UNI * ( fn[iz-1] - fn[iz] ) < exp (- 0.5 * x * x ) ) {
+                    return x;
+                }
+                //  Initiate, try to exit the loop.
+                hz = KISS;
+                iz = (hz & 127);
+                if (fabs(hz) < kn[iz]) {
+                    return ((float) (hz * wn[iz]));
+                }
             }
         }
-    }
 
-};
+    };
 
 #undef znew
 #undef wnew
@@ -173,5 +175,7 @@ private:
 #undef IUNI
 #undef RNOR
 
+}
+}
 
 #endif
