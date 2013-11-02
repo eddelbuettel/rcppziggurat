@@ -32,6 +32,7 @@
 #include <Ziggurat.h>  
 #include <ZigguratGSL.h>
 #include <ZigguratQL.h>
+#include <ZigguratGretl.h>
 
 
 // Version 1 -- Derived from Marsaglia and Tsang, JSS, 2000
@@ -163,7 +164,7 @@ unsigned long int zgetseed() {
 static ZigguratGSL gsl;
 
 // [[Rcpp::export]]
-Rcpp::NumericVector zrnormgsl(int n) {
+Rcpp::NumericVector zrnormGSL(int n) {
     Rcpp::NumericVector x(n);
     for (int i=0; i<n; i++) {
         x[i] = gsl.norm();
@@ -188,7 +189,7 @@ Rcpp::NumericVector zrnormV1b(int n) {
 static ZigguratQL ziggql;
 
 // [[Rcpp::export]]
-Rcpp::NumericVector zrnormql(int n) {
+Rcpp::NumericVector zrnormQL(int n) {
     Rcpp::NumericVector x(n);
     for (int i=0; i<n; i++) {
         x[i] = ziggql.norm();
@@ -196,7 +197,29 @@ Rcpp::NumericVector zrnormql(int n) {
     return x;
 }
 
+// [[Rcpp::export]]
+void zsetseedQL(unsigned long int s) {
+    ziggql.setSeed(s);
+    return;
+}
 
+// Version 8 -- Gretl
+static ZigguratGretl zigggl;
+
+// [[Rcpp::export]]
+Rcpp::NumericVector zrnormGl(int n) {
+    Rcpp::NumericVector x(n);
+    for (int i=0; i<n; i++) {
+        x[i] = zigggl.norm();
+    }
+    return x;
+}
+
+// [[Rcpp::export]]
+void zsetseedGl(unsigned long int s) {
+    zigggl.setSeed(s);
+    return;
+}
 
 
 
@@ -215,6 +238,8 @@ Zigg* getZiggurat(const std::string generator, const int seed) {
         return new ZigguratV1b(seed); 
     } else if (generator=="QL") {
         return new ZigguratQL(seed); 
+    } else if (generator=="Gretl") {
+        return new ZigguratGretl(seed); 
     } 
 
     Rcpp::Rcout << "Unrecognised generator: " << generator << "\n";

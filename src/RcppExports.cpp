@@ -202,15 +202,15 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// zrnormgsl
-Rcpp::NumericVector zrnormgsl(int n);
-RcppExport SEXP RcppZiggurat_zrnormgsl(SEXP nSEXP) {
+// zrnormGSL
+Rcpp::NumericVector zrnormGSL(int n);
+RcppExport SEXP RcppZiggurat_zrnormGSL(SEXP nSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< int >::type n(nSEXP );
-        Rcpp::NumericVector __result = zrnormgsl(n);
+        Rcpp::NumericVector __result = zrnormGSL(n);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
@@ -232,19 +232,58 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// zrnormql
-Rcpp::NumericVector zrnormql(int n);
-RcppExport SEXP RcppZiggurat_zrnormql(SEXP nSEXP) {
+// zrnormQL
+Rcpp::NumericVector zrnormQL(int n);
+RcppExport SEXP RcppZiggurat_zrnormQL(SEXP nSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< int >::type n(nSEXP );
-        Rcpp::NumericVector __result = zrnormql(n);
+        Rcpp::NumericVector __result = zrnormQL(n);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
     return __sexp_result;
+END_RCPP
+}
+// zsetseedQL
+void zsetseedQL(unsigned long int s);
+RcppExport SEXP RcppZiggurat_zsetseedQL(SEXP sSEXP) {
+BEGIN_RCPP
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< unsigned long int >::type s(sSEXP );
+        zsetseedQL(s);
+    }
+    return R_NilValue;
+END_RCPP
+}
+// zrnormGl
+Rcpp::NumericVector zrnormGl(int n);
+RcppExport SEXP RcppZiggurat_zrnormGl(SEXP nSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< int >::type n(nSEXP );
+        Rcpp::NumericVector __result = zrnormGl(n);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// zsetseedGl
+void zsetseedGl(unsigned long int s);
+RcppExport SEXP RcppZiggurat_zsetseedGl(SEXP sSEXP) {
+BEGIN_RCPP
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< unsigned long int >::type s(sSEXP );
+        zsetseedGl(s);
+    }
+    return R_NilValue;
 END_RCPP
 }
 // ziggbin
