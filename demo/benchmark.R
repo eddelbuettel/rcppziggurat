@@ -27,8 +27,9 @@ res <- benchmark(zrnormMT(N),       # Marsgalia and Tsang, JSS, 2000
                  zrnorm(N),         # based on updated Burkardt implementation
                  zrnormVec(v),      # fill a pre-supplied vector
                  #zrnormStl(N),     # fill STL vector
-                 zrnormgsl(N),      # GSL's ziggurat by Voss
+                 zrnormGSL(N),      # GSL's ziggurat by Voss
                  #zrnormV1b(N),      # based on initial Burkardt impl, mod'ed
-                 zrnormql(N),       # QuantLib variant
+                 zrnormQL(N),       # QuantLib variant
+                 zrnormGl(N),       # Gretl
                  replications=1000, order="relative")
 print(res[,1:4])

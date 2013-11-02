@@ -9,5 +9,7 @@ chires <- RcppZiggurat:::chisqTest(draws=1e8,          # individual draws
                                    edge=7,             # cutoff for binning at +/- edge
                                    seed=123456789,
                                    steps=50,           # resolution (number of rows until draws)
-                                   generators=c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "QL"),
+                                   generators=c("Ziggurat", "MT", "LZLLV",
+                                                "GSL", #"V1",
+                                                "Gretl", "QL"),
                                    showplot=interactive())

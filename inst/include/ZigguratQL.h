@@ -274,7 +274,6 @@ public:
         return nextGaussian();
     }
     void setSeed(const uint32_t seed) {
-	// null op, have to set seed for MT from R
         mt32_.setSeed(seed);
     }
 
