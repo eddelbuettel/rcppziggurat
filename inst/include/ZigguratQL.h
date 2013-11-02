@@ -46,8 +46,7 @@
 // this file has GSL depedencies for the Mersenne Twister and the inverse cdf
 // we could overcome this by depending on Boost or C++11 instead
 
-#include <gsl/gsl_rng.h>
-#include <gsl/gsl_randist.h>
+#include <mt32wrapper.h>
 #include <gsl/gsl_cdf.h>
 
 #ifndef RcppZiggurat__ZigguratQL_h
@@ -55,34 +54,6 @@
 
 typedef double Real;        // QL uses Real as a convention
 typedef std::size_t Size;
-
-// simple class to provide the MT interface used here
-// we implement this as passthrough to the GSL
-// (alternatively we could use the MT from R but eg
-// we cannot set the seed etc)
-class mt32wrapper {                  
-public:                         
-    mt32wrapper(uint32_t seed=12345678) {
-        gsl_rng_env_setup() ;
-        r = gsl_rng_alloc (gsl_rng_default);
-        gsl_rng_set(r, seed);
-    }
-    ~mt32wrapper() {
-        gsl_rng_free(r);
-    }
-    void setSeed(const uint32_t seed) {
-	gsl_rng_set(r, seed);
-    }
-    inline uint32_t nextInt32() const {       // return a random integer in the [0,0xffffffff]-interval
-        return static_cast<uint32_t>(gsl_ran_flat(r,0.0,4294967296.0));
-    }
-    inline double nextReal() const {		// return a random number in the (0.0, 1.0)-interval
-        return gsl_ran_flat(r,0.0,1.0);
-    }
-private:
-    gsl_rng *r;
-};
-
 
 // In old-school C++ these cannot be initialised in the class. In C++11 we could.
 
@@ -278,7 +249,7 @@ public:
     }
 
 private:
-    mt32wrapper mt32_;
+    mt32 mt32_;
     Real p_, q_;
 
     Real nextGaussian() const {
@@ -289,7 +260,7 @@ private:
         Real x;
 
         for (;;) {
-            j = mt32_.nextInt32(); 	// generate 32 bits of randomness
+            j = mt32_.int32(); 		// generate 32 bits of randomness
             f = j & 1; 			// 1 bit to choose a tails
             j >>= 1;
             i = j & 0x7f; 		// 7 bits to choose a strip
@@ -301,11 +272,11 @@ private:
 
             // handle rejections
             if (i!=0) { 		// upper strips
-                if ((f_[i-1]-f_[i])*mt32_.nextReal() + f_[i] < std::exp(-0.5*x*x))
+                if ((f_[i-1]-f_[i])*mt32_.int01() + f_[i] < std::exp(-0.5*x*x))
                     break;
             } else { // base strip, sample from the tail
                 //x = c[f]*R::qnorm(p_*mt32_.nextReal()+q_, 0.0, 1.0, FALSE, FALSE);
-                x = c[f] * gsl_cdf_ugaussian_Qinv(1.0 - (p_*mt32_.nextReal()+q_));
+                x = c[f] * gsl_cdf_ugaussian_Qinv(1.0 - (p_*mt32_.int01()+q_));
                 break;
             }
         }

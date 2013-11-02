@@ -48,40 +48,11 @@
 // this file has GSL depedencies for the Mersenne Twister and the inverse cdf
 // we could overcome this by depending on Boost or C++11 instead
 
-#include <gsl/gsl_rng.h>
-#include <gsl/gsl_randist.h>
+#include <mt32wrapper.h>
 #include <gsl/gsl_cdf.h>
 
 #ifndef RcppZiggurat__ZigguratGretl_h
 #define RcppZiggurat__ZigguratGretl_h
-
-
-// simple class to provide the MT interface used here
-// we implement this as passthrough to the GSL
-// (alternatively we could use the MT from R but eg
-// we cannot set the seed etc)
-class mt32 {                  
-public:                         
-    mt32(uint32_t seed=12345678) {
-        gsl_rng_env_setup() ;
-        r = gsl_rng_alloc (gsl_rng_default);
-        gsl_rng_set(r, seed);
-    }
-    ~mt32() {
-        gsl_rng_free(r);
-    }
-    void setSeed(const uint32_t seed) {
-	gsl_rng_set(r, seed);
-    }
-    inline uint32_t int32() const {    // return a random int in [0,0xffffffff]-interval
-        return static_cast<uint32_t>(gsl_ran_flat(r,0.0,4294967296.0));
-    }
-    inline double int01() const {      // return a random number in the (0.0, 1.0)-interval
-        return gsl_ran_flat(r,0.0,1.0);
-    }
-private:
-    gsl_rng *r;
-};
 
 
 /* Below: an implementation of the Marsaglia/Tsang Ziggurat method for
