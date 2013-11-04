@@ -1,9 +1,19 @@
 
-plotAll <- function(data) {
-    op <- par(mfrow=c(2,3), mar=c(3,3,3,1))
+plotAll <- function(data, txt="Normal") {
+    op <- par(mfrow=c(2,3), mar=c(3,3,3,1), oma=c(1,0,2,0))
     for (i in seq_len(ncol(data))) {
         plotTest(data[,i], colnames(data)[i])
     }
+
+    title(paste(txt, "test results"), line=0, outer=TRUE, cex.main=2)
+    txt <- paste0("Draws:",       attr(data, "draws"),
+                  " Repeats: ",   attr(data, "repeats"),
+                  " Seed: ",      attr(data, "seed"),
+                  " Created at: ",attr(data, "created"),
+                  " Version: ",   attr(data, "version"))
+    mtext(text=txt, side=1, outer=TRUE, line=-0.5,
+          adj=0.02, las=1, cex=0.66)
+
     par(op)
     invisible(NULL)
 }
@@ -13,8 +23,12 @@ plotTest <- function(v, g) {
     pw <- wilcox.test(v, mu=0.5)$p.value
 
     plot(ecdf(v), verticals=TRUE, do.p=FALSE,
-         main=paste0(g, " pKS: ", round(pks, digits=4), " pWil.: ", round(pw, digits=4)))
+         #main=paste0(g, " pKS: ", round(pks, digits=4), " pWil.: ", round(pw, digits=4)))
+         main=g)
     segments(0,0,1,1, col='darkgray', lty="dotted")
+    legvec <- c(paste("pKS:", round(pks, digits=4)),
+                paste("pWil.:", round(pw, digits=4)))
+    legend(x=-0.15, y=1.0, lty=NULL, bty="n", legend=legvec)#, yjust=0.5, xjust=0.5)
     invisible(NULL)
 }
 

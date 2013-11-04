@@ -26,6 +26,12 @@ normalTest <- function(N=1e5,      	# individual draws
     names(res) <- generators
     res <- as.data.frame(res)
 
+    attr(res, "draws")   <- N
+    attr(res, "repeats") <- M
+    attr(res, "seed")    <- seed
+    attr(res, "created") <- format(Sys.time())
+    attr(res, "version") <- packageVersion("RcppZiggurat")
+
     if (showplot) {
         plotAll(res)
     }
