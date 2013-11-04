@@ -1,7 +1,7 @@
 Package: RcppZiggurat
 Type: Package
 Title: Rcpp integration of different Ziggurat Normal RNG implementations
-Version: 0.0.1
+Version: 0.0.2
 Date: 2013-10-02
 Author: Dirk Eddelbuettel <edd@debian.org>
 Maintainer: Dirk Eddelbuettel <edd@debian.org>

@@ -3,17 +3,26 @@
 \alias{zrnormLZLLV}
 \alias{zrnormMT}
 \alias{zrnormV1}
+\alias{zrnormV1b}
 \alias{zrnormStl}
 \alias{zrnormStlV1}
 \alias{zrnormVec}
 \alias{zrnormVecV1}
-\alias{zrnormgsl}
+\alias{zrnormGSL}
+\alias{zrnormQL}
+\alias{zrnormGl}
 \alias{zsetseed}
 \alias{zsetseedV1}
+\alias{zsetseedV1b}
 \alias{zsetseedLZLLV}
 \alias{zsetseedMT} 
+\alias{zsetseedQL}
+\alias{zsetseedGl}
 \alias{zgetseed}
 \alias{zgetseedV1}
+\alias{ziggbin}
+\alias{ziggsum}
+\alias{ziggtest}
 \title{Collection of Ziggurat Normal RNGs}
 \description{
   This package regroups and provides a nummber of implementations of the
@@ -28,7 +37,9 @@
   zrnormV1(n)
   zrnormVec(x)
   zrnormVecV1(x)
-  zrnormgsl(n)
+  zrnormGSL(n)
+  zrnormQL(n)
+  zrnormGl(n)
   zsetseed(s)
   zsetseedV1(s)
   zsetseedLZLLV(s)
