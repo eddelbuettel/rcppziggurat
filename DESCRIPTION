@@ -15,5 +15,6 @@ Description: The Ziggurat generator for normally distributed random numbers,
  stick with generators provided by R which have been extremely diligently tested.
 License: GPL (>= 2)
 Depends: Rcpp (>= 0.10.3)
+Suggests: highlight
 LinkingTo: Rcpp, RcppGSL
 VignetteBuilder: highlight
