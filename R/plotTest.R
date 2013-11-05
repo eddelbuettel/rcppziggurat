@@ -1,11 +1,11 @@
 
-plotAll <- function(data, txt="Normal") {
+plotAll <- function(data) {
     op <- par(mfrow=c(2,3), mar=c(3,3,3,1), oma=c(1,0,2,0))
     for (i in seq_len(ncol(data))) {
         plotTest(data[,i], colnames(data)[i])
     }
 
-    title(paste(txt, "test results"), line=0, outer=TRUE, cex.main=2)
+    title(paste(attr(data, "testtype"), "test results"), line=0, outer=TRUE, cex.main=2)
     txt <- paste0("Draws:",       attr(data, "draws"),
                   " Repeats: ",   attr(data, "repeats"),
                   " Seed: ",      attr(data, "seed"),

@@ -13,21 +13,23 @@
 standardTest <- function(N=1e5,      	# individual draws
                          M=1e2,  	# repeats
                          seed=123456789,
-                         generators=c("Ziggurat", "MT", "LZLLV", "GSL", "V1", "V1b"),
+                         generators=c("Ziggurat", "MT", "LZLLV",
+                                      "GSL", "QL", "Gretl"),
                          showplot=interactive()) {
 
-    res <- lapply(generators, FUN=function(g, seed) {
+    res <- mclapply(generators, FUN=function(g, seed) {
         res <- ziggtest(M, N, g, seed)
         v <- pnorm(res, mean=N/2, sd=sqrt(N/12))
-    }, seed)
+    }, seed, mc.cores=getOption("mc.cores", 2L))
     names(res) <- generators
     res <- as.data.frame(res)
 
-    attr(res, "draws")   <- N
-    attr(res, "repeats") <- M
-    attr(res, "seed")    <- seed
-    attr(res, "created") <- format(Sys.time())
-    attr(res, "version") <- packageVersion("RcppZiggurat")
+    attr(res, "testtype")  <- "Standard"
+    attr(res, "draws")     <- N
+    attr(res, "repeats")   <- M
+    attr(res, "seed")      <- seed
+    attr(res, "created")   <- format(Sys.time())
+    attr(res, "version")   <- packageVersion("RcppZiggurat")
 
     if (showplot) {
         plotAll(res)
