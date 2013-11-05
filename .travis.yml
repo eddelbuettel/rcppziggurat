@@ -14,7 +14,7 @@ before_install:
   - ./travis-tool.sh bootstrap
 install:
   - ./travis-tool.sh aptget_install libgsl0-dev
-  - ./travis-tool.sh r_install Rcpp RcppGSL
+  - ./travis-tool.sh r_install RcppGSL highlight
 notifications:
   email:
     on_success: change
