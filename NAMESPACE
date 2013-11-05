@@ -1,2 +1,4 @@
 useDynLib(RcppZiggurat)
 exportPattern("^z[[:alpha:]]+")
+
+importFrom(parallel, mclapply)
