@@ -32,7 +32,8 @@ plotTest <- function(v, g) {
     invisible(NULL)
 }
 
-plotChiSq <- function(res, bins) {
+plotChiSq <- function(res) {
+    bins <- attr(res, "bins")
     cval <- qchisq(0.95, bins-1)
     cat(sprintf("Critical one-sided 95%% value is %f\n", cval))
     cat(sprintf("Actual chisq(%d) values\n", bins))
