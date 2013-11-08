@@ -33,3 +33,15 @@ res <- benchmark(zrnormMT(N),       # Marsgalia and Tsang, JSS, 2000
                  zrnormGl(N),       # Gretl
                  replications=1000, order="relative")
 print(res[,1:4])
+
+if (require(microbenchmark)) {
+    res <- microbenchmark(zrnormMT(N), zrnorm(N), zrnormLZLLV(N), zrnormGSL(N), zrnormQL(N),
+                          zrnormGl(N), zrnormV1(N), zrnormV1b(N), rnorm(N),
+                          times=1000, control=list(warmup=20))
+    oo <- order(summary(res)[,"median"])
+    res$expr <- ordered(x=as.numeric(res$expr),
+                        levels=oo,
+                        labels=levels(res$expr)[oo])
+    print(res)
+    autoplot(res)
+}
