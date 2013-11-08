@@ -40,7 +40,7 @@ chisqTest <- function(draws=1e5,	# number of (total) draws
     attr(res, "version") <- packageVersion("RcppZiggurat")
 
     if (showplot) {
-        plotChiSq(res, bins)
+        plotChiSq(res)
     }
 
     invisible(res)

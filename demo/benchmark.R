@@ -43,5 +43,5 @@ if (require(microbenchmark)) {
                         levels=oo,
                         labels=levels(res$expr)[oo])
     print(res)
-    autoplot(res)
+    if (interactive()) autoplot(res)
 }
