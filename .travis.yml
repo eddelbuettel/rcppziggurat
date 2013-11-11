@@ -19,6 +19,8 @@ notifications:
   email:
     on_success: change
     on_failure: change
+# cf http://about.travis-ci.org/docs/user/caching/#Caching-Ubuntu-packages
+cache: apt
 
 # Also works but is slower as it needs devtools:
 # - ./travis-tool.sh install_deps
