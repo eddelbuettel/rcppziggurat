@@ -253,24 +253,24 @@ Rcpp::NumericMatrix ziggbin(int nbins, double ndraws,
     Rcpp::NumericMatrix v(res, nbins);
     const double grmin = -edge;
     const double grmax = edge;
-    const double d = (grmax - grmin)/nbins;
+    const double d = (grmax - grmin)/static_cast<double>(nbins);
 
     Ziggurat::Zigg *zigg = getZiggurat(generator, seed);
 
-    double seglen = ndraws/res;
+    double seglen = static_cast<double>(ndraws)/static_cast<double>(res);
 
-    // Yes, it crazy to write the inner loop with doubles. But the CRAN maintainers,
-    // in their wisdom, still say that we cannot use C99 -- so no long long int for us.
+    // Yes, it crazy to write the inner loop with doubles. But the CRAN maintainers
+    // still say that we cannot use C99 or C++0x -- so no long long int for us.
     // And an unsigned long makes it only to 4.2e9 which is not enough for our use.
-    for (int row=0.0; row<res; row++) {
+    for (int row=0; row<res; row++) {
         double i = 0.0;
-        while (i<seglen) {
+        while (i < seglen) {
             double val = zigg->norm();              // N(0,1) draw 
             
             int can = floor((val - grmin)/d);       // find the 'can' to bin it in
             can = (can < 0) ? 0 : can;              // protect can from being below 0
             can = (can > nbins-1) ? nbins-1 : can;  // or past the last can
-            v(row,can) = v(row,can)++;              // increment counter
+            v(row,can) = v(row,can) + 1.0;          // increment counter
             i = i + 1.0;
         }
         if (row < res-1) {
