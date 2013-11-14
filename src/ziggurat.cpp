@@ -290,15 +290,17 @@ Rcpp::NumericVector ziggsum(int nbins, double ndraws,
                             const std::string generator = "Ziggurat", 
                             const int seed=42) {
     Rcpp::NumericVector vec(nbins);
-    Rcpp::NumericVector normals(ndraws);
     
     Ziggurat::Zigg *zigg = getZiggurat(generator, seed);
 
     for (int i=0; i<nbins; i++) {
-        for (int j=0; j<ndraws; j++) {
-            normals[j] = zigg->norm();
+        double sum = 0.0;
+        double j = 0.0;
+        while (j < ndraws) {
+            sum = sum + zigg->norm();
+            j = j + 1.0;
         }
-        vec[i] = sum(normals);
+        vec[i] = sum;
     }
 
     delete zigg;
@@ -311,17 +313,17 @@ Rcpp::NumericVector ziggtest(int nbins, double ndraws,
                              const std::string generator = "Ziggurat", 
                              const int seed=42) {
     Rcpp::NumericVector vec(nbins);
-    Rcpp::NumericVector normals(ndraws);
-    Rcpp::NumericVector uniforms(ndraws);
     
     Ziggurat::Zigg *zigg = getZiggurat(generator, seed);
 
     for (int i=0; i<nbins; i++) {
-        for (int j=0; j<ndraws; j++) {
-            normals[j] = zigg->norm();
+        double sum = 0.0;
+        double j = 0.0;
+        while (j < ndraws) {
+            sum = sum + R::pnorm(zigg->norm(),0.0,1.0,0,0);
+            j = j + 1.0;
         }
-        uniforms = pnorm(normals);
-        vec[i] = sum(uniforms);
+        vec[i] = sum;
     }
 
     delete zigg;
