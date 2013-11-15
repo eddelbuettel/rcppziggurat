@@ -22,13 +22,11 @@ plotTest <- function(v, g) {
     pks <- ks.test(v, "punif", 0, 1, exact=TRUE)$p.value
     pw <- wilcox.test(v, mu=0.5)$p.value
 
-    plot(ecdf(v), verticals=TRUE, do.p=FALSE,
-         #main=paste0(g, " pKS: ", round(pks, digits=4), " pWil.: ", round(pw, digits=4)))
-         main=g)
+    plot(ecdf(v), verticals=TRUE, do.p=FALSE, xlim=c(0,1), ylim=c(0,1), main=g)
     segments(0,0,1,1, col='darkgray', lty="dotted")
     legvec <- c(paste("pKS:", round(pks, digits=4)),
                 paste("pWil.:", round(pw, digits=4)))
-    legend(x=-0.15, y=1.0, lty=NULL, bty="n", legend=legvec)#, yjust=0.5, xjust=0.5)
+    legend(x=-0.1, y=1.0, lty=NULL, bty="n", legend=legvec)
     invisible(NULL)
 }
 
