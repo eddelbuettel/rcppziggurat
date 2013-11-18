@@ -31,12 +31,14 @@ plotTest <- function(v, g) {
     invisible(NULL)
 }
 
-plotChiSq <- function(res) {
+plotChiSq <- function(res, verbose=FALSE) {
     bins <- attr(res, "bins")
     cval <- qchisq(0.95, bins-1)
-    cat(sprintf("Critical one-sided 95%% value is %f\n", cval))
-    cat(sprintf("Actual chisq(%d) values\n", bins))
-    print(tail(res,1))
+    if (verbose) {
+        cat(sprintf("Critical one-sided 95%% value is %f\n", cval))
+        cat(sprintf("Actual chisq(%d) values\n", bins))
+        print(tail(res,1))
+    }
 
     op <- par(mfrow=c(2,3), mar=c(3,3,3,1), oma=c(1,0,2,0))
     k <- ncol(res)
