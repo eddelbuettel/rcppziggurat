@@ -488,12 +488,12 @@ RcppZiggurat:::plotChiSq(chires)
 
 \section{C++ Implementation}
 
-TBD. Reference Figure~\ref{fig:Ziggurat}. Possibly mention virtual base class.
+TBD. Reference Figure~\ref{fig:ZigguratBase} and virtual base class.
 
 Also mention suitable for parallel exectution as each thread will have its
 own (smallish) generator.
 
-
+\iffalse
 \begin{figure}[!tp]
   \begin{center}
 <<lang=cpp,size=scriptsize>>=
@@ -564,6 +564,34 @@ namespace Ziggurat {
 }
 @
   \caption{Ziggurat C++ code in \pkg{RcppZiggurat}. \label{fig:Ziggurat}}
+  \end{center}
+\end{figure}
+\fi
+
+\begin{figure}[!tp]
+  \begin{center}
+<<lang=cpp,size=scriptsize>>=
+
+#ifndef RcppZiggurat__Zigg_h
+#define RcppZiggurat__Zigg_h
+
+#include <cmath>
+#include <stdint.h>             // not allowed to use cstdint as it needs C++11
+
+namespace Ziggurat {
+
+    class Zigg {
+    public:
+        virtual ~Zigg() {};
+        virtual void setSeed(const uint32_t s) = 0;
+        // no getSeed() as GSL has none
+        virtual double norm() = 0;
+    };
+}
+
+#endif
+@
+  \caption{Ziggurat Base Class in package \pkg{RcppZiggurat}. \label{fig:ZigguratBase}}
   \end{center}
 \end{figure}
 
