@@ -303,7 +303,6 @@ also illustrative to compare the different R generators.
 %% this chunk generated the data plotted in the next chunk
 <<R_normal_RNGs,echo=FALSE,eval=FALSE>>=
 library(microbenchmark)
-library(lattice)
 res <- microbenchmark({RNGkind(,"Kinderman-Ramage"); rnorm(1e6)},
                       {RNGkind(,"Ahrens-Dieter"); rnorm(1e6)},
                       {RNGkind(,"Box-Muller"); rnorm(1e6)},
