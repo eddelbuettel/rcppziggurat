@@ -19,7 +19,7 @@
 // You should have received a copy of the GNU General Public License
 // along with RcppZiggurat.  If not, see <http://www.gnu.org/licenses/>.
 
-// Ziggurat using Jochen Voss's version in the GSL
+// Ziggurat using Jochen Voss's version in the GSL in file randist/gausszig.c
 
 #ifndef RcppZiggurat__ZigguratGSL_h
 #define RcppZiggurat__ZigguratGSL_h

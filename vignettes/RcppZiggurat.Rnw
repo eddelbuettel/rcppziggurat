@@ -71,19 +71,21 @@ concentrate on the uniform distribution. Its values can be used to generate
 randomly distributed values from other distributions simply by using the
 relevant inverse function.
 
-Due to its importance for many modeling tasks, the Normal distribution, has
+Regarding terminology, all algorithms for generation \textsl{random} numbers
+are by definition deterministic. Here, we follow standard convention and
+refer to such numbers as \textsl{pseudo-random} as they can always be
+recreated given the identical seed value, and are therefore fully
+deterministic. We are not concerned in this note with \textsl{quasi-random}
+numbers (also called low-discrepnancy sequences). We consider this topic to
+be subset of pseudo-random numbers subject to distributional
+constraints. Without lack of generality, we will henceforth drop the
+qualifier \textsl{pseudo} when refering to random numbers.
+
+Due to its importance for many modeling tasks, the Normal distribution has
 also been studied extensively in order to find suitable direct algorithms
-which generate stream of normally distributed (pseudo) random
-numbers.\footnote{All algorithms for generation \textsl{random} number are by
-  definition deterministic. We follow standard convention and refer to such
-  numbers as \textsl{pseudo-random} as they can be recreated given the
-  identical seed. We are not concerned in this not with \textsl{quasi-random}
-  numbers (which are also called low-discrepnancy sequences) which we
-  consider to be subset of pseudo-random number subject to distributional
-  constraints. Without lack of generality, we will henceforth drop the
-  qualifier \textsl{pseudo} when refering to random numbers.}
-A well-known examples for such algorithms includes the method by Box and
-Muller \citep{Box+Muller:1958}. A useful recent survey is provided by
+which generate stream of normally distributed (pseudo) random numbers. A
+well-known examples for such algorithms includes the method by Box and Muller
+\citep{Box+Muller:1958}. A useful recent survey is provided by
 \cite{Thomas+Luk+Leong+Villasenor:2007}.
 
 In an important paper, \cite{Marsaglia+Tsang:2000} introduced the Ziggurat
@@ -261,13 +263,35 @@ generator. Voss also appears to be unaware of the work by
 \cite{Leong+Zhang+Lee+Luk+Villasenor:2005}, yet sidesteps the issue raised by
 these author by relying on the Mersenne Twister generator.
 
+Here, the implementation from the current GSL sources and file
+\code{randist/gausszig.c} is used, and adapted to the class strucuture
+detailed in section~\ref{sec:cpp}.
+
+
 \subsection{Gretl}
 
-TBD. Mention description and tests \cite{Yalta+Schreiber:2012}.
+The Gretl \citep{Cottrell+Lucchetti:Gretl} econometrics program contains
+another Open Source implementation of the Ziggurat algorithm. The code
+credits the implementation by \cite{Voss:2011} described above.
+\cite{Yalta+Schreiber:2012} review the Gretl implementation and performance
+of Ziggurat and find it to be satisfactory.
+
+We use the implementation from the file \code{src/lib/random.c} from the
+current Gretl sources and adapt to the class strucuture detailed in
+section~\ref{sec:cpp}.
+
 
 \subsection{QuantLib}
 
-TBD.
+The QuantLib library for quantitative finance
+\citep{Ametrano+Ballabio+et+al:QuantLib} contains another open source
+implementation of Ziggurat. It is provided in the files
+\code{ql/experimental/math/zigguratrng.hpp} and
+\code{ql/experimental/math/zigguratrng.cpp}. As part of the experimental
+section, it is made available for further study and use, but not yet part of
+the default build.  As before, we integrate this source into the class
+structure used here.
+
 
 \section{Speed}
 
@@ -487,6 +511,7 @@ RcppZiggurat:::plotChiSq(chires)
 \end{figure}
 
 \section{C++ Implementation}
+\label{sec:cpp}
 
 TBD. Reference Figure~\ref{fig:ZigguratBase} and virtual base class.
 
