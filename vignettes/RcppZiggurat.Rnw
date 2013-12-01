@@ -328,8 +328,8 @@ print(bwplot(time/1e6 ~ expr, as.data.frame(rspeed),
   \end{center}
 \end{figure}
 
-We see that the Box-Muller generator is by far the slowest. However, both
-Kinderman-Ramage and Ahrens-Dieter are faster than the Inversion method
+We see that the Box-Muller generator is the slowest by some margin. However,
+both Kinderman-Ramage and Ahrens-Dieter are faster than the Inversion method
 chosen as the default in R. So R users could reap a speed benefit simply by
 calling \code{RNGkind(,"Ahrens-Dieter")} or
 \code{RNGkind(,"Kinderman-Ramage")}.
@@ -366,17 +366,6 @@ print(bwplot(time/1e6 ~ expr, as.data.frame(zigspeed),
   \caption{Ziggurant and R Normal RNG Generator Performance \label{fig:ZiggRNormalRNGs}}
   \end{center}
 \end{figure}
-
-%% \begin{figure}[!htp]
-%%   \begin{center}
-%% <<Zigg_normal_RNGs_Tab,echo=FALSE>>=
-%% library(microbenchmark)
-%% res <- readRDS("~/git/rcppziggurat/vignettes/Zigspeed.rds")
-%% print(summary(res, row.names=FALSE))
-%% @
-%%   \caption{Ziggurant and R Normal RNG Generator Performance Table\label{tab:ZiggRNormalRNGs}}
-%%   \end{center}
-%% \end{figure}
 
 All Ziggurat generators are significantly faster the the default generator in
 R which uses a inversion method.  Among the Ziggurat generator, we notice
@@ -475,7 +464,7 @@ RcppZiggurat:::plotAll(norres)
 \end{figure}
 
 Results are qualitatively similar. Kolmogorov-Smirnow rejects for the
-Marsaglia and Tsang generator. However, we note that the Wilcoxon test now
+\cite{Marsaglia+Tsang:2000} generator. However, we note that the Wilcoxon test now
 has a lower $p$-value though we would still not yet reject at conventional
 test levels.
 
@@ -497,7 +486,7 @@ Another test variant is the $\chi^2$ test which was also used by
   function) using a standard $chi^2$ test.
 \end{enumerate}
 
-The original proposal by \citep{Marsaglia+Tsang:2000} fails as was shown by
+The original proposal by \cite{Marsaglia+Tsang:2000} fails as was shown by
 \cite{Leong+Zhang+Lee+Luk+Villasenor:2005}. All other tests pass again.
 
 \begin{figure}[!tp]
@@ -513,10 +502,23 @@ RcppZiggurat:::plotChiSq(chires)
 \section{C++ Implementation}
 \label{sec:cpp}
 
-TBD. Reference Figure~\ref{fig:ZigguratBase} and virtual base class.
+Preceding work by \cite{Marsaglia+Tsang:2000} and
+\cite{Leong+Zhang+Lee+Luk+Villasenor:2005} provided implementations in the C
+language.  These implementations were provided in just a few lines, and used
+idioms common to C programmers such as macros and global variables.
 
-Also mention suitable for parallel exectution as each thread will have its
-own (smallish) generator.
+C++ programming style permits encapsulation in order to avoid possibles
+collisions and side-effects. Moreover, by using a most amount of
+object-oriented programming we can use a class structure with a common base
+class to express commonalities between the implementations.
+Figure~\ref{fig:ZigguratBase} shows the virtual base class used here. We
+provide two user-accessible functions to obtain a normal random deviate, and
+to set the seed, respectively.
+
+Each actual implementation can then encapsulate its state variable as private
+variable inaccessible to other functions. Such a small core to each class
+also makes it feasible to provide a Ziggurat generator in each thread in a
+parellel execution framework.
 
 \iffalse
 \begin{figure}[!tp]
@@ -623,9 +625,54 @@ namespace Ziggurat {
 
 \section{R Integration}
 
-TBD.
+In the \pkg{RcppZiggurat} package, Rcpp Attributes
+\citep{CRAN:Rcpp:Attributes} are used to access instances of the
+corresponding generator class.
 
-Mention/show user-supplied hook using \code{RNGkind(,"user-supplied")}.
+\begin{figure}[!tp]
+  \begin{center}
+<<lang=cpp,size=scriptsize>>=
+
+#include <Rcpp.h>
+
+#include <Ziggurat.h>
+
+static Ziggurat::Ziggurat::Ziggurat zigg;
+
+// [[Rcpp::export]]
+Rcpp::NumericVector zrnorm(int n) {
+    Rcpp::NumericVector x(n);
+    for (int i=0; i<n; i++) {
+        x[i] = zigg.norm();
+    }
+    return x;
+}
+
+// [[Rcpp::export]]
+void zsetseed(unsigned long int s) {
+    zigg.setSeed(s);
+    return;
+}
+@
+  \caption{R access to Ziggurat Class via Rcpp Attributes. \label{fig:RAccess}}
+  \end{center}
+\end{figure}
+
+In this particular reference implementation, we have chosen a namespace
+\code{Ziggurat} for the entire project. Within this namespace, we opted to
+provided an extra namespace layer for each generator as some of these
+generators still use global variables---which are therefore each shielded in
+their own namespace.  For example, for the \cite{Marsaglia+Tsang:2000}
+generator, we use \code{Ziggurat::ZigurratMT}.  Next is the name of the
+actual class---which in  the case of the reference implementation shown in
+Figure~\ref{fig:RAccess} is once again \code{Ziggurat} leading to the triple
+use of the term.
+
+The remainder of Figure~\ref{fig:RAccess} shows how two functions
+\code{znorm()} and \code{zsetseed()} are provided via the attribute
+\code{[[Rcpp::Export]]} as described in the \citep{CRAN:Rcpp:Attributes}
+vignette of the \pkg{Rcpp} package \citep{CRAN:Rcpp,Eddelbuettel:2013:Rcpp}.
+
 
 \section{TODO}
 \begin{itemize}
@@ -635,7 +682,8 @@ Mention/show user-supplied hook using \code{RNGkind(,"user-supplied")}.
 \item [DONE] Consider QuantLib variant
 \item [DONE] Consider Gretl variant
 \item Use (R)DieHarder and Big Crush (TestU01) tests?
-\item R integration -- straightforward via given interface
+\item R integration -- straightforward via given interface of using
+  \code{RNGkind(,"user-supplied")}.
 \item Look into other $U(0,1)$ generators, too bad R does not let us
   access its Mersenne Twister (deliberate, see \textsl{Writing R Extensions})
 \item Look into more Open Source variants to test?
