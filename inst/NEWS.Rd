@@ -2,7 +2,7 @@
 \title{News for Package \pkg{RcppZiggurat}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in version 0.0.2 (2013-11-04)}{
+\section{Changes in version 0.0.5 (2013-12-04)}{
   \itemize{
     \item Two new generators imported from GNU Gretl and QuantLib
     implementations
@@ -11,8 +11,8 @@
     from the Leong et al paper (JSS, 2005)
     \item New \code{demo()} functionality showing the three added tests.
     \item Code has been reorganized into separate headers implementing
-    the generators, using a common base class; and accessors and tests
-    in the \code{src/} directory.
+    the generators, using a common (virtual) base class; and accessors
+    and tests in the \code{src/} directory.
   } 
 }
 

@@ -669,39 +669,62 @@ use of the term.
 
 The remainder of Figure~\ref{fig:RAccess} shows how two functions
 \code{znorm()} and \code{zsetseed()} are provided via the attribute
-\code{[[Rcpp::Export]]} as described in the \citep{CRAN:Rcpp:Attributes}
-vignette of the \pkg{Rcpp} package \citep{CRAN:Rcpp,Eddelbuettel:2013:Rcpp}.
+\code{[[Rcpp::Export]]} as described in the Rcpp Attributes vignette
+\citep{CRAN:Rcpp:Attributes} of the \pkg{Rcpp} package
+\citep{CRAN:Rcpp,Eddelbuettel:2013:Rcpp}.
 
 
-\section{TODO}
-\begin{itemize}
-\item Possibly integrate into RDieHarder, or consider Big Crush from TestU01
-\item Consider Doornik's paper and possibly implementations (though stay
-  clear of its non-free license)
-\item [DONE] Consider QuantLib variant
-\item [DONE] Consider Gretl variant
-\item Use (R)DieHarder and Big Crush (TestU01) tests?
-\item R integration -- straightforward via given interface of using
-  \code{RNGkind(,"user-supplied")}.
-\item Look into other $U(0,1)$ generators, too bad R does not let us
-  access its Mersenne Twister (deliberate, see \textsl{Writing R Extensions})
-\item Look into more Open Source variants to test?
-\item Update package, complete vignette
-\end{itemize}
+%% \section{TODO}
+%% \begin{itemize}
+%% \item Possibly integrate into RDieHarder
+%% \item Test using (R)DieHarder and Big Crush (TestU01)?
+%% \item Consider Doornik's paper and possibly implementations (though stay
+%%   clear of its non-free license)
+%% \item [DONE] Consider QuantLib variant
+%% \item [DONE] Consider Gretl variant
+%% \item R integration -- straightforward via given interface of using
+%%   \code{RNGkind(,"user-supplied")}.
+%% \item Look into other $U(0,1)$ generators, too bad R does not let us
+%%   access its Mersenne Twister (deliberate, see \textsl{Writing R Extensions})
+%% \item Look into more Open Source variants to test?
+%% \item Update package, complete vignette
+%% \end{itemize}
 
 \section{Conclusion}
 
-\begin{itemize}
-\item Updated Ziggurat: now providing portable code for 32 + 64 bit OSs
-\item Clean C++ wrapper facilitates comparison \& testing
-\item Reconfirmed Leong et al of MT failing at 32 bit limit
-\item Applied standard random number test (for uniforms); confirming result
-\item Suggested new test based directly on normal random deviates; also
-  confirms MT issue
-\item Tested + validated three other OS implementations
-\item Timings favourable: our variant fastest across other Ziggurat
-  implementations and the R generators
-\end{itemize}
+This note describes the \pkg{RcppZiggurat} package and its new implementation
+of the Ziggurat generator for normally distributed random numbers.  The
+package is implemented in a way which is portable so that it can be used on
+32-bit and 64-bit operating systems, filling a gap left by the original
+implementations
+\citep{Marsaglia+Tsang:2000,Leong+Zhang+Lee+Luk+Villasenor:2005}.
+
+By embedding the code in a simple C++ class structure, we can ease testing
+and comparison of several variants of the algorithm.  Our note reconfirmed
+the findings by \cite{Leong+Zhang+Lee+Luk+Villasenor:2005} of a short cycle
+due to to the use of an inferior uniform generator.  Replacing the generator
+leads to better performance.
+
+We suggest a new test for random number generators producing deviates
+distributed according to the standard normal distribution by adapting and
+simplifying an existing test framework for uniform deviates.  Both tests
+confirm the (previously documented) failure of the original Ziggurat proposal
+but do not find a problem with any of the new implementations.
+
+A key motivation for this work has been a desire to improve the speed of
+(standard-normally distributed) random numbers for R.  We find Ziggurat to be
+faster than the existing implementations, and hope that this generator will
+be of use to those generating large numbers of draws.
+
+
+\section{Acknowledgements}
+
+The initial implementations by John Burkardt were very helpful at the
+beginning of this project. Our suggestions of using portable types from the
+\code{stdint} header file for 32- and 64-bit use, as well as the need to
+reflect the insight of \cite{Leong+Zhang+Lee+Luk+Villasenor:2005} improved
+his version and our versions in a very fruitful email exchange which is
+gratefully acknowledged.
 
 \bibliographystyle{plainnat}
 \bibliography{RcppZiggurat}

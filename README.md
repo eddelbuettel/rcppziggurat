@@ -17,40 +17,31 @@ stick with the default generators.
 
 ## Status
 
-The package currently contains five different implementations. Two of these 
-are based on the original Marsaglia and Tsang approach and should *not* be 
-used as the resulting generator has be improved as suggested by Leong et al.
-In other words, do not deploy `zrnormMT()` or `zrnormV1()` (even though the 
-latter is still the fastest).
+The package currently contains six different implementations. Two are
+standard from the literature: the original Marsaglia and Tsang approach (which should *not* be 
+used as the resulting generator has be improved as suggested by Leong et
+al.), the improved Leong et al variant, a version from the GNU GSL, a version
+from the GNU Gretl econometric program as well as a version from QuantLib.
 
 The recommended approach is to deploy `zrnorm()` and its associated seed 
 setter and getter.
 
 ## TODO
 
-Testing, testing, testing, ...
+More testing never hurts, ...
 
 More generators as e.g. the modified Ziggurat implementation suggested by 
-Doornik, the Ziggurat generators contained in GNU Gretl and in QuantLib. 
+Doornik (though his code is not under an open source licence)
 
 ## Demo
 
-The package contains a demo script benchmarking the implementation. Run
+The package contains several demo scripts. Try
 
-    R> library(RcppZiggurat)
-    R> demo("benchmark", package="RcppZiggurat")
+    R> demo(package="RcppZiggurat")
 
-which should result in something like the following:
-
-    R> print(res[,1:4])
-                test replications elapsed relative
-    4 zrnormVecV1(v)         1000   0.918    1.000
-    3    zrnormV1(N)         1000   1.274    1.388
-    7   zrnormVec(v)         1000   2.189    2.385
-    1    zrnormMT(N)         1000   2.296    2.501
-    2 zrnormLZLLV(N)         1000   2.410    2.625
-    6      zrnorm(N)         1000   2.516    2.741
-    8   zrnormgsl(N)         1000   3.159    3.441
-    5       rnorm(N)         1000  14.102   15.362
-    R> 
+## Vignette
+ 
+The package also contains a short vignette summarizing the methods, the
+implementation as well as the statistical properties (examined via three
+different tests) and the generator speed.
 
