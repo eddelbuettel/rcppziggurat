@@ -502,22 +502,15 @@ RcppZiggurat:::plotChiSq(chires)
 \label{sec:cpp}
 
 Preceding work by \cite{Marsaglia+Tsang:2000} and
-\cite{Leong+Zhang+Lee+Luk+Villasenor:2005} provided implementations in the C
-language.  These implementations were provided in just a few lines, and used
+\cite{Leong+Zhang+Lee+Luk+Villasenor:2005} also contained implementations in the C
+language.  These versions were implemented in just a few lines, and used
 idioms common to C programmers such as macros and global variables.
 
 C++ programming style permits encapsulation in order to avoid possibles
 collisions and side-effects. Moreover, by using a most amount of
 object-oriented programming we can use a class structure with a common base
 class to express commonalities between the implementations.
-Figure~\ref{fig:ZigguratBase} shows the virtual base class used here. We
-provide two user-accessible functions to obtain a normal random deviate, and
-to set the seed, respectively.
-
-Each actual implementation can then encapsulate its state variable as private
-variable inaccessible to other functions. Such a small core to each class
-also makes it feasible to provide a Ziggurat generator in each thread in a
-parellel execution framework.
+Figure~\ref{fig:ZigguratBase} shows the virtual base class used here.
 
 \iffalse
 \begin{figure}[!tp]
@@ -621,12 +614,32 @@ namespace Ziggurat {
   \end{center}
 \end{figure}
 
+As shown in Figure~\ref{fig:ZigguratBase}, we provide two user-accessible
+functions to obtain a normal random deviate, and to set the seed,
+respectively. The actual implementation uses portable types such as
+\code{uint32\_t}, an unsigned 32-bit integer provided by the C header file
+\code{stdint.h}, which provides correct and identical results on both 32-bit
+and 64-bit operating systems.
+
+Each actual implementation can then encapsulate its state variable as private
+variable inaccessible to other functions. Such a small core to each class
+also makes it feasible to provide a Ziggurat generator in each thread in a
+parellel execution framework.
+
+Our Ziggurat implementation has no external dependencies and can therefore be
+used in other projects. The testing framework used for this note has a single
+dependency on the GNU GSL as the generator by \cite{Voss:2011} is used via
+its GSL implementations.  The generator and testing framework in the
+corresponding R package have a build-dependency on R, and are of course
+accessed by R. But the generator discussed here could equally well be used in
+standalone programs or with other scripting languages.
 
 \section{R Integration}
 
-In the \pkg{RcppZiggurat} package, Rcpp Attributes
-\citep{CRAN:Rcpp:Attributes} are used to access instances of the
-corresponding generator class.
+In the \pkg{RcppZiggurat} package, the Rcpp Attributes
+\citep{CRAN:Rcpp:Attributes} feature of the \pkg{Rcpp} C++/R integrations
+package \citep{CRAN:Rcpp,Eddelbuettel:2013:Rcpp} are used to access instances of
+the corresponding generator class.
 
 \begin{figure}[!tp]
   \begin{center}
@@ -660,12 +673,15 @@ void zsetseed(unsigned long int s) {
 In this particular reference implementation, we have chosen a namespace
 \code{Ziggurat} for the entire project. Within this namespace, we opted to
 provided an extra namespace layer for each generator as some of these
-generators still use global variables---which are therefore each shielded in
-their own namespace.  For example, for the \cite{Marsaglia+Tsang:2000}
-generator, we use \code{Ziggurat::ZigurratMT}.  Next is the name of the
-actual class---which in  the case of the reference implementation shown in
+generators still use global variables---which are therefore shielded in their
+own namespace.  For example, for the \cite{Marsaglia+Tsang:2000} generator,
+we use \code{Ziggurat::ZigurratMT}.  Next is the name of the actual
+class---which in the case of the reference implementation shown in
 Figure~\ref{fig:RAccess} is once again \code{Ziggurat} leading to the triple
-use of the term.
+use of the term.  Actual deployment of the Ziggurat generator (without
+comparison to other implementations and concerns about interaction between
+variables, particularly for the older implementations having global
+variables) can of course be used with a single namespace.
 
 The remainder of Figure~\ref{fig:RAccess} shows how two functions
 \code{znorm()} and \code{zsetseed()} are provided via the attribute
@@ -717,11 +733,11 @@ faster than the existing implementations, and hope that this generator will
 be of use to those generating large numbers of draws.
 
 
-\section{Acknowledgements}
+\section*{Acknowledgements}
 
 The initial implementations by John Burkardt were very helpful at the
 beginning of this project. Our suggestions of using portable types from the
-\code{stdint} header file for 32- and 64-bit use, as well as the need to
+\code{stdint.h} header file for 32- and 64-bit use, as well as the need to
 reflect the insight of \cite{Leong+Zhang+Lee+Luk+Villasenor:2005} improved
 his version and our versions in a very fruitful email exchange which is
 gratefully acknowledged.
