@@ -255,8 +255,9 @@ uniform generator had too short a cycle.
 
 \cite{Voss:2011} notes two differences between his implementation and the
 original work by \cite{Marsaglia+Tsang:2000}. First, he uses only 128 instead
-of 256 steps which reduces the memory requirements at the possible expense of
-precision. Second, he uses an exponential distribution with tail rejection
+of 256 steps which reduces the memory requirements and computational
+cost at a possible (though presumably minor) loss of precision.
+Second, he uses an exponential distribution with tail rejection
 for the base strip, which is motivated by a simpler implementations.  Both of
 these aspects could have implications for the statistical properties of the
 generator. Voss also appears to be unaware of the work by
@@ -740,7 +741,7 @@ beginning of this project. Our suggestions of using portable types from the
 \code{stdint.h} header file for 32- and 64-bit use, as well as the need to
 reflect the insight of \cite{Leong+Zhang+Lee+Luk+Villasenor:2005} improved
 his version and our versions in a very fruitful email exchange which is
-gratefully acknowledged.
+gratefully acknowledged. Comments by Jochen Voss are also gratefully acknowledged.
 
 \bibliographystyle{plainnat}
 \bibliography{RcppZiggurat}
