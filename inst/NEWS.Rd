@@ -4,8 +4,6 @@
 
 \section{Changes in version 0.0.5 (2013-12-04)}{
   \itemize{
-    \item Two new generators imported from GNU Gretl and QuantLib
-    implementations
     \item Testing framework added with a standard RNG test, a new and
     similar test particular for Normal distributions, and the Chi^2 test
     from the Leong et al paper (JSS, 2005)
@@ -13,6 +11,9 @@
     \item Code has been reorganized into separate headers implementing
     the generators, using a common (virtual) base class; and accessors
     and tests in the \code{src/} directory.
+    \item Two new ziggurat generators implementations have been adapted
+    from, respectively, GNU Gretl and QuantLib
+    \item Added a \code{vignette}
   } 
 }
 
