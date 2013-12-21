@@ -53,12 +53,13 @@ load("RcppZiggurat.RData")
   is one of the fastest methods to generate normally distributed random
   numbers while also providing excellent statistical properties.
 
-  This note provides updated implementations of the Ziggurat generator
+  This note provides an updated implementations of the Ziggurat generator
   suitable for 32- and 64-bit operating system. It compares the original
   implementations to several popular Open Source implementations. A new
   implementation embeds the generator into an appropriate C++ class
   structure. The performance of the different generator is investigated both
-  via extended timing and through a series of statistical tests. Integration
+  via extended timing and through a series of statistical tests, including a
+  suggested new test for testing Normal deviates directly. Integration
   into other systems such as R is discussed as well.
   %
 }
@@ -71,30 +72,30 @@ concentrate on the uniform distribution. Its values can be used to generate
 randomly distributed values from other distributions simply by using the
 relevant inverse function.
 
-Regarding terminology, all algorithms for generation \textsl{random} numbers
-are by definition deterministic. Here, we follow standard convention and
-refer to such numbers as \textsl{pseudo-random} as they can always be
-recreated given the identical seed value, and are therefore fully
-deterministic. We are not concerned in this note with \textsl{quasi-random}
-numbers (also called low-discrepnancy sequences). We consider this topic to
-be subset of pseudo-random numbers subject to distributional
-constraints. Without lack of generality, we will henceforth drop the
-qualifier \textsl{pseudo} when refering to random numbers.
+Regarding terminology, all computational algorithms for generation
+\textsl{random} numbers are by definition deterministic. Here, we follow
+standard convention and refer to such numbers as \textsl{pseudo-random} as
+they can always be recreated given the identical seed value. We are not
+concerned in this note with \textsl{quasi-random} numbers (also called
+low-discrepnancy sequences). We consider this topic to be subset of
+pseudo-random numbers subject to distributional constraints. Without lack of
+generality, we will henceforth drop the qualifier \textsl{pseudo} when
+refering to random numbers.
 
 Due to its importance for many modeling tasks, the Normal distribution has
 also been studied extensively in order to find suitable direct algorithms
 which generate stream of normally distributed (pseudo) random numbers. A
 well-known examples for such algorithms includes the method by Box and Muller
-\citep{Box+Muller:1958}. A useful recent survey is provided by
+\citep{Box+Muller:1958}. A useful recent survey of the field is provided by
 \cite{Thomas+Luk+Leong+Villasenor:2007}.
 
 In an important paper, \cite{Marsaglia+Tsang:2000} introduced the Ziggurat
 method.  Since its initial publication, this algorithm has become reasonably
 popular\footnote{Usage of a code search engine such as \url{code.ohloh.net}
   or \url{codesearch.debian.net} provides a good approximation to the
-  popularity of the Ziggurat algorithm as its name is a reasonably unique
-  search term within the field of computing.} as it strikes a reasonably
-between excellent statistical properties as well as execution speed.
+  popularity of the Ziggurat algorithm as its name is also a reasonably unique
+  search term within the field of computing.} as it provides a very useful
+combination of both excellent statistical properties as well as execution speed.
 \cite{Thomas+Luk+Leong+Villasenor:2007} conclude their survey by saying that
 \begin{quote}
   the Ziggurat method, the second in speed, is about 33\% slower than the
@@ -198,8 +199,8 @@ void zigset(unsigned long jsrseed)
 
 As can be seen from Figure~\ref{fig:ZiggMT}, the Ziggurat algorithm is
 implemented in bare-bones C code using a number of macros, and two helper
-functions. The helper function allow setting a seed, and deal with parameter
-updated need in about 2.5\% of cases.  The actual core component---the
+functions. The helper functions allow setting a seed, and deal with parameter
+updates needed in about 2.5\% of cases.  The actual core component---the
 function to draw a random number distributed according to standard normal
 distribution---is provided by the macro \texttt{RNOR}.  Needless to say,
 using C macros is no longer cosidered \textsl{de rigeur}. Possible side
@@ -214,7 +215,7 @@ correct results on a 64-bit operating system as (signed and unsigned)
 \texttt{long} types are typically eight bytes (or 64 bits) wide (whereas
 \texttt{int} is still 32 bits).c
 
-The modified version suggested by this paper overcomes both issues.
+Our modified version introduced below overcomes both issues.
 
 \subsection{Leong, Zhang et al}
 
@@ -243,7 +244,9 @@ generator (also by Marsaglia) improves the performance beyond this limit..
 Following \cite{Leong+Zhang+Lee+Luk+Villasenor:2005}, Ziggurat code should
 use an improved uniform generator. Choices are either KISS as suggested
 initially, or another trusted (and fast) uniform generator such as the
-Mersenne Twister \citep{Matsumoto+Nishimura:1998}.
+Mersenne Twister \citep{Matsumoto+Nishimura:1998}. Other Open Source
+implementations (such as the ones discussed below) frequently use the
+Mersenne Twister as the souce of uniformly distributed random numbers.
 
 \subsection{Voss's implementation in GNU GSL}
 
@@ -313,26 +316,37 @@ levels(res$expr) <- c("KR", "AH", "BM", "Inv")
 #saveRDS(res, file="~/git/rcppziggurat/vignettes/Rspeed.rds")
 @
 
-\setkeys{Gin}{width=0.6\textwidth}
+%% this setting influences page breaks somewhat -- with 0.525 we get two
+%% plots onto one page
+\setkeys{Gin}{width=0.525\textwidth}
+
 \begin{figure}[!tp]
   \begin{center}
 <<R_normal_RNGs_Plot,echo=FALSE,fig=TRUE>>=
 library(lattice)
-print(bwplot(time/1e6 ~ expr, as.data.frame(rspeed),
-             ylab="Time in msec", main="Time for 100 times 1e6 normal draws",
+rdf <- as.data.frame(rspeed)
+rdf[,1] <- ordered(rdf[,1], levels=c("AH","KR","Inv","BM"), labels=c("AH","KR","Inv","BM"))
+print(bwplot(time/1e6 ~ expr, rdf, ylab="Time in msec",
+             main="Time for 100 times 1e6 normal draws",
              panel=function(...,box.ratio) {
                  panel.violin(..., col="lightgray", varwidth=FALSE, box.ratio=box.ratio)
              }))
 @
-  \caption{R Normal RNG Generator Performance \label{fig:RNormalRNGs}}
-  \end{center}
+\caption{R Normal RNG Generator Performance \label{fig:RNormalRNGs}}
+  \medskip
+  \begin{minipage}{0.75\linewidth}
+      \scriptsize Note: Figure shows timings from the \pkg{microbenchmark} package using
+      100 replications of 1,000,000 draws per generator. Code for the figure
+      is included in the \pkg{RcppZiggurat} package, and the source code for this document.
+  \end{minipage}
+\end{center}
 \end{figure}
 
 We see that the Box-Muller generator is the slowest by some margin. However,
 both Kinderman-Ramage and Ahrens-Dieter are faster than the Inversion method
-chosen as the default in R. So R users could reap a speed benefit simply by
-calling \code{RNGkind(,"Ahrens-Dieter")} or
-\code{RNGkind(,"Kinderman-Ramage")}.
+chosen as the default in R. So even before considering Ziggurat generators, R
+users could reap a speed benefit simply by calling
+\code{RNGkind(,"Ahrens-Dieter")} or \code{RNGkind(,"Kinderman-Ramage")}.
 
 \subsection{Ziggurat Generators}
 
@@ -357,26 +371,39 @@ levels(res$expr) <- c("RInv", "Zigg", "ZiggGSL", "ZiggQL", "ZiggGretl")
 <<Zigg_normal_RNGs_Plot,echo=FALSE,fig=TRUE>>=
 library(lattice)
 #res <- readRDS("~/git/rcppziggurat/vignettes/Zigspeed.rds")
-print(bwplot(time/1e6 ~ expr, as.data.frame(zigspeed),
-             ylab="Time in msec", main="Time for 100 times 1e6 normal draws",
+zdf <- as.data.frame(zigspeed)
+zdf[,1] <- ordered(zdf[,1],
+                   levels=c("Zigg", "ZiggGSL", "ZiggQL", "ZiggGretl", "RInv"),
+                   labels=c("Zigg", "ZiggGSL", "ZiggQL", "ZiggGretl", "RInv"))
+print(bwplot(time/1e6 ~ expr, zdf, ylab="Time in msec",
+             main="Time for 100 times 1e6 normal draws",
              panel=function(...,box.ratio) {
                  panel.violin(..., col="lightgray", varwidth=FALSE, box.ratio=box.ratio)
              }))
 @
-  \caption{Ziggurant and R Normal RNG Generator Performance \label{fig:ZiggRNormalRNGs}}
+    \caption{Ziggurant and R Normal RNG Generator Performance \label{fig:ZiggRNormalRNGs}}
+    \medskip
+    \begin{minipage}{0.75\linewidth}
+      \scriptsize Note: Figure shows timings from the \pkg{microbenchmark} package using
+      100 replications of 1,000,000 draws per generator. Code for the figure
+      is included in the \pkg{RcppZiggurat} package, and the source code for this document.
+    \end{minipage}
   \end{center}
 \end{figure}
 
 All Ziggurat generators are significantly faster the the default generator in
-R which uses a inversion method.  Among the Ziggurat generator, we notice
+R which uses a inversion method.  Among the Ziggurat generators, we notice
 that approaches using an external uniform number generator (GNU GSL, GNU
 Gretl, QuantLib) are all slower than our compact and self-contained
 implementation which is seen as the fastest method.  A comparison to the
-two original implementations (not shown) shows them to be of comparable
-speed.  However, as the next section details, the initial implementation
-should not be used. And as discussed below, the bare-bones implementation of
-the initial proposals lack some safeguards suggested by modern software practice
-such as encapsulation within a class, a namespace or both.
+original implementation and the comment follow-up (not shown here but easily
+programmable using the function in the \pkg{RcppZiggurat} package) shows them
+to be of comparable speed.
+
+However, as the next section details, the initial implementation should not
+be used. And as discussed below, the bare-bones implementation of the initial
+proposals lack some safeguards suggested by modern software practice such as
+encapsulation within a class, a namespace or both.
 
 
 \section{Accuracy}
@@ -390,7 +417,7 @@ example in \cite{Brown+Eddelbuettel+Bauer:DieHarder}, a test proceeds as follow:
 \begin{enumerate}
 \item Take $n$ draws from a $U(0,1)$ distribution (as any given $U(a,b)$ can
   always be scaled to $U(0,1)$), and then compute the sum of the $n$ values.
-\item Repeats this $m$ times to create a set of $m$ sums of uniform RNG draws.
+\item Repeat this $m$ times to create a set of $m$ sums of uniform RNG draws.
 \item With $n$ large enough, the collection of $m$ results will converge
   towards a mean of $n/2$ and a standard deviation of $\sqrt{n/12}$ (which is
   the Irwin-Hall distribution of the sum of uniformly distributed values).
@@ -406,8 +433,8 @@ example in \cite{Brown+Eddelbuettel+Bauer:DieHarder}, a test proceeds as follow:
 Here, we can apply this test for first converting out $N(0,1)$ distributed
 values to an initial $U(0,1)$ distribution by using the inverse of the normal
 distribution.
-
-We are then ready to simulate and test.  The following figure display Q-Q
+%
+We are then ready to simulate and test.  Figure~\ref{fig:StandardTest} below displays Q-Q
 plots for the empirical distribution against the uniform, and displays the
 $p$-values of a Kolmogorov-Smirnow as well as Wilcoxon test.
 
@@ -418,14 +445,18 @@ $p$-values of a Kolmogorov-Smirnow as well as Wilcoxon test.
 <<stdtest, echo=FALSE, fig=TRUE>>=
 RcppZiggurat:::plotAll(stdres)
 @
-  \caption{Standard Test applied to Ziggurat generators
-    \label{fig:StandardTest}}
+  \caption{Standard Test applied to Ziggurat generators \label{fig:StandardTest}}
+  \medskip
+    \begin{minipage}{0.75\linewidth}
+      \scriptsize Note: Code for the figure is included in the
+      \pkg{RcppZiggurat} package, and the source code for this document.
+    \end{minipage}
   \end{center}
 \end{figure}
 
 We see that five of the six generators pass the test. In the case of the
 original \cite{Marsaglia+Tsang:2000} generator, we can see the departure from
-the expected diagonal clearly once we draw more than $4.2 \times 10^9$ number
+the expected diagonal clearly once we draw more than $4.2 \times 10^9$ numbers
 (which is the limit of the representation of an unsigned four-byte nunber).
 However, only the Kolmogorov-Smirnow test can formally reject; the Wilcoxon
 test appear to lack sufficient power in this setting.
@@ -458,15 +489,20 @@ distribution.   This allows us to skip one inversion step:
 <<nortest, echo=FALSE, fig=TRUE>>=
 RcppZiggurat:::plotAll(norres)
 @
-  \caption{Normal Test applied to Ziggurat generators
-    \label{fig:NormalTest}}
+  \caption{Normal Test applied to Ziggurat generators \label{fig:NormalTest}}
+  \medskip
+    \begin{minipage}{0.75\linewidth}
+      \scriptsize Note: Code for the figure is included in the
+      \pkg{RcppZiggurat} package, and the source code for this document.
+    \end{minipage}
   \end{center}
 \end{figure}
 
-Results are qualitatively similar. Kolmogorov-Smirnow rejects for the
-\cite{Marsaglia+Tsang:2000} generator. However, we note that the Wilcoxon test now
-has a lower $p$-value though we would still not yet reject at conventional
-test levels.
+Results, shown in Figure~\ref{fig:NormalTest}, are qualitatively similar to
+the result discussed above. Kolmogorov-Smirnow rejects for the
+\cite{Marsaglia+Tsang:2000} generator. However, we note that the Wilcoxon
+test now has a lower $p$-value---though we would still not yet reject at
+conventional test levels.
 
 
 \subsection[chi2 test]{$\chi^2$ test}
@@ -486,7 +522,8 @@ Another test variant is the $\chi^2$ test which was also used by
   function) using a standard $chi^2$ test.
 \end{enumerate}
 
-The original proposal by \cite{Marsaglia+Tsang:2000} fails as was shown by
+As can be seen in Figure~\ref{fig:ChiSqTest}, the original proposal by
+\cite{Marsaglia+Tsang:2000} fails as was shown by
 \cite{Leong+Zhang+Lee+Luk+Villasenor:2005}. All other tests pass again.
 
 \begin{figure}[!tp]
@@ -494,8 +531,12 @@ The original proposal by \cite{Marsaglia+Tsang:2000} fails as was shown by
 <<chisqtest, echo=FALSE, print=FALSE, fig=TRUE>>=
 RcppZiggurat:::plotChiSq(chires)
 @
-  \caption{$\chi^2$ Test applied to Ziggurat generators
-    \label{fig:NormalTest}}
+  \caption{$\chi^2$ Test applied to Ziggurat generators \label{fig:ChiSqTest}}
+  \medskip
+    \begin{minipage}{0.75\linewidth}
+      \scriptsize Note: Code for the figure is included in the
+      \pkg{RcppZiggurat} package, and the source code for this document.
+    \end{minipage}
   \end{center}
 \end{figure}
 
@@ -508,7 +549,7 @@ language.  These versions were implemented in just a few lines, and used
 idioms common to C programmers such as macros and global variables.
 
 C++ programming style permits encapsulation in order to avoid possibles
-collisions and side-effects. Moreover, by using a most amount of
+collisions and side-effects. Moreover, by using a modest amount of
 object-oriented programming we can use a class structure with a common base
 class to express commonalities between the implementations.
 Figure~\ref{fig:ZigguratBase} shows the virtual base class used here.
@@ -622,10 +663,10 @@ respectively. The actual implementation uses portable types such as
 \code{stdint.h}, which provides correct and identical results on both 32-bit
 and 64-bit operating systems.
 
-Each actual implementation can then encapsulate its state variable as private
-variable inaccessible to other functions. Such a small core to each class
-also makes it feasible to provide a Ziggurat generator in each thread in a
-parellel execution framework.
+Each actual implementation can then encapsulate its state variable as a
+private variable inaccessible to other functions. Such a small core to each
+class also makes it feasible to provide a Ziggurat generator in each thread
+in a parellel execution framework.
 
 Our Ziggurat implementation has no external dependencies and can therefore be
 used in other projects. The testing framework used for this note has a single
