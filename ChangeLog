@@ -1,16 +1,15 @@
-2013-12-04  Dirk Eddelbuettel  <edd@debian.org>
+2013-12-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION: Version 0.0.5
+	* DESCRIPTION: Version 0.1.0
 
 	* Numerous changes made since the previous version:
-	  - cleaner implementation using virtual base class and proper
-  	    namespaces
+	  - cleaner implementation using virtual base class and namespaces
 	  - better split between header files in inst/include and src
 	  - new open source implementations from Gretl and QuantLib
 	  - added three tests: chi^2 as in Leong et al, standard test common
 	    for uniform generators, new adapted standard test
 	  - added three tests also as user-accessible functions, and as demos
-	  - added vignette described method, implementation, statistical
+	  - added vignette describing method, implementation, statistical
   	    tests and properties, as well as generator speed comparison
 
 2013-10-06  Dirk Eddelbuettel  <edd@debian.org>

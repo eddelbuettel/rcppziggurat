@@ -3,5 +3,8 @@
 LICENSE
 demo/notForCRANbenchmark.R
 demo/notForCRANbenchmark.cpp
+demo/oldRgenerator.R
 .travis.yml
 vignettes/.install_extras
+inst/code/ziggurat_code.zip
+inst/papers

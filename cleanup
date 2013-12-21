@@ -3,6 +3,7 @@
 rm -rvf	src/*.o src/*.so \
 	vignettes/RcppZiggurat.aux vignettes/RcppZiggurat.log \
     	vignettes/RcppZiggurat.out vignettes/auto/ \
-        vignettes/*.bbl vignettes/*.blg vignettes/Rplots.pdf
+        vignettes/*.bbl vignettes/*.blg vignettes/Rplots.pdf \
+        vignettes/*.tex vignettes/*.tpt 
 
 #rm *~ */*~

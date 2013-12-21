@@ -2,7 +2,7 @@
 \title{News for Package \pkg{RcppZiggurat}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in version 0.0.5 (2013-12-04)}{
+\section{Changes in version 0.1.0 (2013-12-21)}{
   \itemize{
     \item Testing framework added with a standard RNG test, a new and
     similar test particular for Normal distributions, and the Chi^2 test
