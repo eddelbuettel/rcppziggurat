@@ -1,8 +1,8 @@
 Package: RcppZiggurat
 Type: Package
 Title: Rcpp integration of different Ziggurat Normal RNG implementations
-Version: 0.1.0
-Date: 2013-12-21
+Version: 0.1.1
+Date: 2013-12-22
 Author: Dirk Eddelbuettel <edd@debian.org>
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Description: The Ziggurat generator for normally distributed random numbers,
@@ -14,6 +14,7 @@ Description: The Ziggurat generator for normally distributed random numbers,
  The package is currently in alpha state. Unless you know what you are doing,
  stick with generators provided by R which have been extremely diligently tested.
 License: GPL (>= 2)
+Depends: R (>= 3.0.0)
 Imports: parallel
 Suggests: highlight, rbenchmark, microbenchmark, lattice
 VignetteBuilder: highlight

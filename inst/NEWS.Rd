@@ -2,6 +2,13 @@
 \title{News for Package \pkg{RcppZiggurat}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 0.1.1 (2013-12-22)}{
+  \itemize{
+    \item Set dependency on R (>= 3.0.0) needed by vignette builder
+    \item Remove pdf files in vignette on cleanup to ensure rebuilds
+  }
+}
+
 \section{Changes in version 0.1.0 (2013-12-21)}{
   \itemize{
     \item Testing framework added with a standard RNG test, a new and
