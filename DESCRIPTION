@@ -11,8 +11,9 @@ Description: The Ziggurat generator for normally distributed random numbers,
  an aggregation in order to compare different implementations. The goal is to
  provide an 'faster but good enough' alternative for use with R and C++ code. 
  .
- The package is currently in alpha state. Unless you know what you are doing,
- stick with generators provided by R which have been extremely diligently tested.
+ The package is still in an early state. Unless you know what you are doing,
+ sticking with the generators provided by R may be a good idea as these have
+ been extremely diligently tested. 
 License: GPL (>= 2)
 Depends: R (>= 3.0.0)
 Imports: parallel
