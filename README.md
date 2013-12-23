@@ -15,6 +15,12 @@ generally the fastest.  This package aims to close the performance gap.
 You should know what you are doing when deploying this package. If in doubt,
 stick with the default generators.
 
+## Vignette
+ 
+The package contains a [detailed vignette](http://dirk.eddelbuettel.com/papers/RcppZiggurat.pdf)  summarizing the methods, the
+implementation as well as the statistical properties (examined via three
+different tests) and the generator speed. 
+
 ## Status
 
 The package currently contains six different implementations. Two are
@@ -23,8 +29,11 @@ used as the resulting generator has be improved as suggested by Leong et
 al.), the improved Leong et al variant, a version from the GNU GSL, a version
 from the GNU Gretl econometric program as well as a version from QuantLib.
 
-The recommended approach is to deploy `zrnorm()` and its associated seed 
-setter and getter.
+## Demo
+
+The package contains several demo scripts. Try
+
+    R> demo(package="RcppZiggurat")
 
 ## TODO
 
@@ -33,15 +42,11 @@ More testing never hurts, ...
 More generators as e.g. the modified Ziggurat implementation suggested by 
 Doornik (though his code is not under an open source licence)
 
-## Demo
+## Author
 
-The package contains several demo scripts. Try
+Dirk Eddelbuettel
 
-    R> demo(package="RcppZiggurat")
+## License
 
-## Vignette
- 
-The package also contains a short vignette summarizing the methods, the
-implementation as well as the statistical properties (examined via three
-different tests) and the generator speed.
+GPL (>= 2)
 
