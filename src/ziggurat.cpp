@@ -52,7 +52,12 @@ void zsetseedMT(int s) {
     ziggmt.setSeed(s);
 }
 
-
+// see help(RNGind) and help(Random.user) in R
+static double x;
+extern "C" double *user_norm_rand() {
+    x = ziggmt.norm();
+    return &x;
+}
 
 // Version 2 -- Derived from Leong et al, JSS, 2005
 static Ziggurat::LZLLV::ZigguratLZLLV zigglzllv;
