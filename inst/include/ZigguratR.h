@@ -70,10 +70,12 @@ namespace R {
 
     class ZigguratR : public Zigg {
     public:
-        ZigguratR() { 
+        ZigguratR(uint32_t seed=12345678) {
             init(); 
+            setSeed(seed);
         }
         ~ZigguratR() {};
+        void setSeed(const uint32_t s) { /* null-op here */ }
         inline double norm() { 
             return RNOR;
         }
