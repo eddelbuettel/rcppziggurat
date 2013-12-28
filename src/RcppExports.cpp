@@ -286,6 +286,21 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// zrnormR
+Rcpp::NumericVector zrnormR(int n);
+RcppExport SEXP RcppZiggurat_zrnormR(SEXP nSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< int >::type n(nSEXP );
+        Rcpp::NumericVector __result = zrnormR(n);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // ziggbin
 Rcpp::NumericMatrix ziggbin(int nbins, double ndraws, const std::string generator = "Ziggurat", const int seed = 42, int edge = 7, int res = 40);
 RcppExport SEXP RcppZiggurat_ziggbin(SEXP nbinsSEXP, SEXP ndrawsSEXP, SEXP generatorSEXP, SEXP seedSEXP, SEXP edgeSEXP, SEXP resSEXP) {

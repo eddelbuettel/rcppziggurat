@@ -81,6 +81,10 @@ zsetseedGl <- function(s) {
     invisible(.Call('RcppZiggurat_zsetseedGl', PACKAGE = 'RcppZiggurat', s))
 }
 
+zrnormR <- function(n) {
+    .Call('RcppZiggurat_zrnormR', PACKAGE = 'RcppZiggurat', n)
+}
+
 ziggbin <- function(nbins, ndraws, generator = "Ziggurat", seed = 42L, edge = 7L, res = 40L) {
     .Call('RcppZiggurat_ziggbin', PACKAGE = 'RcppZiggurat', nbins, ndraws, generator, seed, edge, res)
 }
