@@ -2,6 +2,13 @@
 \title{News for Package \pkg{RcppZiggurat}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 0.1.2 (2013-12-28)}{
+  \itemize{
+    \item Add a new generator deploying R's unif_rand which faciliates use
+    of Ziggurat as the user-supplied generator for N(0,1) 
+  }
+}
+
 \section{Changes in version 0.1.1 (2013-12-22)}{
   \itemize{
     \item Set dependency on R (>= 3.0.0) needed by vignette builder
