@@ -1,3 +1,14 @@
+2013-12-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* demo/notForCRANbenchmark.R: Updates to the benchmark deploying the
+	generators from Boost, Armadillo and the C++11 library -- none of
+	which are particularly fast.
+	* demo/notForCRANbenchmark.cpp: Idem for C++ side of benchmark
+
+	* .travis.yml: Do not install highlight as we check without vignettes
+
+	* man/ziggurat.Rd: Updated and extended basic manual page
+
 2013-12-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/ZigguratR.h (Ziggurat): Added a generator which uses

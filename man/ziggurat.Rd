@@ -11,6 +11,7 @@
 \alias{zrnormGSL}
 \alias{zrnormQL}
 \alias{zrnormGl}
+\alias{zrnormR}
 \alias{zsetseed}
 \alias{zsetseedV1}
 \alias{zsetseedV1b}
@@ -40,6 +41,7 @@
   zrnormGSL(n)
   zrnormQL(n)
   zrnormGl(n)
+  zrnormR(n)
   zsetseed(s)
   zsetseedV1(s)
   zsetseedLZLLV(s)
@@ -80,8 +82,19 @@
   implementation based on merging John Burkardt earlier code with the
   Leong et al improvements.  
 
-  The \sQuote{GSL} are using the GNU GSL implementation by Jochen Voss.
+  The \code{zrnormGSL} functions use the GNU GSL implementation by Jochen Voss.
   They too can be recommended for use.
+
+  The functions \code{zrnormQL} and \code{zrnormGl} use, respectively,
+  functions adapted from the GNU Gretl and QuantLib projects. They have
+  been added primarily for comparison to the other engines.
+
+  The function \code{zrnormR} uses the \code{unif_rand} uniform
+  generator from R (which defaults to the Mersenne Twister). It is
+  useful when the Zigurrat generator is used as a user-supplied
+  generator in R.  However, it stores state in R's internal structures
+  which makes it a little slower than other alternatives available here.
+
 }
 \references{
   George Marsaglia and Wai Wan Tsang. The Ziggurat Method for Generating Random Variables.
