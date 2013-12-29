@@ -3,6 +3,7 @@
 	* inst/include/ZigguratR.h (Ziggurat): Added a generator which uses
 	R's unif_rand() as a source of uniform RNG -- so that we can seed it
 	from R when Ziggurat is used as the user-supplied generator
+	* src/ziggurat.cpp: Make generator available as user_norm_rand()
 
 2013-12-22  Dirk Eddelbuettel  <edd@debian.org>
 

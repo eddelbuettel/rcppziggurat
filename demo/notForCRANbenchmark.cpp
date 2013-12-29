@@ -1,6 +1,8 @@
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+//
+// Extended benchmark also using Boost, C++11 and Armadillo.
 
 
-//#include <Rcpp.h>
 #include <RcppArmadillo.h>
 
 // ----------------------------- Boost 
@@ -82,7 +84,6 @@ NumericVector sugarNormals(int n) {
 // ignoring seed for now, could add class
 
 // [[Rcpp::depends(RcppArmadillo)]]
-
 
 // [[Rcpp::export]]
 arma::vec armaNormals(int n) {
