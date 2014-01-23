@@ -6,6 +6,8 @@
   \itemize{
     \item Add a new generator deploying R's unif_rand which faciliates use
     of Ziggurat as the user-supplied generator for N(0,1) 
+    \item Add proper import a symbol from \cpkg{Rcpp} to ensure proper
+    instantiation with the upcoming \cpkg{Rcpp} version
   }
 }
 
