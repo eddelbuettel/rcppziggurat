@@ -17,6 +17,7 @@
 \alias{zsetseedV1b}
 \alias{zsetseedLZLLV}
 \alias{zsetseedMT} 
+\alias{zsetseedGSL}
 \alias{zsetseedQL}
 \alias{zsetseedGl}
 \alias{zgetseed}
@@ -45,6 +46,9 @@
   zsetseed(s)
   zsetseedV1(s)
   zsetseedLZLLV(s)
+  zsetseedGSL(s)
+  zsetseedQL(s)
+  zsetseedGl(s)
   zsetseedMT(s)
   zgetseed()
   zgetseedV1()

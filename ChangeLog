@@ -1,6 +1,7 @@
 2014-06-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/ziggurat.cpp (zsetseedGSL): Add seed setter for GSL variant
+	* man/ziggurat.Rd: Documentation entry for GSL seed setter
 
 2014-01-26  Dirk Eddelbuettel  <edd@debian.org>
 
