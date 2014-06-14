@@ -57,6 +57,10 @@ zgetseed <- function() {
     .Call('RcppZiggurat_zgetseed', PACKAGE = 'RcppZiggurat')
 }
 
+zsetseedGSL <- function(s) {
+    invisible(.Call('RcppZiggurat_zsetseedGSL', PACKAGE = 'RcppZiggurat', s))
+}
+
 zrnormGSL <- function(n) {
     .Call('RcppZiggurat_zrnormGSL', PACKAGE = 'RcppZiggurat', n)
 }

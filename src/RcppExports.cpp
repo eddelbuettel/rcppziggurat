@@ -202,6 +202,18 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// zsetseedGSL
+void zsetseedGSL(const uint32_t s);
+RcppExport SEXP RcppZiggurat_zsetseedGSL(SEXP sSEXP) {
+BEGIN_RCPP
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< const uint32_t >::type s(sSEXP );
+        zsetseedGSL(s);
+    }
+    return R_NilValue;
+END_RCPP
+}
 // zrnormGSL
 Rcpp::NumericVector zrnormGSL(int n);
 RcppExport SEXP RcppZiggurat_zrnormGSL(SEXP nSEXP) {

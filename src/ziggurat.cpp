@@ -165,6 +165,12 @@ unsigned long int zgetseed() {
 static Ziggurat::GSL::ZigguratGSL gsl;
 
 // [[Rcpp::export]]
+void zsetseedGSL(const uint32_t s) {
+    gsl.setSeed(s);
+    return;
+}
+
+// [[Rcpp::export]]
 Rcpp::NumericVector zrnormGSL(int n) {
     Rcpp::NumericVector x(n);
     for (int i=0; i<n; i++) {
