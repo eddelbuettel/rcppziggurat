@@ -1,3 +1,8 @@
+2014-06-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/*: Switch generators from float to double to ensure
+	consistent results on 32 and 64 bit platforms
+
 2014-06-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/ziggurat.cpp (zsetseedGSL): Add seed setter for GSL variant
