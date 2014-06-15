@@ -85,7 +85,7 @@ namespace LZLLV {
         uint32_t jz, jsr, z, w, jcong;
         int32_t hz;
         uint32_t iz, kn[128]; /*, ke[256];*/
-        float wn[128],fn[128]; /*, we[256],fe[256];*/
+        double wn[128],fn[128]; /*, we[256],fe[256];*/
     
     public: 
         ZigguratLZLLV(uint32_t seed=123456789) : jsr(123456789), 
@@ -142,9 +142,9 @@ namespace LZLLV {
         }
 
         // nfix() generates variates from the residue when rejection in RNOR occurs. 
-        inline float nfix(void) {
-            const float r = 3.442620f;      // The start of the right tail 
-            float x, y;
+        inline double nfix(void) {
+            const double r = 3.442620f;      // The start of the right tail 
+            double x, y;
             for(;;) {
                 x=hz*wn[iz];                // iz==0, handles the base strip 
                 if(iz==0) {
