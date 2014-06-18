@@ -64,14 +64,14 @@ namespace Ziggurat {
 #define CONG (jcong = 69069 * jcong + 1234567)
 #define KISS ((MWC ^ CONG ) + SHR3)
     
-#define UNI  (0.5 + (signed) KISS * 0.2328306e-09)
+#define UNI  (0.5 + (int32_t) KISS * 0.2328306e-09)
 #define IUNI KISS
 #define RNOR (hz = KISS, iz = hz & 127, ( fabs ( hz ) < kn[iz] ) ? hz * wn[iz] : nfix())
 
     class Ziggurat : public Zigg {
     public:
-        Ziggurat(uint32_t seed=123456789) : jcong(234567891), jsr(123456789), 
-                                            w(345678912), z(456789123) {
+        Ziggurat(uint32_t seed=123456789) : jcong(380116160), jsr(123456789), 
+                                            w(521288629), z(362436069) {
             init();
             setSeed(seed);
         }
@@ -154,14 +154,13 @@ namespace Ziggurat {
                     return x;
                 }
                 //  Initiate, try to exit the loop.
-                hz = KISS;
+                hz = SHR3;      // note we still use SHR3; using KISS leads to degradation
                 iz = (hz & 127);
                 if (fabs(hz) < kn[iz]) {
                     return ((double) (hz * wn[iz]));
                 }
             }
         }
-
     };
 
 #undef znew

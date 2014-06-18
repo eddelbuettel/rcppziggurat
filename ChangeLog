@@ -1,3 +1,8 @@
+2014-06-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Ziggurat.h (Ziggurat): In nfix() use SHR3 like LZLLV;
+	also standard ctor constants (which get reset by init() anyway)
+
 2014-06-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/*: Switch generators from float to double to ensure
