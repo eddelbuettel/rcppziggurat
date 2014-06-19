@@ -1,0 +1,79 @@
+
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> 
+> library(RcppZiggurat)
+> 
+> cat("Default\n")
+Default
+> zsetseed(123456890)
+> print(zrnorm(10), digits=12)
+ [1] -0.0348489455891  0.1133640240572  0.4399593126786  0.8364859775316
+ [5] -1.3212429099975 -0.3842937024311  1.5063555141008 -0.5565839502005
+ [9]  0.5643957962826 -2.1546832849813
+> 
+> cat("MT\n")
+MT
+> zsetseedMT(123456890)
+> print(zrnormMT(10), digits=12)
+ [1]  0.0188738179215 -0.6381595677902 -2.4014380546905  0.4090516442993
+ [5]  0.3330368951602  0.6023299279460  0.6449064649155 -0.2741292982499
+ [9]  0.6804153809252  0.7170403875774
+> 
+> cat("LZLLV\n")
+LZLLV
+> zsetseedLZLLV(123456890)
+> print(zrnormLZLLV(10), digits=12)
+ [1] -0.0348489455891  0.1133640240572  0.4399593126786  0.8364859775316
+ [5] -1.3212429099975 -0.3842937024311  1.5063555141008 -0.5565839502005
+ [9]  0.5643957962826 -2.1546832849813
+> 
+> cat("GSL\n")
+GSL
+> zsetseedGSL(123456890)
+> print(zrnormGSL(10), digits=12)
+ [1] -1.650476460441  0.606405753842 -0.304778343813 -0.147756172432
+ [5]  0.136317911184 -0.758883899470  0.550731063558  1.533163108218
+ [9]  1.010443722865 -1.917192424457
+> 
+> cat("QL\n")
+QL
+> zsetseedQL(123456890)
+> print(zrnormQL(10), digits=12)
+ [1]  0.917830850110 -0.879766005563  0.214132565861 -0.109960090504
+ [5] -0.361868107876 -0.500701604531  1.095998248451  1.900183497759
+ [9] -1.272108279509  1.038171441513
+> 
+> cat("Gretl\n")
+Gretl
+> zsetseedGl(123456890)
+> print(zrnormGl(10), digits=12)
+ [1] -1.784654644082  0.174431550376 -0.445611269316  0.293554010471
+ [5]  0.500712117535 -1.131580711428 -1.180443283091  0.580081971147
+ [9] -0.603132150869 -0.276340651228
+> 
+> cat("R\n")
+R
+> set.seed(1234567890)
+> print(zrnormR(10), digits=12)
+ [1]  1.856208584921 -0.362168922083  0.722516226818  0.509797034629
+ [5]  0.706000272439  0.888932663304 -0.958349059430  1.404539098746
+ [9]  1.334619789479  0.873340742099
+> 
+> proc.time()
+   user  system elapsed 
+  0.392   0.025   0.414 

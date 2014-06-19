@@ -3,7 +3,14 @@
 	* inst/include/Ziggurat.h (Ziggurat): In nfix() use SHR3 like LZLLV;
 	also standard ctor constants (which get reset by init() anyway)
 
-	* vignettes/RcppZiggurat.RDate: Updated simulation results 
+	* vignettes/RcppZiggurat.RData: Updated simulation results
+
+	* tests/zigguratTest.Rout.save: Updated now that the default Ziggurat
+	generator is in fact identical to LZLLV
+
+	* tests/zigguratTestAll.R: New test to validate that results are
+	identical on 32 and 64 bit platforms
+	* tests/zigguratTestAll.Rout.save: Reference output
 
 2014-06-15  Dirk Eddelbuettel  <edd@debian.org>
 
