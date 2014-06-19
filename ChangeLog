@@ -3,6 +3,8 @@
 	* inst/include/Ziggurat.h (Ziggurat): In nfix() use SHR3 like LZLLV;
 	also standard ctor constants (which get reset by init() anyway)
 
+	* vignettes/RcppZiggurat.RDate: Updated simulation results 
+
 2014-06-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/*: Switch generators from float to double to ensure
