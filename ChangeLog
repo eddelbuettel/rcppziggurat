@@ -12,6 +12,8 @@
 	identical on 32 and 64 bit platforms
 	* tests/zigguratTestAll.Rout.save: Reference output
 
+	* vignettes/RcppZiggurat.Rnw: Added comment about cached results
+
 2014-06-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/*: Switch generators from float to double to ensure
