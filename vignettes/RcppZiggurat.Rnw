@@ -327,6 +327,7 @@ structure used here.
 
 Before comparing the speed of the different Ziggurat implementations, it is
 also illustrative to compare the different R generators.
+Figure~\ref{fig:RNormalRNGs} provides a comparison.
 
 %% this chunk generated the data plotted in the next chunk
 <<R_normal_RNGs,echo=FALSE,eval=FALSE>>=
@@ -419,15 +420,16 @@ All Ziggurat generators are significantly faster the the default generator in
 R which uses a inversion method.  Among the Ziggurat generators, we notice
 that approaches using an external uniform number generator (GNU GSL, GNU
 Gretl, QuantLib) are all slower than our compact and self-contained
-implementation which is seen as the fastest method.  A comparison to the
-original implementation and the comment follow-up (not shown here but easily
-programmable using the function in the \pkg{RcppZiggurat} package) shows them
-to be of comparable speed.
+implementation which is seen as the fastest method.  
+%% A comparison to the
+%% original implementation and the comment follow-up (not shown here but easily
+%% programmable using the function in the \pkg{RcppZiggurat} package) shows them
+%% to be of comparable speed.
 
-However, as the next section details, the initial implementation should not
-be used. And as discussed below, the bare-bones implementation of the initial
-proposals lack some safeguards suggested by modern software practice such as
-encapsulation within a class, a namespace or both.
+%% However, as the next section details, the initial implementation should not
+%% be used. And as discussed below, the bare-bones implementation of the initial
+%% proposals lack some safeguards suggested by modern software practice such as
+%% encapsulation within a class, a namespace or both.
 
 
 \section{Accuracy}
@@ -443,7 +445,8 @@ example in \cite{Brown+Eddelbuettel+Bauer:DieHarder}, a test proceeds as follow:
   always be scaled to $U(0,1)$), and then compute the sum of the $n$ values.
 \item Repeat this $m$ times to create a set of $m$ sums of uniform RNG draws.
 \item With $n$ large enough, the collection of $m$ results will converge
-  towards a mean of $n/2$ and a standard deviation of $\sqrt{n/12}$ (which is
+  towards normally distributed random variable with a mean of $n/2$ and a
+  standard deviation of $\sqrt{n/12}$ (which is 
   the Irwin-Hall distribution of the sum of uniformly distributed values).
 \item Given this asymptotic result, one can construct a probability value
   $p_i$ for each of the $m$ values using the inverse of the Normal
@@ -454,13 +457,13 @@ example in \cite{Brown+Eddelbuettel+Bauer:DieHarder}, a test proceeds as follow:
   the uniform distribution.
 \end{enumerate}
 
-Here, we can apply this test for first converting out $N(0,1)$ distributed
-values to an initial $U(0,1)$ distribution by using the inverse of the normal
-distribution.
+Here, we can apply this test for first converting the $N(0,1)$ distributed
+values produced by the given Ziggurat implementation to $U(0,1)$ distributed
+values by using the inverse of the normal distribution.
 %
 We are then ready to simulate and test.  Figure~\ref{fig:StandardTest} below displays Q-Q
 plots for the empirical distribution against the uniform, and displays the
-$p$-values of a Kolmogorov-Smirnow as well as Wilcoxon test.
+$p$-values of a Kolmogorov-Smirnow as well as a Wilcoxon test.
 
 %\setkeys{Gin}{width=0.8\textwidth}
 
@@ -483,7 +486,8 @@ original \cite{Marsaglia+Tsang:2000} generator, we can see the departure from
 the expected diagonal clearly once we draw more than $4.2 \times 10^9$ numbers
 (which is the limit of the representation of an unsigned four-byte nunber).
 However, only the Kolmogorov-Smirnow test can formally reject; the Wilcoxon
-test appear to lack sufficient power in this setting.
+test appear to lack sufficient power in this setting.  The QuantLib generator
+is seen as suspicious which $p$-value just below a conventional rejection level.
 
 \subsection{Normal Test for Normal RNG draws}
 
@@ -525,8 +529,9 @@ RcppZiggurat:::plotAll(norres)
 Results, shown in Figure~\ref{fig:NormalTest}, are qualitatively similar to
 the result discussed above. Kolmogorov-Smirnow rejects for the
 \cite{Marsaglia+Tsang:2000} generator. However, we note that the Wilcoxon
-test now has a lower $p$-value---though we would still not yet reject at
-conventional test levels.
+test now has a lower $p$-value---we would now reject at conventional test
+levels. The QuantLib implementation is now rejected by the Wilcoxon test but
+not the Kolmogorov-Smirnow.
 
 
 \subsection[chi2 test]{$\chi^2$ test}
@@ -535,7 +540,7 @@ Another test variant is the $\chi^2$ test which was also used by
 \cite{Leong+Zhang+Lee+Luk+Villasenor:2005}.  The basic idea is as follow:
 \begin{enumerate}
 \item The real line is divided into $B$ bins, equally spaced between
-  (symmetric) values distant enough from zero to that no $N(0,1)$ draw should
+  (symmetric) values distant enough from zero so that no $N(0,1)$ draw should
   exceed them.
 \item Here, we follow \cite{Leong+Zhang+Lee+Luk+Villasenor:2005} and use a
   range from -7 to 7 with a total of 200 bins.
@@ -572,7 +577,7 @@ Preceding work by \cite{Marsaglia+Tsang:2000} and
 language.  These versions were implemented in just a few lines, and used
 idioms common to C programmers such as macros and global variables.
 
-C++ programming style permits encapsulation in order to avoid possibles
+C++ programming style permits encapsulation in order to avoid possible
 collisions and side-effects. Moreover, by using a modest amount of
 object-oriented programming we can use a class structure with a common base
 class to express commonalities between the implementations.
@@ -690,7 +695,7 @@ and 64-bit operating systems.
 Each actual implementation can then encapsulate its state variable as a
 private variable inaccessible to other functions. Such a small core to each
 class also makes it feasible to provide a Ziggurat generator in each thread
-in a parellel execution framework.
+in a parallel execution framework.
 
 Our Ziggurat implementation has no external dependencies and can therefore be
 used in other projects. The testing framework used for this note has a single
@@ -703,7 +708,7 @@ standalone programs or with other scripting languages.
 \section{R Integration}
 
 In the \pkg{RcppZiggurat} package, the Rcpp Attributes
-\citep{CRAN:Rcpp:Attributes} feature of the \pkg{Rcpp} C++/R integrations
+\citep{CRAN:Rcpp:Attributes} feature of the \pkg{Rcpp} C++/R integration
 package \citep{CRAN:Rcpp,Eddelbuettel:2013:Rcpp} are used to access instances of
 the corresponding generator class.
 
@@ -791,10 +796,11 @@ We suggest a new test for random number generators producing deviates
 distributed according to the standard normal distribution by adapting and
 simplifying an existing test framework for uniform deviates.  Both tests
 confirm the (previously documented) failure of the original Ziggurat proposal
-but do not find a problem with any of the new implementations.
+but do not find a problem with any of the new implementations (apart from the
+still-experimental QuantLib generator).
 
 A key motivation for this work has been a desire to improve the speed of
-(standard-normally distributed) random numbers for R.  We find Ziggurat to be
+creating standard-normally distributed random numbers in R.  We find Ziggurat to be
 faster than the existing implementations, and hope that this generator will
 be of use to those generating large numbers of draws.
 
