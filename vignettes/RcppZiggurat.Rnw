@@ -81,15 +81,15 @@ load("RcppZiggurat.RData")
 \section{Introduction}
 
 Generating random number for use in simulation is a classic topic in
-scientific computing and about as old the field itself. Most algorithms
+scientific computing and about as old as the field itself. Most algorithms
 concentrate on the uniform distribution. Its values can be used to generate
 randomly distributed values from other distributions simply by using the
 relevant inverse function.
 
 Regarding terminology, all computational algorithms for generation
-\textsl{random} numbers are by definition deterministic. Here, we follow
+of \textsl{random} numbers are by definition deterministic. Here, we follow
 standard convention and refer to such numbers as \textsl{pseudo-random} as
-they can always be recreated given the identical seed value. We are not
+they can always be recreated given the seed value for a given sequence. We are not
 concerned in this note with \textsl{quasi-random} numbers (also called
 low-discrepnancy sequences). We consider this topic to be subset of
 pseudo-random numbers subject to distributional constraints. Without lack of
@@ -109,7 +109,7 @@ popular\footnote{Usage of a code search engine such as \url{code.ohloh.net}
   or \url{codesearch.debian.net} provides a good approximation to the
   popularity of the Ziggurat algorithm as its name is also a reasonably unique
   search term within the field of computing.} as it provides a very useful
-combination of both excellent statistical properties as well as execution speed.
+combination of both excellent statistical properties and execution speed.
 \cite{Thomas+Luk+Leong+Villasenor:2007} conclude their survey by saying that
 \begin{quote}
   the Ziggurat method, the second in speed, is about 33\% slower than the
@@ -120,8 +120,8 @@ combination of both excellent statistical properties as well as execution speed.
 \end{quote}
 
 This paper reexamines the Ziggurat method, provides a new and portable C++
-implementation, and compares it to several other Open Source implementation
-of the underlying algorithm by applying three different statistical.
+implementation, and compares it to several other Open Source implementations
+of the underlying algorithm by applying three different statistical tests.
 
 
 \section{Ziggurat}
@@ -213,9 +213,9 @@ void zigset(unsigned long jsrseed)
 
 As can be seen from Figure~\ref{fig:ZiggMT}, the Ziggurat algorithm is
 implemented in bare-bones C code using a number of macros, and two helper
-functions. The helper functions allow setting a seed, and deal with parameter
+functions. The helper functions allow setting a seed, ane d deal with parameter
 updates needed in about 2.5\% of cases.  The actual core component---the
-function to draw a random number distributed according to standard normal
+function to draw a random number distributed according to thstandard normal
 distribution---is provided by the macro \texttt{RNOR}.  Needless to say,
 using C macros is no longer cosidered \textsl{de rigeur}. Possible side
 effects include inadvertent changes in globally visible variables, as well as
@@ -227,7 +227,7 @@ developed for 32-bit operating systems where \texttt{int} and \texttt{long}
 are typically four bytes (or 32 bits) wide.  Hence the code does not produce
 correct results on a 64-bit operating system as (signed and unsigned)
 \texttt{long} types are typically eight bytes (or 64 bits) wide (whereas
-\texttt{int} is still 32 bits).c
+\texttt{int} is still 32 bits).
 
 Our modified version introduced below overcomes both issues.
 
