@@ -241,6 +241,8 @@ Rcpp::NumericVector zrnormR(int n) {
     return x;
 }
 
+// no zsetseedR() as we use set.seed() to seed R's uniform
+
 // see help(RNGind) and help(Random.user) in R
 static double x_;
 extern "C" double *user_norm_rand() {

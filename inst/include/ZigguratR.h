@@ -75,7 +75,7 @@ namespace R {
             setSeed(seed);
         }
         ~ZigguratR() {};
-        void setSeed(const uint32_t s) { /* null-op here */ }
+        void setSeed(const uint32_t s) { /* null op here as we use set.seed() */ }
         inline double norm() { 
             return RNOR;
         }
