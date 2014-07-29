@@ -1,3 +1,7 @@
+2014-07-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Makevars{,.win}: Simplify PKG_LIBS as we only need RcppGSL
+
 2014-06-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Ziggurat.h (Ziggurat): In nfix() use SHR3 like LZLLV;
