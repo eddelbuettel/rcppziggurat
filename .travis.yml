@@ -11,6 +11,8 @@ language: c
 env:
   global:
     - _R_CHECK_FORCE_SUGGESTS_=FALSE
+    - R_BUILD_ARGS="--no-build-vignettes --no-manual"
+    - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
 
 before_install:
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
@@ -19,7 +21,7 @@ before_install:
 
 install:
   - ./travis-tool.sh install_aptget libgsl0-dev
-  - ./travis-tool.sh install_r RcppGSL rbenchmark microbenchmark highlight
+  - ./travis-tool.sh install_r RcppGSL rbenchmark microbenchmark
 
 script: 
   - ./travis-tool.sh run_tests
