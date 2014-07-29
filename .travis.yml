@@ -19,7 +19,7 @@ before_install:
 
 install:
   - ./travis-tool.sh install_aptget libgsl0-dev
-  - ./travis-tool.sh install_r RcppGSL rbenchmark microbenchmark
+  - ./travis-tool.sh install_r RcppGSL rbenchmark microbenchmark highlight
 
 script: 
   - ./travis-tool.sh run_tests
