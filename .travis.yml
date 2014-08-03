@@ -14,8 +14,10 @@ env:
     - R_BUILD_ARGS="--no-build-vignettes --no-manual"
     - R_CHECK_ARGS="--no-build-vignettes --no-manual --no-vignettes"
 
+#  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+
 before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+  - curl -OL http://raw.github.com/eddelbuettel/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
 
