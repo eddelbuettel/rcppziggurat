@@ -66,7 +66,7 @@ namespace R {
 #define KISS ((unif_rand()-0.5) * UINT32MAX)
 #define UNI  (0.5 + (signed) KISS * 0.2328306e-09)
 #define IUNI KISS
-#define RNOR (hz = KISS, iz = hz & 127, ( fabs ( hz ) < kn[iz] ) ? hz * wn[iz] : nfix())
+#define RNOR (hz = KISS, iz = hz & 127, ( abs ( hz ) < kn[iz] ) ? hz * wn[iz] : nfix())
 
     class ZigguratR : public Zigg {
     public:
@@ -140,7 +140,7 @@ namespace R {
                 //  Initiate, try to exit the loop.
                 hz = KISS;
                 iz = (hz & 127);
-                if (fabs(hz) < kn[iz]) {
+                if (abs(hz) < kn[iz]) {
                     return ((double) (hz * wn[iz]));
                 }
             }

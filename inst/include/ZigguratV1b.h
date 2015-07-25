@@ -35,8 +35,7 @@
 // b) switching from use of (unsigned) long variable (which implied 32 bit
 //    at the time) to use of (u)int32_t from the stdint.h header file
 // c) removing the exponential generator
-// d) using fabs() instead of abs()
-// e) switching kn[] back to uint32_t
+// d) switching kn[] back to uint32_t
 //
 // Per the article of Leong, Zhang et al (see file ZigguratLZLLV.h
 // here), this generator based on the original Marsaglia and Tsang
@@ -74,7 +73,7 @@ namespace V1 {
             hz = shr3();
             iz = (hz & 127);
         
-            if (fabs(hz) < kn[iz]) {
+            if (abs(hz) < kn[iz]) {
                 value = (double) (hz) * wn[iz];
             } else {
                 for (;;) {
@@ -103,7 +102,7 @@ namespace V1 {
                     hz = shr3();
                     iz = (hz & 127);
                 
-                    if (fabs(hz) < kn[iz]) {
+                    if (abs(hz) < kn[iz]) {
                         value = (double) (hz) * wn[iz];
                         break;
                     }

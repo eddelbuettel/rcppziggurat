@@ -1,5 +1,8 @@
 useDynLib(RcppZiggurat)
 exportPattern("^z[[:alpha:]]+")
 
-importFrom(Rcpp, evalCpp)
-importFrom(parallel, mclapply)
+importFrom(Rcpp, "evalCpp")
+importFrom(parallel, "mclapply")
+importFrom(graphics, "abline", "legend", "mtext", "par", "plot", "segments", "title")
+importFrom(stats, "chisq.test", "ecdf", "ks.test", "pnorm", "qchisq", "wilcox.test")
+importFrom(utils, "packageVersion", "tail")

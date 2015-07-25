@@ -1,3 +1,16 @@
+2015-07-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/RcppZiggurat.bib: Updated references
+
+2015-07-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Ziggurat.h: Use abs() not fabs() on int variable
+	* inst/include/ZigguratLZLLV.h: Idem
+	* inst/include/ZigguratMT.h: Idem
+	* inst/include/ZigguratR.h: Idem
+	* inst/include/ZigguratV1.h: Idem
+	* inst/include/ZigguratV1b.h: Idem
+
 2014-07-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Makevars{,.win}: Simplify PKG_LIBS as we only need RcppGSL
