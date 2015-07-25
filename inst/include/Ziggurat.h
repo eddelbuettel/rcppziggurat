@@ -66,7 +66,7 @@ namespace Ziggurat {
     
 #define UNI  (0.5 + (int32_t) KISS * 0.2328306e-09)
 #define IUNI KISS
-#define RNOR (hz = KISS, iz = hz & 127, ( fabs ( hz ) < kn[iz] ) ? hz * wn[iz] : nfix())
+#define RNOR (hz = KISS, iz = hz & 127, ( abs ( hz ) < kn[iz] ) ? hz * wn[iz] : nfix())
 
     class Ziggurat : public Zigg {
     public:
@@ -156,7 +156,7 @@ namespace Ziggurat {
                 //  Initiate, try to exit the loop.
                 hz = SHR3;      // note we still use SHR3; using KISS leads to degradation
                 iz = (hz & 127);
-                if (fabs(hz) < kn[iz]) {
+                if (abs(hz) < kn[iz]) {
                     return ((double) (hz * wn[iz]));
                 }
             }

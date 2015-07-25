@@ -75,7 +75,7 @@ namespace LZLLV {
 //#define RNOR (hz=SHR3, iz=hz&127, (fabs(hz)<kn[iz])? hz*wn[iz] : nfix())
 //#define REXP (jz=SHR3, iz=jz&255, (    jz <ke[iz])? jz*we[iz] : efix())
 
-#define RNOR (hz=KISS, iz=hz&127, (fabs(hz)<kn[iz])? hz*wn[iz] : nfix())
+#define RNOR (hz=KISS, iz=hz&127, (abs(hz)<kn[iz])? hz*wn[iz] : nfix())
 
 #define UNI (.5 + (int32_t) KISS*.2328306e-9)
 #define IUNI KISS
@@ -158,7 +158,7 @@ namespace LZLLV {
                 // initiate, try to exit for(;;) for loop*/
                 hz=SHR3;
                 iz=hz&127;
-                if(fabs(hz)<kn[iz]) return (hz*wn[iz]);
+                if(abs(hz)<kn[iz]) return (hz*wn[iz]);
             }
         }
     };
