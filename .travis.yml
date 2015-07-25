@@ -1,18 +1,11 @@
 # Sample .travis.yml for R projects.
-# Taken from my fork of Craig Citro's r-travis
 #
-# See https://github.com/eddelbuettel/r-travis/
-# and https://github.com/craigcitro/r-travis
-#
-# See README.md for instructions.
+# See https://github.com/craigcitro/r-travis 
+#     https://github.com/eddelbuettel/r-travis/
+
+sudo: required                                     
 
 language: c
-
-env:
-  global:
-    - _R_CHECK_FORCE_SUGGESTS_=FALSE
-    - R_BUILD_ARGS="--no-build-vignettes --no-manual"
-    - R_CHECK_ARGS="--no-build-vignettes --no-manual --no-vignettes"
 
 before_install:
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
@@ -20,8 +13,7 @@ before_install:
   - ./travis-tool.sh bootstrap
 
 install:
-  - ./travis-tool.sh install_aptget libgsl0-dev
-  - ./travis-tool.sh install_r RcppGSL rbenchmark microbenchmark highlight
+  - ./travis-tool.sh install_aptget libgsl0-dev r-cran-rcppgsl r-cran-rbenchmark r-cran-microbenchmark r-cran-highlight
 
 script: 
   - ./travis-tool.sh run_tests

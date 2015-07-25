@@ -1,5 +1,7 @@
 2015-07-25  Dirk Eddelbuettel  <edd@debian.org>
 
+	* .travis.yml: Use r-cran-* packages for faster test
+
 	* vignettes/RcppZiggurat.bib: Updated references
 
 2015-07-24  Dirk Eddelbuettel  <edd@debian.org>
