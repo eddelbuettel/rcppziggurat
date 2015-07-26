@@ -34,7 +34,7 @@ res <- benchmark(zrnormMT(N),       # Marsgalia and Tsang, JSS, 2000
                  replications=1000, order="relative")
 print(res[,1:4])
 
-if (require(microbenchmark)) {
+if (requireNamespace("microbenchmark", quietly=TRUE)) {
     res <- microbenchmark(zrnormMT(N), zrnorm(N), zrnormLZLLV(N), zrnormGSL(N), zrnormQL(N),
                           zrnormGl(N), zrnormV1(N), zrnormV1b(N), rnorm(N),
                           times=1000, control=list(warmup=20))
@@ -43,5 +43,7 @@ if (require(microbenchmark)) {
                         levels=oo,
                         labels=levels(res$expr)[oo])
     print(res)
-    if (interactive()) autoplot(res)
+    if (interactive())
+        if (requireNamespace("ggplot2", quietly=TRUE))
+            ggplot2::autoplot(res)
 }

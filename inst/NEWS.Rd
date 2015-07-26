@@ -2,6 +2,25 @@
 \title{News for Package \pkg{RcppZiggurat}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 0.1.3 (2015-07-25)}{
+  \itemize{
+    \item Use the \code{SHR3} generator for the default implementation
+    just like Leong et al do, making our default implementation
+    identical to theirs (but 32- and 64-bit compatible)
+    \item Switched generators from \code{float} to \code{double}
+    ensuring that results are identical on 32- and 64-bit platforms
+    \item Simplified builds with respect to GSL use via the
+    \cpkg{RcppGSL} package; added a seed setter for the GSL variant
+    \item Corrected use of \code{fabs()} to \code{abs()} on integer
+    variables, with a grateful nod to Brian Ripley for the hint (based
+    on CRAN checks on the beloved Slowlaris machines)
+    \item Accelerated Travis CI tests by relying exclusively on
+    \code{r-cran-*} packages from the PPAs by Michael Rutter and myself
+    \item Updated \code{DESCRIPTION} and \code{NAMESPACE} according to
+    current best practices, and \code{R-devel CMD check --as-cran} checks
+  }
+}
+
 \section{Changes in version 0.1.2 (2013-12-28)}{
   \itemize{
     \item Add a new generator deploying R's unif_rand which faciliates use
