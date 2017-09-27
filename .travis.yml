@@ -13,7 +13,7 @@ before_install:
   - ./run.sh bootstrap
 
 install:
-  - ./run.sh install_aptget libgsl0-dev r-cran-rcppgsl r-cran-rbenchmark r-cran-microbenchmark r-cran-highlight
+  - ./run.sh install_aptget libgsl0-dev r-cran-rcppgsl r-cran-rbenchmark r-cran-microbenchmark r-cran-pinp
   
 script:
   - ./run.sh run_tests
@@ -25,7 +25,3 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
-    
-
-
