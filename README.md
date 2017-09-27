@@ -1,4 +1,4 @@
-## RcppZiggurat [![Build Status](https://travis-ci.org/eddelbuettel/rcppziggurat.svg)](https://travis-ci.org/eddelbuettel/rcppziggurat) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN](http://www.r-pkg.org/badges/version/RcppZiggurat)](http://cran.rstudio.com/package=RcppZiggurat) [![Downloads](http://cranlogs.r-pkg.org/badges/RcppZiggurat?color=brightgreen)](http://www.r-pkg.org/pkg/RcppZiggurat)
+## RcppZiggurat [![Build Status](https://travis-ci.org/eddelbuettel/rcppziggurat.svg)](https://travis-ci.org/eddelbuettel/rcppziggurat) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN](http://www.r-pkg.org/badges/version/RcppZiggurat)](https://cran.r-project.org/package=RcppZiggurat) [![Downloads](http://cranlogs.r-pkg.org/badges/RcppZiggurat?color=brightgreen)](http://www.r-pkg.org/pkg/RcppZiggurat)
 
 Rcpp Bindings for Ziggurat RNGs
 
