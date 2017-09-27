@@ -2,6 +2,13 @@
 \title{News for Package \pkg{RcppZiggurat}}
 \newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 0.1.4 (2017-07-27)}{
+  \itemize{
+    \item The vignette now uses the pinp package in two-column mode.
+    \item Dynamic symbol registration is now enabled.
+  }
+}
+
 \section{Changes in version 0.1.3 (2015-07-25)}{
   \itemize{
     \item Use the \code{SHR3} generator for the default implementation
