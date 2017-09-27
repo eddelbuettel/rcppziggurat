@@ -5,6 +5,10 @@
 	* vignettes/RcppZiggurat.Rmd: Renamed, now uses pinp package
 	* vignettes/.install_extras.inactive: No longer install .bib
 
+	* NAMESPACE: Added .registration=TRUE
+	* R/RcppExports.R: Regenerated for dynamic symbol registration
+	* src/RcppExports.cpp: Idem
+
 2017-08-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml: Use run.sh from r-travis

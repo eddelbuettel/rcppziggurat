@@ -1,4 +1,4 @@
-useDynLib(RcppZiggurat)
+useDynLib(RcppZiggurat, .registration=TRUE)
 exportPattern("^z[[:alpha:]]+")
 
 importFrom(Rcpp, "evalCpp")
