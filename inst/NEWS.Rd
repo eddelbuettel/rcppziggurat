@@ -2,7 +2,11 @@
 \title{News for Package \pkg{RcppZiggurat}}
 \newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in version 0.1.4 (2017-07-27)}{
+\section{Changes in version 0.1.4 [unreleased] (2017-xx-yy)}{
+  \item Description rewritten using doi for references.
+}
+
+\section{Changes in version 0.1.4 (2017-09-27)}{
   \itemize{
     \item The vignette now uses the pinp package in two-column mode.
     \item Dynamic symbol registration is now enabled.
