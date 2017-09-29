@@ -6,9 +6,9 @@ Date: 2017-09-28
 Author: Dirk Eddelbuettel <edd@debian.org>
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Description: The Ziggurat generator for normally distributed random
- numbers, originally proposed by Marsaglia and Tsang in 2000 
- <doi:10.18637/jss.v005.i08> has been improved upon a few times
- starting with Leong et al in 2005 <doi:10.18637/jss.v012.i07>.
+ numbers, originally proposed by Marsaglia and Tsang (2000, 
+ <doi:10.18637/jss.v005.i08>) has been improved upon a few times
+ starting with Leong et al (2005, <doi:10.18637/jss.v012.i07>).
  This package provides an aggregation in order to compare different
  implementations in order to provide an 'faster but good enough'
  alternative for use with R and C++ code.
