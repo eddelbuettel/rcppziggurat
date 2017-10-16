@@ -76,7 +76,8 @@ namespace Ziggurat {
             setSeed(seed);
         }
         ~Ziggurat() {};
-        void setSeed(const uint32_t s) { 
+        void setSeed(const uint32_t s) {
+            jsr = 123456789;
             if (jsr != s) {         // avoid setting jsr to 0
                 jsr ^= s; 
             }
