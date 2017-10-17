@@ -1,8 +1,8 @@
 Package: RcppZiggurat
 Type: Package
 Title: 'Rcpp' Integration of Different "Ziggurat" Normal RNG Implementations
-Version: 0.1.4.1
-Date: 2017-09-28
+Version: 0.1.4.2
+Date: 2017-10-17
 Author: Dirk Eddelbuettel <edd@debian.org>
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Description: The Ziggurat generator for normally distributed random

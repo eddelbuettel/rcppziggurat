@@ -1,3 +1,16 @@
+2017-10-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* src/init.c: Re-added with manual entry for user_norm_rand()
+	* src/RcppExport.cpp: Remove dynamic registration part
+
+2017-10-09  Ralf Stubner  <ralf.stubner@r-institute.com>
+
+	* inst/include/Ziggurat.h: Correct state when setting seed
+	* tests/zigguratTest.R: Adjust tests
+	* tests/zigguratTest.Rout.save: Idem
+
 2017-09-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Description): Rewrote using <doi:...> URLs

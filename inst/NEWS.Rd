@@ -4,6 +4,10 @@
 
 \section{Changes in version 0.1.4 [unreleased] (2017-xx-yy)}{
   \item Description rewritten using doi for references.
+  \item Re-setting the Ziggurat generator seed now correctly re-sets
+  state (Ralf Stubner in \ghpr{#7} fixing \ghit{#3})
+  \item Dynamic registration reverts to manual mode so that
+  user_norm_rand() is visible as well (\ghit{#7}).
 }
 
 \section{Changes in version 0.1.4 (2017-09-27)}{
