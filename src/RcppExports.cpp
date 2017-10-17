@@ -283,37 +283,3 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-
-static const R_CallMethodDef CallEntries[] = {
-    {"_RcppZiggurat_zrnormMT", (DL_FUNC) &_RcppZiggurat_zrnormMT, 1},
-    {"_RcppZiggurat_zsetseedMT", (DL_FUNC) &_RcppZiggurat_zsetseedMT, 1},
-    {"_RcppZiggurat_zrnormLZLLV", (DL_FUNC) &_RcppZiggurat_zrnormLZLLV, 1},
-    {"_RcppZiggurat_zsetseedLZLLV", (DL_FUNC) &_RcppZiggurat_zsetseedLZLLV, 1},
-    {"_RcppZiggurat_zrnormV1", (DL_FUNC) &_RcppZiggurat_zrnormV1, 1},
-    {"_RcppZiggurat_zrnormVecV1", (DL_FUNC) &_RcppZiggurat_zrnormVecV1, 1},
-    {"_RcppZiggurat_zrnormStlV1", (DL_FUNC) &_RcppZiggurat_zrnormStlV1, 1},
-    {"_RcppZiggurat_zsetseedV1", (DL_FUNC) &_RcppZiggurat_zsetseedV1, 1},
-    {"_RcppZiggurat_zgetseedV1", (DL_FUNC) &_RcppZiggurat_zgetseedV1, 0},
-    {"_RcppZiggurat_zrnorm", (DL_FUNC) &_RcppZiggurat_zrnorm, 1},
-    {"_RcppZiggurat_zrnormVec", (DL_FUNC) &_RcppZiggurat_zrnormVec, 1},
-    {"_RcppZiggurat_zrnormStl", (DL_FUNC) &_RcppZiggurat_zrnormStl, 1},
-    {"_RcppZiggurat_zsetseed", (DL_FUNC) &_RcppZiggurat_zsetseed, 1},
-    {"_RcppZiggurat_zgetseed", (DL_FUNC) &_RcppZiggurat_zgetseed, 0},
-    {"_RcppZiggurat_zsetseedGSL", (DL_FUNC) &_RcppZiggurat_zsetseedGSL, 1},
-    {"_RcppZiggurat_zrnormGSL", (DL_FUNC) &_RcppZiggurat_zrnormGSL, 1},
-    {"_RcppZiggurat_zrnormV1b", (DL_FUNC) &_RcppZiggurat_zrnormV1b, 1},
-    {"_RcppZiggurat_zrnormQL", (DL_FUNC) &_RcppZiggurat_zrnormQL, 1},
-    {"_RcppZiggurat_zsetseedQL", (DL_FUNC) &_RcppZiggurat_zsetseedQL, 1},
-    {"_RcppZiggurat_zrnormGl", (DL_FUNC) &_RcppZiggurat_zrnormGl, 1},
-    {"_RcppZiggurat_zsetseedGl", (DL_FUNC) &_RcppZiggurat_zsetseedGl, 1},
-    {"_RcppZiggurat_zrnormR", (DL_FUNC) &_RcppZiggurat_zrnormR, 1},
-    {"_RcppZiggurat_ziggbin", (DL_FUNC) &_RcppZiggurat_ziggbin, 6},
-    {"_RcppZiggurat_ziggsum", (DL_FUNC) &_RcppZiggurat_ziggsum, 4},
-    {"_RcppZiggurat_ziggtest", (DL_FUNC) &_RcppZiggurat_ziggtest, 4},
-    {NULL, NULL, 0}
-};
-
-RcppExport void R_init_RcppZiggurat(DllInfo *dll) {
-    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
-    R_useDynamicSymbols(dll, FALSE);
-}
