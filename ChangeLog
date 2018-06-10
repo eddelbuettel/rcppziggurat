@@ -1,3 +1,14 @@
+2018-06-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.1.5
+
+	* vignettes/header.tex: Split off vignette as pandoc 2.* no longer
+	allows embedding this in the header [CRAN request]
+	* vignettes/bib.tex: Idem, also updated entries
+	* vignettes/RcppZiggurat.Rmd: Use bib.tex and header.tex
+
+	* tests/zigguratTest.Rout.save: Updated for minor rounding issue
+
 2017-10-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

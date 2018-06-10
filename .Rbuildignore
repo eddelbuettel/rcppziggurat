@@ -8,3 +8,4 @@ demo/oldRgenerator.R
 vignettes/.install_extras
 inst/code/ziggurat_code.zip
 inst/papers
+.*\.tar\.gz$

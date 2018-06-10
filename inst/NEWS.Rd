@@ -1,13 +1,17 @@
 \name{NEWS}
 \title{News for Package \pkg{RcppZiggurat}}
-\newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+\newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rcppziggurat/pull/#1}{##1}}
+\newcommand{\ghit}{\href{https://github.com/eddelbuettel/rcppziggurat/issues/#1}{##1}}
 
-\section{Changes in version 0.1.4 [unreleased] (2017-xx-yy)}{
-  \item Description rewritten using doi for references.
-  \item Re-setting the Ziggurat generator seed now correctly re-sets
-  state (Ralf Stubner in \ghpr{#7} fixing \ghit{#3})
-  \item Dynamic registration reverts to manual mode so that
-  user_norm_rand() is visible as well (\ghit{#7}).
+\section{Changes in version 0.1.5 (2018-06-10)}{
+  \itemize{
+    \item Description rewritten using doi for references.
+    \item Re-setting the Ziggurat generator seed now correctly re-sets
+    state (Ralf Stubner in \ghpr{7} fixing \ghit{3})
+    \item Dynamic registration reverts to manual mode so that
+    user_norm_rand() is visible as well (\ghit{7}).
+    \item The vignette was updated to accomodate pandoc 2* [CRAN request].
+  }
 }
 
 \section{Changes in version 0.1.4 (2017-09-27)}{
@@ -25,7 +29,7 @@
     \item Switched generators from \code{float} to \code{double}
     ensuring that results are identical on 32- and 64-bit platforms
     \item Simplified builds with respect to GSL use via the
-    \cpkg{RcppGSL} package; added a seed setter for the GSL variant
+    \CRANpkg{RcppGSL} package; added a seed setter for the GSL variant
     \item Corrected use of \code{fabs()} to \code{abs()} on integer
     variables, with a grateful nod to Brian Ripley for the hint (based
     on CRAN checks on the beloved Slowlaris machines)
@@ -42,9 +46,9 @@
     of Ziggurat as the user-supplied generator for N(0,1) 
     \item Update a 'local' demo comparing normal distribution RNGs from
     Boost, C++11 and Armadillo none of which are particularly speedy
-    \item Add declaration to import a symbol from \cpkg{Rcpp} to
+    \item Add declaration to import a symbol from \CRANpkg{Rcpp} to
     \code{NAMESPACE} to ensure proper instantiation with the upcoming
-    \cpkg{Rcpp} version 
+    \CRANpkg{Rcpp} version 
   }
 }
 
