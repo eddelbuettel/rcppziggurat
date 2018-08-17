@@ -277,7 +277,7 @@ void zigset(unsigned long jsrseed)
 
 As can be seen from Figure \ref{fig:ZiggMT}, the Ziggurat algorithm is
 implemented in bare-bones C code using a number of macros, and two helper
-functions. The helper functions allow setting a seed, ane d deal with parameter
+functions. The helper functions allow setting a seed, and deal with parameter
 updates needed in about 2.5\% of cases.  The actual core component---the
 function to draw a random number distributed according to thstandard normal
 distribution---is provided by the macro \texttt{RNOR}.  Needless to say,
@@ -425,7 +425,7 @@ bwplot(time/1e6 ~ expr, rdf,
   \begin{minipage}{0.475\textwidth}
     \begin{center}
       \includegraphics[width=0.95\textwidth]{figures/timingZiggurat}
-      \caption{Ziggurant and R Normal RNG Generator Performance 
+      \caption{Ziggurat and R Normal RNG Generator Performance 
       \label{fig:ZiggRNormalRNGs}}
       \begin{minipage}{0.8\textwidth}
         \scriptsize Note: Figure shows timings from the \pkg{microbenchmark} package using
@@ -486,7 +486,7 @@ print(bwplot(time/1e6 ~ expr, zdf, ylab="Time in msec",
     \end{minipage}
   \end{center}
 \end{figure}
-FIXME \ caption{Ziggurant and R Normal RNG Generator Performance \label{fig:ZiggRNormalRNGs}}-->
+FIXME \ caption{Ziggurat and R Normal RNG Generator Performance \label{fig:ZiggRNormalRNGs}}-->
 
 
 
@@ -528,7 +528,7 @@ example in \cite{Brown+Eddelbuettel+Bauer:DieHarder}, a test proceeds as follow:
   distribution using the known mean and standard deviation from the
   Irwin-Hall distribution.
 \item We now have $m$ uniformly distributed values. A standard test such as
-  Kolmogorov-Smirnow or Wilcoxon can be used to test against departures from
+  Kolmogorov-Smirnov or Wilcoxon can be used to test against departures from
   the uniform distribution.
 \end{enumerate}
 
@@ -537,7 +537,7 @@ values produced by the given Ziggurat implementation to $U(0,1)$ distributed
 values by using the inverse of the normal distribution.
 We are then ready to simulate and test.  Figure \ref{fig:StandardTest} below displays Q-Q
 plots for the empirical distribution against the uniform, and displays the
-$p$-values of a Kolmogorov-Smirnow as well as a Wilcoxon test.
+$p$-values of a Kolmogorov-Smirnov as well as a Wilcoxon test.
 
 <!-- %\setkeys{Gin}{width=0.8\textwidth}-->
 
@@ -574,7 +574,7 @@ We see that five of the six generators pass the test. In the case of the
 original \cite{Marsaglia+Tsang:2000} generator, we can see the departure from
 the expected diagonal clearly once we draw more than $4.2 \times 10^9$ numbers
 (which is the limit of the representation of an unsigned four-byte nunber).
-However, only the Kolmogorov-Smirnow test can formally reject; the Wilcoxon
+However, only the Kolmogorov-Smirnov test can formally reject; the Wilcoxon
 test appear to lack sufficient power in this setting.  The QuantLib generator
 is seen as suspicious which $p$-value just below a conventional rejection level.
 
@@ -582,8 +582,8 @@ is seen as suspicious which $p$-value just below a conventional rejection level.
 
 We can propose a simpler variant of the test outlined in the previous
 section.  As the random numbers we are drawing are following a $N(0,1)$
-distribution, the sum of their values follows a $N(0, \sqrt(N)$
-distribution.   This allows us to skip one inversion step:
+distribution, the sum of their values follows a $N(0, n)$
+distribution. This allows us to skip one inversion step:
 
 \begin{enumerate}
 \item Take $n$ draws from a $N(0,1)$ distribution and then compute the sum of
@@ -596,7 +596,7 @@ distribution.   This allows us to skip one inversion step:
   $p_i$ for each of the $m$ values using the inverse of the Normal
   distribution using the known mean and standard deviation.
 \item We again have $m$ uniformly distributed values. A standard test such as
-  Kolmogorov-Smirnow or Wilcoxon can be used to test against departures from
+  Kolmogorov-Smirnov or Wilcoxon can be used to test against departures from
   the uniform distribution.
 \end{enumerate}
 
@@ -620,11 +620,11 @@ FIXME   \ caption{Normal Test applied to Ziggurat generators \label{fig:NormalTe
 
 
 Results, shown in Figure \ref{fig:NormalTest}, are qualitatively similar to
-the result discussed above. Kolmogorov-Smirnow rejects for the
+the result discussed above. Kolmogorov-Smirnov rejects for the
 \cite{Marsaglia+Tsang:2000} generator. However, we note that the Wilcoxon
 test now has a lower $p$-value---we would now reject at conventional test
 levels. The QuantLib implementation is now rejected by the Wilcoxon test but
-not the Kolmogorov-Smirnow.
+not the Kolmogorov-Smirnov.
 
 
 ## $\chi^2$ test
