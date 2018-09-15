@@ -91,7 +91,22 @@ namespace Ziggurat {
         inline double norm() {
             return RNOR;
         }
-
+        std::vector<uint32_t> getPars() {
+            //C++11: std::vector<uint32_t> pars{ jsr, z, w, jcong };
+            std::vector<uint32_t> pars;
+            pars.push_back(jsr);
+            pars.push_back(z);
+            pars.push_back(w);
+            pars.push_back(jcong);
+            return pars; 
+        }
+        void setPars(std::vector<uint32_t> pars) {
+            jsr = pars[0];
+            z = pars[1];
+            w = pars[2];
+            jcong = pars[3];
+        }
+        
     private:
         double fn[128];
         int32_t hz;

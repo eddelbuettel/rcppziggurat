@@ -57,6 +57,14 @@ zgetseed <- function() {
     .Call(`_RcppZiggurat_zgetseed`)
 }
 
+zgetpars <- function() {
+    .Call(`_RcppZiggurat_zgetpars`)
+}
+
+zsetpars <- function(p) {
+    invisible(.Call(`_RcppZiggurat_zsetpars`, p))
+}
+
 zsetseedGSL <- function(s) {
     invisible(.Call(`_RcppZiggurat_zsetseedGSL`, s))
 }

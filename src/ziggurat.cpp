@@ -159,7 +159,21 @@ unsigned long int zgetseed() {
     return zigg.getSeed();
 }
 
+// [[Rcpp::export]]
+Rcpp::NumericVector zgetpars() {
+    return Rcpp::wrap(zigg.getPars());
+}
 
+// [[Rcpp::export]]
+void zsetpars(Rcpp::NumericVector p) {
+    std::vector<uint32_t> pars;
+    for (int i = 0; i < 4; i++) {
+        uint32_t par_i = static_cast<uint32_t>(p[i]);
+        pars.push_back(par_i);
+    }
+    zigg.setPars(pars);
+    return;
+}
 
 // Version 5 -- Wrapping the GSL version
 static Ziggurat::GSL::ZigguratGSL gsl;
