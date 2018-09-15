@@ -13,6 +13,8 @@
 
 	* inst/NEWS.Rd: Updated
 
+	* .travis.yml: Run Travis with Docker and rcpp/plus container
+
 2018-09-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml: Switch Travis CI to R 3.5 repo

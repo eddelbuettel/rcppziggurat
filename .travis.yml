@@ -1,29 +1,32 @@
-# Run Travis CI for R using https://eddelbuettel.github.io/r-travis/
+# Run Travis CI for R via Docker
+#
+# Made by Dirk Eddelbuettel in September 2018 and released under GPL (>=2)
 
-language: c
-sudo: required
+os: linux
 dist: trusty
+sudo: required
+services: docker
 
 env:
   global:
-    - R_VERSION="3.4"
+    - DOCKER_OPTS="--rm -ti -v $(pwd):/mnt -w /mnt"
+      DOCKER_CNTR="rcpp/plus"
+      R_BLD_CHK_OPTS="--no-build-vignettes --no-manual"
 
 before_install:
-  - curl -OLs https://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
-  # add our launchpad repo which has (inter alia) r-cran-pinp
-  - sudo add-apt-repository -y ppa:edd/misc
-  - ./run.sh bootstrap
- 
-install:
-  - ./run.sh install_aptget libgsl0-dev r-cran-rcppgsl r-cran-rbenchmark r-cran-microbenchmark r-cran-pinp
-  
-script:
-  - ./run.sh run_tests
+  - docker pull ${DOCKER_CNTR}
+  - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} r -p -e 'sessionInfo()'
 
-after_failure:
-  - ./run.sh dump_logs
+install:
+  - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD build ${R_BLD_CHK_OPTS} .
+
+script:
+  - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD check ${R_BLD_CHK_OPTS} RcppZiggurat_*.tar.gz
 
 notifications:
   email:
     on_success: change
     on_failure: change
+
+
+    
