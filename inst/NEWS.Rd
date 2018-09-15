@@ -3,6 +3,15 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rcppziggurat/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rcppziggurat/issues/#1}{##1}}
 
+\section{Changes in version 0.1.6 (2018-xx-yy)}{
+  \itemize{
+    \item Several typos were corrected in the vignette (Blagoje Ivanovic
+    in \ghpr{9}).
+    \item New getters and setters for internal state were added to
+    resume simulations (Dirk in \ghpr{11} fixing \ghit{10}).
+  }
+}
+
 \section{Changes in version 0.1.5 (2018-06-10)}{
   \itemize{
     \item Description rewritten using doi for references.

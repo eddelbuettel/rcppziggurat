@@ -1,3 +1,22 @@
+2018-09-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* inst/include/Ziggurat.h (Ziggurat): Added parameter getter and
+	setter covering the four internal parameters
+	* src/ziggurat.cpp (zgetpars, zsetpars): Added accessors
+
+	* man/ziggurat.Rd: Added documentation
+
+	* src/init.c: Deleted, content now in RcppExports.cpp
+	* src/RcppExports.cpp: Updated
+
+	* inst/NEWS.Rd: Updated
+
+2018-08-17  Blagoje Ivanovic  <blagoje.r.ivanovic@gmail.com>
+
+	* vignettes/RcppZiggurat.Rmd: Correct several typos
+
 2018-06-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.1.5
