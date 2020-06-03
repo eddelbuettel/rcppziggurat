@@ -2,6 +2,8 @@
 
 	* README.md: Added 'last commit' badge
 
+	* .travis.yml (dist): Switch to bionic
+
 2019-06-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Author): Use name without email as in other packages

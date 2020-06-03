@@ -3,7 +3,7 @@
 # Made by Dirk Eddelbuettel in September 2018 and released under GPL (>=2)
 
 os: linux
-dist: trusty
+dist: bionic
 sudo: required
 services: docker
 
