@@ -1,5 +1,9 @@
 2020-10-15  Dirk Eddelbuettel  <edd@debian.org>
 
+	* README.md: Update one URLs to new updated value
+	* man/RcppZiggurat-package.Rd: Idem
+	* man/ziggurat.Rd: Idem
+
 	* .travis.yml (dist): Switch to focal, tweak PKG_TGZ setting
 
 2020-06-03  Dirk Eddelbuettel  <edd@debian.org>
