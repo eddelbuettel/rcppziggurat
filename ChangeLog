@@ -1,3 +1,7 @@
+2020-10-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml (dist): Switch to focal, tweak PKG_TGZ setting
+
 2020-06-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Added 'last commit' badge
