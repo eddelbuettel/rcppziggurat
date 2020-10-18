@@ -1,6 +1,8 @@
 2020-10-18  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/RcppZiggurat.Rmd (Rcpp): Remove old tweak no final
+	* DESCRIPTION (Version, Date): Release 0.1.6
+
+	* vignettes/RcppZiggurat.Rmd (Rcpp): Remove old tweak on final
 	pagebreak no longer needed with updated pinp package
 
 2020-10-15  Dirk Eddelbuettel  <edd@debian.org>

@@ -3,12 +3,13 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rcppziggurat/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rcppziggurat/issues/#1}{##1}}
 
-\section{Changes in version 0.1.6 (2018-xx-yy)}{
+\section{Changes in version 0.1.6 (2020-10-18)}{
   \itemize{
     \item Several typos were corrected in the vignette (Blagoje Ivanovic
     in \ghpr{9}).
     \item New getters and setters for internal state were added to
     resume simulations (Dirk in \ghpr{11} fixing \ghit{10}).
+    \item Minor updates to \code{cleanup} script and Travis CI setup (Dirk).
   }
 }
 
