@@ -1,3 +1,8 @@
+2020-10-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/RcppZiggurat.Rmd (Rcpp): Remove old tweak no final
+	pagebreak no longer needed with updated pinp package
+
 2020-10-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Update one URLs to new updated value
@@ -5,6 +10,8 @@
 	* man/ziggurat.Rd: Idem
 
 	* .travis.yml (dist): Switch to focal, tweak PKG_TGZ setting
+
+	* cleanup: Change shebang to #!/bin/sh
 
 2020-06-03  Dirk Eddelbuettel  <edd@debian.org>
 

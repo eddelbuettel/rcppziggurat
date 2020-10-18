@@ -40,6 +40,7 @@ footer_contents: "RcppZiggurat Vignette"
 # Produce a pinp document
 output:
   pinp::pinp:
+    keep_tex: FALSE
     includes:
       in_header: header.tex
       after_body: bib.tex
@@ -901,8 +902,3 @@ A key motivation for this work has been a desire to improve the speed of
 creating standard-normally distributed random numbers in R.  We find Ziggurat to be
 faster than the existing implementations, and hope that this generator will
 be of use to those generating large numbers of draws.
-
-
-<!-- local tweak to the pnasbreak command -->
-\renewcommand{\pnasbreak}{\begin{strip}\vskip0pt\end{strip}}
-\phantom{xxx} <!-- if this isn't here the next para runs in-->
