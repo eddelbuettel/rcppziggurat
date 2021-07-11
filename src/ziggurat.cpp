@@ -23,6 +23,9 @@
 // Burkhardt implements the original paper  http://www.jstatsoft.org/v05/i08/paper
 // but (initially) NOT the comment paper    http://www.jstatsoft.org/v12/i07/paper
 // following email with Burkhard has modified
+
+// [[Rcpp::interfaces(r, cpp)]]
+
 #include <Rcpp.h>
 
 #include <ZigguratMT.h>     

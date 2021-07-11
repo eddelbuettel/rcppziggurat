@@ -19,4 +19,4 @@ Suggests: rbenchmark, microbenchmark, lattice, knitr, rmarkdown, pinp
 URL: https://github.com/eddelbuettel/rcppziggurat, https://dirk.eddelbuettel.com/code/rcpp.ziggurat.html
 BugReports: https://github.com/eddelbuettel/rcppziggurat/issues
 VignetteBuilder: knitr
-LinkingTo: Rcpp, RcppGSL
+LinkingTo: Rcpp

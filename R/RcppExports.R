@@ -109,3 +109,7 @@ ziggtest <- function(nbins, ndraws, generator = "Ziggurat", seed = 42L) {
     .Call(`_RcppZiggurat_ziggtest`, nbins, ndraws, generator, seed)
 }
 
+# Register entry points for exported C++ functions
+methods::setLoadAction(function(ns) {
+    .Call('_RcppZiggurat_RcppExport_registerCCallable', PACKAGE = 'RcppZiggurat')
+})
