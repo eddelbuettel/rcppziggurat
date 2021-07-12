@@ -3,6 +3,15 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rcppziggurat/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rcppziggurat/issues/#1}{##1}}
 
+\section{Changes in version 0.1.7 (2021-xx-yy)}{
+  \itemize{
+    \item The CI setup was updated to use \code{run.sh} from
+    \href{https://eddelbuettel.github.io/r-ci/}{r-ci} (Dirk).
+    \item The windows build was updated to GSL 2.7, and UCRT support was
+    added (Jeroen in \ghpr{16}).
+  }
+}
+
 \section{Changes in version 0.1.6 (2020-10-18)}{
   \itemize{
     \item Several typos were corrected in the vignette (Blagoje Ivanovic
