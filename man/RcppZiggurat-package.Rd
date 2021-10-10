@@ -26,12 +26,12 @@
 \references{
   George Marsaglia and Wai Wan Tsang. The Ziggurat Method for Generating Random Variables.
   Journal of Statistical Software, Vol 5, Iss 8, Oct 2000
-  \url{https://www.jstatsoft.org/v05/i08}
+  \url{https://doi.org/10.18637/jss.v005.i08}
    
   Philip H W Leong, Ganglie Zhang, Dong-U Lee, Wayne Luk, and John Villasenor.
   A Comment on the Implementation of the Ziggurat method,
   Journal of Statistical Software, Vol 12, Iss 7, Feb 2005
-  \url{https://www.jstatsoft.org/v12/i07}
+  \url{https://doi.org/10.18637/jss.v012.i07}
 
   Website of John Burkardt. \url{https://people.sc.fsu.edu/~jburkardt/}
 
