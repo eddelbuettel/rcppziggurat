@@ -23,7 +23,7 @@ normalTest <- function(N=1e5,      	# individual draws
     res <- mclapply(generators, FUN=function(g, seed) {
         res <- ziggsum(M, N, g, seed)
         v <- pnorm(res, sd=sqrt(N))
-    }, seed, mc.cores=getOption("mc.cores", 2L))
+    }, seed, mc.cores=.safeMaxCores())
 
     names(res) <- generators
     res <- as.data.frame(res)

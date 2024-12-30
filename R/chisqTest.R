@@ -22,7 +22,7 @@ chisqTest <- function(draws=1e5,	# number of (total) draws
             z <- chisq.test(row, p=pv)$statistic
         }, pv)
         vals
-    }, seed, mc.cores=getOption("mc.cores", 2L))
+    }, seed, mc.cores=.safeMaxCores())
     options(op)
 
     # 'x' axis: where summed up the draws inside xiggbin()

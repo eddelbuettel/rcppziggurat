@@ -20,7 +20,7 @@ standardTest <- function(N=1e5,      	# individual draws
     res <- mclapply(generators, FUN=function(g, seed) {
         res <- ziggtest(M, N, g, seed)
         v <- pnorm(res, mean=N/2, sd=sqrt(N/12))
-    }, seed, mc.cores=getOption("mc.cores", 2L))
+    }, seed, mc.cores=.safeMaxCores())
     names(res) <- generators
     res <- as.data.frame(res)
 
@@ -36,4 +36,8 @@ standardTest <- function(N=1e5,      	# individual draws
     }
 
     invisible(res)
+}
+
+.safeMaxCores <- function() {
+    getOption("mc.cores", if (.Platform$OS.type == "windows") 1L else 2L)
 }

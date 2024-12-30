@@ -1,3 +1,11 @@
+2024-12-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/standardTest.R (.safeMaxCores): New helper function to provide
+	value of 'mc.cores' if set, else 1 on Windows and 2 everywhere else
+	* R/standardTest.R (standardTest): Use .safeMaxCores()
+	* R/normalTest.R (normalTest): Idem
+	* R/chisqTest.R (chisqTest): Idem
+
 2024-10-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Authors@R): Added
