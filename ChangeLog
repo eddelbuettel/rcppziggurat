@@ -1,3 +1,16 @@
+2025-01-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Ziggurat.h (kiss): Use an inline function avoiding a
+	compiler nag relative which KISS macro triggers
+	(rexp): Added, using inline kiss()
+	(efix): Added as well supporting rexp()
+	(init): Also initialize tables for exponential RNG
+
+	* src/ziggurat.cpp (zrexp): Added, calling rexp()
+	* man/ziggurat.Rd: Add alias for zrexp()
+	* src/RcppExports.cpp: Regenerated
+	* R/RcppExports.R: Idem
+
 2024-12-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/standardTest.R (.safeMaxCores): New helper function to provide

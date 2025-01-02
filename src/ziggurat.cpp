@@ -131,6 +131,15 @@ Rcpp::NumericVector zrnorm(int n) {
 }
 
 // [[Rcpp::export]]
+Rcpp::NumericVector zrexp(int n) {
+    Rcpp::NumericVector x(n);
+    for (int i=0; i<n; i++) {
+        x[i] = zigg.rexp();
+    }
+    return x;
+}
+
+// [[Rcpp::export]]
 Rcpp::NumericVector zrnormVec(Rcpp::NumericVector x) {
     int n = x.size();
     for (int i=0; i<n; i++) {

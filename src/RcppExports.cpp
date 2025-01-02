@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // zrnormMT
 Rcpp::NumericVector zrnormMT(int n);
 RcppExport SEXP _RcppZiggurat_zrnormMT(SEXP nSEXP) {
@@ -109,6 +114,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
     rcpp_result_gen = Rcpp::wrap(zrnorm(n));
+    return rcpp_result_gen;
+END_RCPP
+}
+// zrexp
+Rcpp::NumericVector zrexp(int n);
+RcppExport SEXP _RcppZiggurat_zrexp(SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    rcpp_result_gen = Rcpp::wrap(zrexp(n));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -315,6 +331,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RcppZiggurat_zsetseedV1", (DL_FUNC) &_RcppZiggurat_zsetseedV1, 1},
     {"_RcppZiggurat_zgetseedV1", (DL_FUNC) &_RcppZiggurat_zgetseedV1, 0},
     {"_RcppZiggurat_zrnorm", (DL_FUNC) &_RcppZiggurat_zrnorm, 1},
+    {"_RcppZiggurat_zrexp", (DL_FUNC) &_RcppZiggurat_zrexp, 1},
     {"_RcppZiggurat_zrnormVec", (DL_FUNC) &_RcppZiggurat_zrnormVec, 1},
     {"_RcppZiggurat_zrnormStl", (DL_FUNC) &_RcppZiggurat_zrnormStl, 1},
     {"_RcppZiggurat_zsetseed", (DL_FUNC) &_RcppZiggurat_zsetseed, 1},

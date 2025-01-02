@@ -1,8 +1,6 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // Ziggurat.h:  Marsaglia + Tsang / Leong, Zhang et al Ziggurat generator
 //
-// Copyright (C) 2013  Dirk Eddelbuettel
+// Copyright (C) 2013 - 2025  Dirk Eddelbuettel
 //
 // This file is part of RcppZiggurat.
 //
@@ -66,7 +64,8 @@ namespace Ziggurat {
     
 #define UNI  (0.5 + (int32_t) KISS * 0.2328306e-09)
 #define IUNI KISS
-#define RNOR (hz = KISS, iz = hz & 127, ( abs ( hz ) < kn[iz] ) ? hz * wn[iz] : nfix())
+//#define RNOR (hz = KISS, iz = hz & 127, ( abs ( hz ) < kn[iz] ) ? hz * wn[iz] : nfix())
+//#define REXP (jz = KISS, iz = jz & 255, (       jz   < ke[iz] ) ? jz * we[iz] : efix())
 
     class Ziggurat : public Zigg {
     public:
@@ -88,8 +87,14 @@ namespace Ziggurat {
         uint32_t getSeed() { 
             return jsr; 
         }
+        inline uint32_t kiss() {
+            return ((MWC ^ CONG ) + SHR3);
+        }
         inline double norm() {
-            return RNOR;
+            return (hz = kiss(), iz = hz & 127, ( abs ( hz ) < kn[iz] ) ? hz * wn[iz] : nfix());
+        }
+        inline double rexp() {
+            return (jz = kiss(), iz = jz & 255, (       jz   < ke[iz] ) ? jz * we[iz] : efix());
         }
         std::vector<uint32_t> getPars() {
             //C++11: std::vector<uint32_t> pars{ jsr, z, w, jcong };
@@ -109,23 +114,25 @@ namespace Ziggurat {
         
     private:
         double fn[128];
+        double fe[256];
         int32_t hz;
         uint32_t iz;
         uint32_t jcong;
         uint32_t jsr;
         uint32_t jz;
         uint32_t kn[128];
+        uint32_t ke[256];
         uint32_t w;
         double wn[128];
+        double we[256];
         uint32_t z;
 
         void init() {               // called from ctor, could be in ctor
-            double dn = 3.442619855899;
+            double dn = 3.442619855899, de=7.697117470131487;
             int i;
-            const double m1 = 2147483648.0;
-            double q;
-            double tn = 3.442619855899;
-            const double vn = 9.91256303526217E-03;
+            const double m1 = 2147483648.0, m2 = 4294967296.0;
+            double tn = dn, te = de, q;
+            const double vn = 9.91256303526217E-03, ve=3.949659822581572e-3;
 
             //  Set up the tables for the normal random number generator.
             q = vn / exp (- 0.5 * dn * dn);
@@ -144,6 +151,25 @@ namespace Ziggurat {
                 tn = dn;
                 fn[i] = (double) (exp( - 0.5 * dn * dn));
                 wn[i] = (double) (dn / m1);
+            }
+
+            //  Set up the tables for the exponential random number generator.
+            q = ve/exp(-de);
+            ke[0] = (uint32_t) (de/q)*m2;
+            ke[1]=0;
+
+            we[0] = (double) q/m2;
+            we[255] = (double) de/m2;
+
+            fe[0] = 1.0;
+            fe[255] = (double) exp(-de);
+
+            for (i=254; i>=1; i--) {
+                de = -log(ve/de+exp(-de));
+                ke[i+1] = (de/te) * m2;
+                te = de;
+                fe[i] = (double) exp(-de);
+                we[i] = (double) de/m2;
             }
             return;
         }
@@ -177,6 +203,26 @@ namespace Ziggurat {
                 }
             }
         }
+        inline double efix(void) {
+            double x;
+            for ( ; ; ) {
+                //  IZ = 0.
+                if (iz == 0) {
+                    return (7.69711 - log (UNI));
+                }
+                x = jz * we[iz];
+                if (fe[iz] + UNI * (fe[iz-1] - fe[iz]) < exp (- x)) {
+                    return x;
+                }
+                //  Initiate, try to exit the loop.
+                jz = SHR3;      // note we still use SHR3; using KISS leads to degradation
+                iz = (jz & 255);
+                if (jz < ke[iz]) {
+                    return ((double) (jz * we[iz]));
+                }
+            }
+        }
+
     };
 
 #undef znew
