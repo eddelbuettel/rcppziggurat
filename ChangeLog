@@ -11,6 +11,8 @@
 	* src/RcppExports.cpp: Regenerated
 	* R/RcppExports.R: Idem
 
+	* .github/workflows/ci.yaml: Simplify to r-ci with included bootstrap
+
 2024-12-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/standardTest.R (.safeMaxCores): New helper function to provide
