@@ -1,5 +1,6 @@
 \name{zrnorm}
 \alias{zrnorm}
+\alias{zrexp}
 \alias{zrnormLZLLV}
 \alias{zrnormMT}
 \alias{zrnormV1}
@@ -36,6 +37,7 @@
 }
 \usage{
   zrnorm(n)
+  zrexp(n)
   zrnormLZLLV(n)
   zrnormMT(n)
   zrnormV1(n)
