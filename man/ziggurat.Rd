@@ -1,6 +1,7 @@
 \name{zrnorm}
 \alias{zrnorm}
 \alias{zrexp}
+\alias{zruni}
 \alias{zrnormLZLLV}
 \alias{zrnormMT}
 \alias{zrnormV1}
@@ -38,6 +39,7 @@
 \usage{
   zrnorm(n)
   zrexp(n)
+  zruni(n)
   zrnormLZLLV(n)
   zrnormMT(n)
   zrnormV1(n)
@@ -76,6 +78,10 @@
   actually not sufficient to capture the state, so \code{zgetpars}
   \code{zsetpars} provide this functionality with a vector of size four.
   Use these functions with caution.
+
+  Following the original paper, \code{rexp} also provides a vector of random
+  draws from the exponential distribution. In addition, \code{runi} offers random
+  draws from the uniform distribution (which is used internally).
   
 }
 \details{

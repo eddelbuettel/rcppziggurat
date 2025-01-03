@@ -96,6 +96,9 @@ namespace Ziggurat {
         inline double rexp() {
             return (jz = kiss(), iz = jz & 255, (       jz   < ke[iz] ) ? jz * we[iz] : efix());
         }
+        inline double runi() {
+            return ( 0.5 + ( signed ) KISS * 0.2328306e-09 );
+        }
         std::vector<uint32_t> getPars() {
             //C++11: std::vector<uint32_t> pars{ jsr, z, w, jcong };
             std::vector<uint32_t> pars;

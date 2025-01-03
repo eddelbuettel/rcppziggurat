@@ -45,6 +45,10 @@ zrexp <- function(n) {
     .Call(`_RcppZiggurat_zrexp`, n)
 }
 
+zruni <- function(n) {
+    .Call(`_RcppZiggurat_zruni`, n)
+}
+
 zrnormVec <- function(x) {
     .Call(`_RcppZiggurat_zrnormVec`, x)
 }

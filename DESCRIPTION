@@ -10,7 +10,7 @@ Description: The Ziggurat generator for normally distributed random
  <doi:10.18637/jss.v005.i08>) has been improved upon a few times
  starting with Leong et al (2005, <doi:10.18637/jss.v012.i07>).
  This package provides an aggregation in order to compare different
- implementations in order to provide an 'faster but good enough'
+ implementations in order to provide a 'faster but good enough'
  alternative for use with R and C++ code.
 License: GPL (>= 2)
 Depends: R (>= 3.0.0)

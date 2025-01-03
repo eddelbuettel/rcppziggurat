@@ -1,3 +1,11 @@
+2025-01-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Ziggurat.h (runi): Expose interally used uniform RNG
+	* src/ziggurat.cpp (zruni): Provide R-accessible wrapper for runi()
+	* man/ziggurat.Rd: Document zrexp() and zruni()
+	* src/RcppExports.cpp: Regenerated
+	* R/RcppExports.R: Idem
+
 2025-01-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Ziggurat.h (kiss): Use an inline function avoiding a

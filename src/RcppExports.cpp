@@ -128,6 +128,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// zruni
+Rcpp::NumericVector zruni(int n);
+RcppExport SEXP _RcppZiggurat_zruni(SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    rcpp_result_gen = Rcpp::wrap(zruni(n));
+    return rcpp_result_gen;
+END_RCPP
+}
 // zrnormVec
 Rcpp::NumericVector zrnormVec(Rcpp::NumericVector x);
 RcppExport SEXP _RcppZiggurat_zrnormVec(SEXP xSEXP) {
@@ -332,6 +343,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RcppZiggurat_zgetseedV1", (DL_FUNC) &_RcppZiggurat_zgetseedV1, 0},
     {"_RcppZiggurat_zrnorm", (DL_FUNC) &_RcppZiggurat_zrnorm, 1},
     {"_RcppZiggurat_zrexp", (DL_FUNC) &_RcppZiggurat_zrexp, 1},
+    {"_RcppZiggurat_zruni", (DL_FUNC) &_RcppZiggurat_zruni, 1},
     {"_RcppZiggurat_zrnormVec", (DL_FUNC) &_RcppZiggurat_zrnormVec, 1},
     {"_RcppZiggurat_zrnormStl", (DL_FUNC) &_RcppZiggurat_zrnormStl, 1},
     {"_RcppZiggurat_zsetseed", (DL_FUNC) &_RcppZiggurat_zsetseed, 1},
