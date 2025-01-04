@@ -1,3 +1,9 @@
+2025-01-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* man/ziggurat.Rd: Briefly document possible transformations
+
 2025-01-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Ziggurat.h (runi): Expose interally used uniform RNG
