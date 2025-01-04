@@ -237,7 +237,7 @@ namespace Ziggurat {
 
 #undef UNI
 #undef IUNI
-#undef RNOR
+//#undef RNOR
 
 }
 }

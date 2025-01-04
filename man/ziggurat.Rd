@@ -62,7 +62,8 @@
   zsetpars(p)
 }
 \arguments{
-  \item{n}{An integer determining the length of the returned N(0,1) vector.}
+  \item{n}{An integer determining the length of the returned N(0,1) (or
+    expoonential or uniform) vector.}
   \item{x}{A numeric vector, already allocated, that is to filled with N(0,1) draws.}
   \item{s}{An integer number used to seed the Ziggurat algorithm.}
   \item{p}{An numeric vector of length four with the state parameters.}
@@ -115,6 +116,12 @@
   useful when the Zigurrat generator is used as a user-supplied
   generator in R.  However, it stores state in R's internal structures
   which makes it a little slower than other alternatives available here.
+
+  To turn an N(0,1)-distributed draw into N(mean,sd), multiply by sd and add
+  mean. To turn and Exp(1)-distributed draw into Exp(rate), divide by
+  lambda. Working out how to create a Unif(low, high) from a Unif(0,1) is
+  left as an exercise to the reader.  If in doubt, stick with functions from
+  (base) R which are extremely well-tested and widely used.
 
 }
 \references{
