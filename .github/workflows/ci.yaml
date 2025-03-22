@@ -26,8 +26,8 @@ jobs:
       - name: Setup
         uses: eddelbuettel/github-actions/r-ci@master
 
-      - name: Dependencies
-        run: ./run.sh install_deps
+      - name: All Dependencies and Suggests
+        run: ./run.sh install_all
 
       - name: Test
         run: ./run.sh run_tests
