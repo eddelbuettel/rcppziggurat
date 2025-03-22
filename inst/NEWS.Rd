@@ -3,12 +3,23 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rcppziggurat/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rcppziggurat/issues/#1}{##1}}
 
-\section{Changes in version 0.1.7 (2021-xx-yy)}{
+\section{Changes in version 0.1.7 (2025-03-22)}{
   \itemize{
     \item The CI setup was updated to use \code{run.sh} from
     \href{https://eddelbuettel.github.io/r-ci/}{r-ci} (Dirk).
     \item The windows build was updated to GSL 2.7, and UCRT support was
     added (Jeroen in \ghpr{16}).
+    \item Manual pages now use JSS DOIs for references per CRAN request
+    \item README.md links and badges have been updated
+    \item Continuous integration actions have been updated several times
+    \item The DESCRIPTION file now uses Authors@R as mandated
+    \item Use of multiple cores is eased via a new helper function reflecting
+    option \code{mc.core} or architecture defaults, used in tests
+    \item An inline function has been added to avoid a compiler nag
+    \item Support for exponential RNG draws \code{zrexp} has been added, the
+    internal uniform generator is now also exposed via \code{zruni}
+    \item The vignette bibliography has been updated, and switched to DOIs
+    \item New package \pkg{zigg} is now mentioned in DESCRIPTION and vignette
   }
 }
 
@@ -62,12 +73,12 @@
 \section{Changes in version 0.1.2 (2013-12-28)}{
   \itemize{
     \item Add a new generator deploying R's unif_rand which faciliates use
-    of Ziggurat as the user-supplied generator for N(0,1) 
+    of Ziggurat as the user-supplied generator for N(0,1)
     \item Update a 'local' demo comparing normal distribution RNGs from
     Boost, C++11 and Armadillo none of which are particularly speedy
     \item Add declaration to import a symbol from \CRANpkg{Rcpp} to
     \code{NAMESPACE} to ensure proper instantiation with the upcoming
-    \CRANpkg{Rcpp} version 
+    \CRANpkg{Rcpp} version
   }
 }
 
@@ -90,12 +101,12 @@
     \item Two new ziggurat generators implementations have been adapted
     from, respectively, GNU Gretl and QuantLib
     \item Added a \code{vignette}
-  } 
+  }
 }
 
 \section{Changes in version 0.0.1 (2013-10-06)}{
   \itemize{
     \item Initial basic package version, wrapping five different
-    implementations 
-  } 
+    implementations
+  }
 }

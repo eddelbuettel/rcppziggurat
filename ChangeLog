@@ -1,6 +1,8 @@
 2025-03-22  Dirk Eddelbuettel  <edd@debian.org>
 
-	* tests/zigguratTest.R: Set digits on third print too
+	* DESCRIPTION (Version, Date): Release 0.1.7
+
+	* tests/zigguratTest.R: Set precision on third print too
 	* tests/zigguratTest.Rout.save: Regenerated
 
 	* DESCRIPTION (Suggests): Added 'ggplot2'
@@ -14,6 +16,8 @@
 	* vignettes/RcppZiggurat.bib: Use .bib, mention 'zigg'
 	* vignettes/bib.tex: Removed
 
+	* inst/include/ZigguratR.h: Comment-out one unused variable
+
 2025-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
@@ -22,7 +26,7 @@
 
 2025-01-03  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Ziggurat.h (runi): Expose interally used uniform RNG
+	* inst/include/Ziggurat.h (runi): Expose internally used uniform RNG
 	* src/ziggurat.cpp (zruni): Provide R-accessible wrapper for runi()
 	* man/ziggurat.Rd: Document zrexp() and zruni()
 	* src/RcppExports.cpp: Regenerated
