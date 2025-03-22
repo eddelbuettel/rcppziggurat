@@ -1,7 +1,7 @@
 
-R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
-Copyright (C) 2018 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+R version 4.4.3 (2025-02-28) -- "Trophy Case"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -29,10 +29,10 @@ Type 'q()' to quit R.
  [8] -0.556584  0.564396 -2.154683
 > 
 > zsetseed(123456890)
-> summary(zrnorm(1e6))
+> print(summary(zrnorm(1e6)), digits=5)
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 -5.185016 -0.675879 -0.000469 -0.000729  0.674734  5.412184 
 > 
 > proc.time()
    user  system elapsed 
-  0.440   0.576   0.290 
+  0.993   0.043   0.247 

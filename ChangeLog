@@ -1,3 +1,13 @@
+2025-03-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/zigguratTest.R: Set digits on third print too
+	* tests/zigguratTest.Rout.save: Regenerated
+
+	* DESCRIPTION (Suggests): Added 'ggplot2'
+	* DESCRIPTION (Description): Mention 'zigg'
+
+	* .Rbuildignore: Add .editorconfig
+
 2025-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
@@ -284,4 +294,3 @@
 2013-10-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Initial 0.0.1 packaging, github push and CRAN upload
-

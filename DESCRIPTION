@@ -6,16 +6,17 @@ Date: 2025-01-04
 Authors@R: person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@debian.org", 
                   comment = c(ORCID = "0000-0001-6419-907X"))
 Description: The Ziggurat generator for normally distributed random
- numbers, originally proposed by Marsaglia and Tsang (2000, 
+ numbers, originally proposed by Marsaglia and Tsang (2000,
  <doi:10.18637/jss.v005.i08>) has been improved upon a few times
  starting with Leong et al (2005, <doi:10.18637/jss.v012.i07>).
  This package provides an aggregation in order to compare different
  implementations in order to provide a 'faster but good enough'
- alternative for use with R and C++ code.
+ alternative for use with R and C++ code. See the 'zigg' package
+ for a lighter implementation for much easier use in other packages
 License: GPL (>= 2)
 Depends: R (>= 3.0.0)
 Imports: Rcpp, parallel, graphics, stats, utils
-Suggests: rbenchmark, microbenchmark, lattice, knitr, rmarkdown, pinp
+Suggests: rbenchmark, microbenchmark, lattice, knitr, rmarkdown, pinp, ggplot2
 URL: https://github.com/eddelbuettel/rcppziggurat, https://dirk.eddelbuettel.com/code/rcpp.ziggurat.html
 BugReports: https://github.com/eddelbuettel/rcppziggurat/issues
 VignetteBuilder: knitr

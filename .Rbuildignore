@@ -11,3 +11,4 @@ inst/papers
 .*\.tar\.gz$
 ^local
 ^\.github
+^\.editorconfig
