@@ -10,7 +10,9 @@ address:
 
 lead_author_surname: Eddelbuettel
 
-doi: "https://cran.r-project.org/package=RcppZiggurat"
+doi: "doi:10.32614/CRAN.package.zigg"
+
+bibliography: RcppZiggurat
 
 abstract: |
   Random numbers following a Standard Normal distribution are of great
@@ -43,7 +45,6 @@ output:
     keep_tex: FALSE
     includes:
       in_header: header.tex
-      after_body: bib.tex
 
 vignette: >
   %\VignetteIndexEntry{RcppZiggurat-Intro}
@@ -55,12 +56,12 @@ vignette: >
 
 ```{r prelim, echo=FALSE}
 library(RcppZiggurat)
-## this RData file contains the pre-run results 
+## this RData file contains the pre-run results
 ##
 ##   [1] "chires"   "norres"   "rspeed"   "stdres"   "zigspeed"
 ##
-## from the two speed comparions (ie rspeed and zigspeed) as well the three 
-## simulation results (ie norres, stdres, and chires) 
+## from the two speed comparions (ie rspeed and zigspeed) as well the three
+## simulation results (ie norres, stdres, and chires)
 ##
 ## code for the two speed tests is shown below, the simulations results were run as
 ##
@@ -136,7 +137,7 @@ compact. The full listing is also included in the \pkg{RcppZiggurat} package
 for reference.
 
 <!-- this is a wee bit unconventional but we needed a first pass of the code using pandoc
-     in order to have the code as marked up latex so that we could include it here 
+     in order to have the code as marked up latex so that we could include it here
 #include <math.h>
 static unsigned long jz,jsr=123456789;
 
@@ -199,9 +200,9 @@ void zigset(unsigned long jsrseed)
      wn[i]=dn/m1;
     }
 }
--->  
+-->
 
-     
+
 \begin{figure*}
 \begin{center}
 \begin{small}
@@ -364,7 +365,7 @@ section \ref{sec:cpp}.
 ## QuantLib
 
 The QuantLib library for quantitative finance
-\citep{Ametrano+Ballabio+et+al:QuantLib} contains another open source
+\citep{QuantLib} contains another open source
 implementation of Ziggurat. It is provided in the files
 \code{ql/experimental/math/zigguratrng.hpp} and
 \code{ql/experimental/math/zigguratrng.cpp}. As part of the experimental
@@ -414,7 +415,7 @@ bwplot(time/1e6 ~ expr, rdf,
   \begin{minipage}{0.475\textwidth}
     \begin{center}
       \includegraphics[width=0.95\textwidth]{figures/timingR}
-      \caption{R Normal RNG Generator Performance 
+      \caption{R Normal RNG Generator Performance
       \label{fig:RNormalRNGs}}
       \begin{minipage}{0.8\textwidth}
         \scriptsize Note: Figure shows timings from the \pkg{microbenchmark} package using
@@ -426,7 +427,7 @@ bwplot(time/1e6 ~ expr, rdf,
   \begin{minipage}{0.475\textwidth}
     \begin{center}
       \includegraphics[width=0.95\textwidth]{figures/timingZiggurat}
-      \caption{Ziggurat and R Normal RNG Generator Performance 
+      \caption{Ziggurat and R Normal RNG Generator Performance
       \label{fig:ZiggRNormalRNGs}}
       \begin{minipage}{0.8\textwidth}
         \scriptsize Note: Figure shows timings from the \pkg{microbenchmark} package using
@@ -495,7 +496,7 @@ All Ziggurat generators are significantly faster the the default generator in
 R which uses a inversion method.  Among the Ziggurat generators, we notice
 that approaches using an external uniform number generator (GNU GSL, GNU
 Gretl, QuantLib) are all slower than our compact and self-contained
-implementation which is seen as the fastest method.  
+implementation which is seen as the fastest method.
 <!---
 %% A comparison to the
 %% original implementation and the comment follow-up (not shown here but easily
@@ -522,7 +523,7 @@ example in \cite{Brown+Eddelbuettel+Bauer:DieHarder}, a test proceeds as follow:
 \item Repeat this $m$ times to create a set of $m$ sums of uniform RNG draws.
 \item With $n$ large enough, the collection of $m$ results will converge
   towards normally distributed random variable with a mean of $n/2$ and a
-  standard deviation of $\sqrt{n/12}$ (which is 
+  standard deviation of $\sqrt{n/12}$ (which is
   the Irwin-Hall distribution of the sum of uniformly distributed values).
 \item Given this asymptotic result, one can construct a probability value
   $p_i$ for each of the $m$ values using the inverse of the Normal
@@ -550,7 +551,7 @@ RcppZiggurat:::plotAll(stdres)
   \begin{minipage}{0.475\textwidth}
     \begin{center}
       \includegraphics[width=0.95\textwidth]{figures/standardResults}
-      \caption{Standard Test applied to Ziggurat generators 
+      \caption{Standard Test applied to Ziggurat generators
       \label{fig:StandardTest}}
       \begin{minipage}{0.8\textwidth}
         \scriptsize Note: Code for the figure is included in the
@@ -561,7 +562,7 @@ RcppZiggurat:::plotAll(stdres)
   \begin{minipage}{0.475\textwidth}
     \begin{center}
       \includegraphics[width=0.95\textwidth]{figures/normalResults}
-      \caption{Normal Test applied to Ziggurat generators 
+      \caption{Normal Test applied to Ziggurat generators
       \label{fig:NormalTest}}
       \begin{minipage}{0.8\textwidth}
         \scriptsize Note: Code for the figure is included in the
@@ -601,7 +602,7 @@ distribution. This allows us to skip one inversion step:
   the uniform distribution.
 \end{enumerate}
 
-<!-- 
+<!--
 \begin{figure}[!tp]
   \begin{center}
 -->
@@ -656,7 +657,7 @@ RcppZiggurat:::plotChiSq(chires)
 \begin{figure}[!tp]
   \begin{center}
     \includegraphics[width=0.9\linewidth]{figures/chisquareResults}
-    \caption{$\chi^2$ Test applied to Ziggurat generators 
+    \caption{$\chi^2$ Test applied to Ziggurat generators
     \label{fig:ChiSqTest}}
     \medskip
     \begin{minipage}{0.85\linewidth}
@@ -846,7 +847,7 @@ provided an extra namespace layer for each generator as some of these
 generators still use global variables---which are therefore shielded in their
 own namespace.  For example, for the \cite{Marsaglia+Tsang:2000} generator,
 we use \code{Ziggurat::ZigurratMT}.  Next is the name of the actual
-class---which in the case of the reference implementation shown 
+class---which in the case of the reference implementation shown
 above is once again \code{Ziggurat} leading to the triple
 use of the term.  Actual deployment of the Ziggurat generator (without
 comparison to other implementations and concerns about interaction between
@@ -902,3 +903,7 @@ A key motivation for this work has been a desire to improve the speed of
 creating standard-normally distributed random numbers in R.  We find Ziggurat to be
 faster than the existing implementations, and hope that this generator will
 be of use to those generating large numbers of draws.
+
+The \pkg{zigg} generator \citep{CRAN:zigg} provides a lightweight, portable,
+zero-dependency implementation suitable for use in other packages from either
+R or C/C++ code.

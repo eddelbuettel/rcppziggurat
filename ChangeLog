@@ -10,6 +10,10 @@
 
 	* .github/workflows/ci.yaml: Install Suggests, install libgsl-dev
 
+	* vignettes/RcppZiggurat.bib: Restore bib file, update entries
+	* vignettes/RcppZiggurat.bib: Use .bib, mention 'zigg'
+	* vignettes/bib.tex: Removed
+
 2025-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
