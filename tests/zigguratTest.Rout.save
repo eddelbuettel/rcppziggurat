@@ -29,10 +29,10 @@ Type 'q()' to quit R.
  [8] -0.556584  0.564396 -2.154683
 > 
 > zsetseed(123456890)
-> print(summary(zrnorm(1e6)), digits=5)
-     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
--5.185016 -0.675879 -0.000469 -0.000729  0.674734  5.412184 
+> print(round(summary(zrnorm(1e6)), digits=5))
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-5.18502 -0.67588 -0.00047 -0.00073  0.67473  5.41218 
 > 
 > proc.time()
    user  system elapsed 
-  0.993   0.043   0.247 
+  0.972   0.049   0.281 
