@@ -23,10 +23,10 @@
 //    http://people.sc.fsu.edu/~jburkardt/
 // In particular, it represent an implementation of the article
 //
-//    George Marsaglia and Wai Wan Tsang 
+//    George Marsaglia and Wai Wan Tsang
 //    The Ziggurat Method for Generating Random Variables,
 //    Journal of Statistical Software, Vol 5, Iss 8, Oct 2000
-//    http://www.jstatsoft.org/v05/i08 
+//    http://www.jstatsoft.org/v05/i08
 //
 // but also the Leong, Zhang et al modifications from the article
 //
@@ -35,7 +35,7 @@
 //    Journal of Statistical Software, Vol 12, Iss 7, Feb 2005
 //    http://www.jstatsoft.org/v12/i07
 //
-// following emails with John Burckardt and sending him an initial 
+// following emails with John Burckardt and sending him an initial
 // 'Marsaglia and Tsang modified by Leong, Zhang et al' implementation
 //
 // The code by Burkardt was modified by
@@ -71,19 +71,19 @@ namespace R {
     class ZigguratR : public Zigg {
     public:
         ZigguratR(uint32_t seed=12345678) {
-            init(); 
+            init();
             setSeed(seed);
         }
         ~ZigguratR() {};
         void setSeed(const uint32_t s) { /* null op here as we use set.seed() */ }
-        inline double norm() { 
+        inline double norm() {
             return RNOR;
         }
     private:
         double fn[128];
         int32_t hz;
         uint32_t iz;
-        uint32_t jz;
+        //uint32_t jz;
         uint32_t kn[128];
         double wn[128];
 
@@ -102,10 +102,10 @@ namespace R {
 
             wn[0]   = (double) (q / m1);
             wn[127] = (double) (dn / m1);
-            
+
             fn[0] = 1.0;
             fn[127] = (double) (exp(- 0.5 * dn * dn));
-        
+
             for (i = 126; 1 <= i; i--) {
                 dn = sqrt(- 2.0 * log (vn / dn + exp (- 0.5 * dn * dn)));
                 kn[i+1] = (uint32_t ) ((dn / tn ) * m1);
@@ -120,17 +120,17 @@ namespace R {
         inline double nfix(void) {
             const double r = 3.442620;
             double x, y;
-            
+
             for (;;) {
                 //  IZ = 0 handles the base strip.
                 x = (double) (hz * wn[iz]);
-                if ( iz == 0 ) { 
+                if ( iz == 0 ) {
                     do {
-                        x = - log (UNI) * 0.2904764; 
+                        x = - log (UNI) * 0.2904764;
                         y = - log (UNI);
                     }
                     while (y + y < x * x);
-                    
+
                     return (0 < hz) ? r + x : - r - x;
                 }
                 //  0 < IZ, handle the wedges of other strips.
