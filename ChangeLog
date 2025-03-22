@@ -8,7 +8,7 @@
 
 	* .Rbuildignore: Add .editorconfig
 
-	* .github/workflows/ci.yaml: Install Suggests as well
+	* .github/workflows/ci.yaml: Install Suggests, install libgsl-dev
 
 2025-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
