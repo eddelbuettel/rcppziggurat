@@ -6,7 +6,7 @@ author:
     affiliation: a
 address:
   - code: a
-    address: Department of Statistics, University of Illinois at Urbana-Champaign; Champaign, IL, USA. \url{http://dirk.eddelbuettel.com}
+    address: Department of Statistics, University of Illinois Urbana-Champaign; Champaign, IL, USA. \url{https://dirk.eddelbuettel.com}
 
 lead_author_surname: Eddelbuettel
 

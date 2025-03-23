@@ -1,3 +1,16 @@
+2025-03-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* vignettes/rmd/: Moved from directory above, new directory is not
+	included in source package to minimize CTAN dependencies at build
+	* vignettes/rmd/Makefile: New Makefile governing build and copy
+	* vignettes/pdf/RcppZiggurat.pdf: New pre-made pdf
+	* vignettes/RcppZiggurat.Rnw: New 'pdfpages' wrapper vignette
+	* DESCRIPTION: Adjusted shortening Suggests by three
+	* cleanup: Adjusted paths
+	* .Rbuildignore: Idem
+
 2025-03-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.1.7
