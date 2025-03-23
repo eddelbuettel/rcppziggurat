@@ -1,0 +1,10 @@
+\documentclass{article}
+\usepackage{pdfpages}
+%\VignetteIndexEntry{RcppZiggurat-Intro}
+%\VignetteKeywords{Ziggurat, random number generator, RNG}
+%\VignetteDepends{RcppZiggurat}
+%\VignetteEncoding{UTF-8}
+
+\begin{document}
+\includepdf[pages=-, fitpaper=true]{pdf/RcppZiggurat.pdf}
+\end{document}

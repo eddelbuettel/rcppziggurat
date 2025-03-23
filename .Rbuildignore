@@ -12,3 +12,4 @@ inst/papers
 ^local
 ^\.github
 ^\.editorconfig
+^vignettes/rmd

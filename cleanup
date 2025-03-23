@@ -1,10 +1,10 @@
 #!/bin/sh
 
 rm -rvf	src/*.o src/*.so src/symbols.rds \
-    	vignettes/auto/ \
-	vignettes/*.aux vignettes/*.log vignettes/.out \
-        vignettes/*.bbl vignettes/*.blg vignettes/*.pdf \
-        vignettes/RcppZiggurat*.tex \
-        vignettes/*.tpt vignettes/*.xwm \
-        vignettes/jss.bst vignettes/pinp.cls \
+    	vignettes/auto/ vignettes/rmd/auto/ \
+	vignettes/rmd/*.aux vignettes/rmd/*.log vignettes/rmd/.out \
+        vignettes/rmd/*.bbl vignettes/rmd/*.blg vignettes/rmd/*.pdf \
+        vignettes/rmd/RcppZiggurat*.tex \
+        vignettes/rmd/*.tpt vignettes/rmd/*.xwm \
+        vignettes/rmd/jss.bst vignettes/rmd/pinp.cls \
         *~ */*~
