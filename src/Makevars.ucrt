@@ -1,2 +1,9 @@
-CRT=-ucrt
-include Makevars.win
+ifeq (,$(shell pkg-config --version 2>/dev/null))
+  PKG_LIBS = -lgsl -lgslcblas -lm
+else
+  PKG_CPPFLAGS = $(shell pkg-config --cflags gsl)
+  PKG_LIBS = $(shell pkg-config --libs gsl)
+endif
+
+PKG_CPPFLAGS += -I../inst/include
+
