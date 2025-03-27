@@ -1,3 +1,7 @@
+2024-03-25  Tomas Kalibera  <tomas.kalibera@gmail.com>
+
+	* src/Makevars.ucrt: Use gsl from Rtools >= 42
+
 2025-03-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
