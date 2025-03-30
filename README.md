@@ -2,8 +2,8 @@
 ## RcppZiggurat: Rcpp Bindings for Ziggurat RNGs
 
 [![CI](https://github.com/eddelbuettel/rcppziggurat/workflows/ci/badge.svg)](https://github.com/eddelbuettel/rcppziggurat/actions?query=workflow%3Aci)
-[![License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-2.0.html) 
-[![CRAN](https://www.r-pkg.org/badges/version/RcppZiggurat)](https://cran.r-project.org/package=RcppZiggurat) 
+[![License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![CRAN](https://www.r-pkg.org/badges/version/RcppZiggurat)](https://cran.r-project.org/package=RcppZiggurat)
 [![Downloads](https://cranlogs.r-pkg.org/badges/RcppZiggurat?color=brightgreen)](https://www.r-pkg.org:443/pkg/RcppZiggurat)
 [![Last Commit](https://img.shields.io/github/last-commit/eddelbuettel/rcppziggurat)](https://github.com/eddelbuettel/rcppziggurat)
 
@@ -20,18 +20,23 @@ included in R are excellent and very diligently implemented, but not
 generally the fastest.  This package aims to close the performance gap.
 
 You should know what you are doing when deploying this package. If in doubt,
-stick with the default generators.
+stick with the default generators. And when you want to deploy these
+generators, the sibbling `zigg` package offers a lighterweight implementation
+with zero dependencies that is also easy to deploy from C/C++ code, see
+[cran](https://cran.r-project.org/package=zigg) or
+[github](https://github.com/eddelbuettel/zigg) for more.
+
 
 ### Vignette
- 
+
 The package contains a [detailed vignette](http://dirk.eddelbuettel.com/papers/RcppZiggurat.pdf)  summarizing the methods, the
 implementation as well as the statistical properties (examined via three
-different tests) and the generator speed. 
+different tests) and the generator speed.
 
 ### Status
 
 The package currently contains six different implementations. Two are
-standard from the literature: the original Marsaglia and Tsang approach (which should *not* be 
+standard from the literature: the original Marsaglia and Tsang approach (which should *not* be
 used as the resulting generator has be improved as suggested by Leong et
 al.), the improved Leong et al variant, a version from the GNU GSL, a version
 from the GNU Gretl econometric program as well as a version from QuantLib.
@@ -46,7 +51,7 @@ The package contains several demo scripts. Try
 
 More testing never hurts, ...
 
-More generators as e.g. the modified Ziggurat implementation suggested by 
+More generators as e.g. the modified Ziggurat implementation suggested by
 Doornik (though his code is not under an open source licence)
 
 ### Author
@@ -56,4 +61,3 @@ Dirk Eddelbuettel
 ### License
 
 GPL (>= 2)
-

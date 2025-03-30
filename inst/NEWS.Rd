@@ -3,6 +3,15 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rcppziggurat/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rcppziggurat/issues/#1}{##1}}
 
+\section{Changes in version 0.1.8 (2025-03-30)}{
+  \itemize{
+    \item The vignette is now premade and rendered as Rnw via pdfpage to
+    minimize the need for TeXLive package at build / install time (Dirk)
+    \item Windows builds now use the GNU GSL when Rtools is 42 or later
+    (Tomas Kalibera in \ghpr{25})
+  }
+}
+
 \section{Changes in version 0.1.7 (2025-03-22)}{
   \itemize{
     \item The CI setup was updated to use \code{run.sh} from
